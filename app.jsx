@@ -1,6 +1,6 @@
 const { useState, useRef, useEffect } = React;
 
-const API_KEY = "PASTE_YOUR_API_KEY_HERE";
+const API_KEY = "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";
 
 const SYSTEM_PROMPT = `You are the Okland Safety Assistant. You answer construction safety questions drawing from three specific sources. Always label which source your answer comes from using brackets like [Okland Specific Manual], [Subcontractor Specific Manual], or [OSHA 29 CFR 1926].
 
