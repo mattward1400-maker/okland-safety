@@ -122,6 +122,23 @@ const SUGGESTIONS = [
   "Wind speed work restrictions?",
 ];
 
+function formatMarkdown(text) {
+  return text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/^### (.+)$/gm, "<h4 style='font-size:13px;font-weight:600;margin:10px 0 4px 0'>$1</h4>")
+    .replace(/^## (.+)$/gm, "<h3 style='font-size:14px;font-weight:700;margin:12px 0 6px 0'>$1</h3>")
+    .replace(/^# (.+)$/gm, "<h2 style='font-size:15px;font-weight:700;margin:12px 0 6px 0'>$1</h2>")
+    .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+    .replace(/\*(.+?)\*/g, "<em>$1</em>")
+    .replace(/^---$/gm, "<hr style='border:none;border-top:1px solid #e8e8e8;margin:10px 0'/>")
+    .replace(/^- (.+)$/gm, "<div style='margin:3px 0;padding-left:14px'>&bull; $1</div>")
+    .replace(/^(\d+)\. (.+)$/gm, "<div style='margin:3px 0;padding-left:14px'>$1. $2</div>")
+    .replace(/\n\n/g, "<br/>")
+    .replace(/\n/g, "<br/>");
+}
+
 function SourceTag({ label }) {
   const styles = {
     "Okland Specific Manual": { background: "#FFF8CC", color: "#7a5f00", border: "0.5px solid #E0C000" },
@@ -142,6 +159,28 @@ function detectSources(text) {
   if (t.includes("osha") || t.includes("29 cfr") || t.includes("1926") || t.includes("subpart")) srcs.add("OSHA 29 CFR 1926");
   if (srcs.size === 0) srcs.add("Subcontractor Specific Manual");
   return [...srcs];
+}
+
+function MessageBubble({ msg }) {
+  const isUser = msg.role === "user";
+  const bubbleStyle = {
+    padding: "10px 14px",
+    fontSize: 13.5,
+    lineHeight: 1.65,
+    wordBreak: "break-word",
+    background: isUser ? "#F5C400" : "#fff",
+    color: "#1a1a1a",
+    border: isUser ? "none" : "1px solid #e8e8e8",
+    borderRadius: isUser ? "16px 16px 4px 16px" : "16px 16px 16px 4px",
+  };
+
+  if (isUser) {
+    return React.createElement("div", { style: bubbleStyle }, msg.text);
+  }
+  return React.createElement("div", {
+    style: bubbleStyle,
+    dangerouslySetInnerHTML: { __html: formatMarkdown(msg.text) }
+  });
 }
 
 function App() {
@@ -196,7 +235,6 @@ function App() {
   return React.createElement("div", {
     style: { display: "flex", flexDirection: "column", height: "90vh", maxHeight: 700, background: "#fff", border: "1px solid #e0e0e0", borderRadius: 12, overflow: "hidden", boxShadow: "0 4px 24px rgba(0,0,0,0.08)" }
   },
-    // Header
     React.createElement("div", { style: { background: "#1a1a1a", padding: "13px 18px", display: "flex", alignItems: "center", gap: 12, flexShrink: 0 } },
       React.createElement("div", { style: { width: 34, height: 34, background: "#F5C400", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 600, fontSize: 13, color: "#1a1a1a", flexShrink: 0 } }, "O"),
       React.createElement("div", { style: { flex: 1 } },
@@ -210,7 +248,6 @@ function App() {
       React.createElement("div", { style: { width: 8, height: 8, borderRadius: "50%", background: "#22c55e" } })
     ),
 
-    // Messages
     React.createElement("div", { style: { flex: 1, overflowY: "auto", padding: 16, display: "flex", flexDirection: "column", gap: 12, background: "#f9f9f9" } },
       messages.map((msg, i) =>
         React.createElement("div", { key: i, style: { display: "flex", gap: 10, alignItems: "flex-start", maxWidth: "88%", alignSelf: msg.role === "user" ? "flex-end" : "flex-start", flexDirection: msg.role === "user" ? "row-reverse" : "row" } },
@@ -218,10 +255,8 @@ function App() {
             msg.role === "user" ? "ME" : "O"
           ),
           React.createElement("div", null,
-            React.createElement("div", {
-              style: { padding: "10px 14px", fontSize: 13.5, lineHeight: 1.65, wordBreak: "break-word", background: msg.role === "user" ? "#F5C400" : "#fff", color: "#1a1a1a", border: msg.role === "user" ? "none" : "1px solid #e8e8e8", borderRadius: msg.role === "user" ? "16px 16px 4px 16px" : "16px 16px 16px 4px", whiteSpace: "pre-wrap" }
-            }, msg.text),
-            msg.role === "assistant" && msg.sources?.length > 0 &&
+            React.createElement(MessageBubble, { msg }),
+            msg.role === "assistant" && msg.sources && msg.sources.length > 0 &&
               React.createElement("div", { style: { display: "flex", gap: 5, flexWrap: "wrap", marginTop: 6 } },
                 msg.sources.map(s => React.createElement(SourceTag, { key: s, label: s }))
               )
@@ -232,21 +267,19 @@ function App() {
         React.createElement("div", { style: { width: 30, height: 30, borderRadius: "50%", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 600, background: "#1a1a1a", color: "#F5C400" } }, "O"),
         React.createElement("div", { style: { padding: "10px 16px", background: "#fff", border: "1px solid #e8e8e8", borderRadius: "16px 16px 16px 4px", display: "flex", gap: 5, alignItems: "center" } },
           [0, 0.2, 0.4].map((d, i) =>
-            React.createElement("div", { key: i, style: { width: 7, height: 7, borderRadius: "50%", background: "#999", animation: `pulse 1.2s ${d}s infinite` } })
+            React.createElement("div", { key: i, style: { width: 7, height: 7, borderRadius: "50%", background: "#999", animation: "pulse 1.2s infinite", animationDelay: d + "s" } })
           )
         )
       ),
       React.createElement("div", { ref: bottomRef })
     ),
 
-    // Suggestions
     showSuggestions && React.createElement("div", { style: { padding: "8px 16px", display: "flex", gap: 6, flexWrap: "wrap", background: "#fff", borderTop: "1px solid #f0f0f0" } },
       SUGGESTIONS.map(s =>
         React.createElement("button", { key: s, onClick: () => send(s), style: { background: "#f5f5f5", border: "1px solid #e0e0e0", borderRadius: 16, padding: "5px 11px", fontSize: 11.5, color: "#555", cursor: "pointer", whiteSpace: "nowrap" } }, s)
       )
     ),
 
-    // Input
     React.createElement("div", { style: { padding: "10px 14px", borderTop: "1px solid #e8e8e8", display: "flex", gap: 8, alignItems: "center", background: "#fff" } },
       React.createElement("textarea", {
         value: input,
