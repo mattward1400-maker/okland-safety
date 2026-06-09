@@ -997,6 +997,58 @@ function detectPermits(text) {
   return found.slice(0, 4);
 }
 
+const OSHA_LINKS = {
+  "subpart m": { url: "https://www.osha.gov/laws-regs/regulations/standardnumber/1926/1926.502", label: "OSHA Fall Protection (1926.502)" },
+  "fall protection": { url: "https://www.osha.gov/laws-regs/regulations/standardnumber/1926/1926.502", label: "OSHA Fall Protection (1926.502)" },
+  "subpart l": { url: "https://www.osha.gov/laws-regs/regulations/standardnumber/1926/1926.451", label: "OSHA Scaffolds (1926.451)" },
+  "scaffold": { url: "https://www.osha.gov/laws-regs/regulations/standardnumber/1926/1926.451", label: "OSHA Scaffolds (1926.451)" },
+  "subpart p": { url: "https://www.osha.gov/laws-regs/regulations/standardnumber/1926/1926.652", label: "OSHA Excavations (1926.652)" },
+  "excavat": { url: "https://www.osha.gov/laws-regs/regulations/standardnumber/1926/1926.652", label: "OSHA Excavations (1926.652)" },
+  "subpart aa": { url: "https://www.osha.gov/laws-regs/regulations/standardnumber/1926/1926.1203", label: "OSHA Confined Spaces (1926.1203)" },
+  "confined space": { url: "https://www.osha.gov/laws-regs/regulations/standardnumber/1926/1926.1203", label: "OSHA Confined Spaces (1926.1203)" },
+  "subpart cc": { url: "https://www.osha.gov/laws-regs/regulations/standardnumber/1926/1926.1408", label: "OSHA Cranes (1926.1408)" },
+  "crane": { url: "https://www.osha.gov/laws-regs/regulations/standardnumber/1926/1926.1408", label: "OSHA Cranes (1926.1408)" },
+  "subpart k": { url: "https://www.osha.gov/laws-regs/regulations/standardnumber/1926/1926.404", label: "OSHA Electrical (1926.404)" },
+  "loto": { url: "https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.147", label: "OSHA LOTO (1910.147)" },
+  "lock-out tag-out": { url: "https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.147", label: "OSHA LOTO (1910.147)" },
+  "subpart e": { url: "https://www.osha.gov/laws-regs/regulations/standardnumber/1926/1926.100", label: "OSHA PPE (1926.100)" },
+  "subpart f": { url: "https://www.osha.gov/laws-regs/regulations/standardnumber/1926/1926.150", label: "OSHA Fire Protection (1926.150)" },
+  "subpart x": { url: "https://www.osha.gov/laws-regs/regulations/standardnumber/1926/1926.1053", label: "OSHA Ladders (1926.1053)" },
+  "ladder": { url: "https://www.osha.gov/laws-regs/regulations/standardnumber/1926/1926.1053", label: "OSHA Ladders (1926.1053)" },
+  "subpart r": { url: "https://www.osha.gov/laws-regs/regulations/standardnumber/1926/1926.754", label: "OSHA Steel Erection (1926.754)" },
+  "steel erection": { url: "https://www.osha.gov/laws-regs/regulations/standardnumber/1926/1926.754", label: "OSHA Steel Erection (1926.754)" },
+  "subpart t": { url: "https://www.osha.gov/laws-regs/regulations/standardnumber/1926/1926.850", label: "OSHA Demolition (1926.850)" },
+  "demolition": { url: "https://www.osha.gov/laws-regs/regulations/standardnumber/1926/1926.850", label: "OSHA Demolition (1926.850)" },
+  "subpart d": { url: "https://www.osha.gov/laws-regs/regulations/standardnumber/1926/1926.50", label: "OSHA Health Controls (1926.50)" },
+  "hazard communication": { url: "https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.1200", label: "OSHA HazCom (1910.1200)" },
+  "subpart q": { url: "https://www.osha.gov/laws-regs/regulations/standardnumber/1926/1926.701", label: "OSHA Concrete (1926.701)" },
+  "concrete": { url: "https://www.osha.gov/laws-regs/regulations/standardnumber/1926/1926.701", label: "OSHA Concrete (1926.701)" },
+  "subpart o": { url: "https://www.osha.gov/laws-regs/regulations/standardnumber/1926/1926.600", label: "OSHA Motor Vehicles (1926.600)" },
+  "forklift": { url: "https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.178", label: "OSHA Forklifts (1910.178)" },
+  "subpart z": { url: "https://www.osha.gov/laws-regs/regulations/standardnumber/1926/1926.1101", label: "OSHA Toxic Substances (1926.1101)" },
+  "silica": { url: "https://www.osha.gov/laws-regs/regulations/standardnumber/1926/1926.1153", label: "OSHA Silica (1926.1153)" },
+  "asbestos": { url: "https://www.osha.gov/laws-regs/regulations/standardnumber/1926/1926.1101", label: "OSHA Asbestos (1926.1101)" },
+  "nfpa 70e": { url: "https://www.osha.gov/laws-regs/regulations/standardnumber/1926/1926.403", label: "OSHA Electrical Safety (1926.403)" },
+  "subpart j": { url: "https://www.osha.gov/laws-regs/regulations/standardnumber/1926/1926.350", label: "OSHA Welding & Cutting (1926.350)" },
+  "welding": { url: "https://www.osha.gov/laws-regs/regulations/standardnumber/1926/1926.350", label: "OSHA Welding & Cutting (1926.350)" },
+  "respiratory": { url: "https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.134", label: "OSHA Respiratory Protection (1910.134)" },
+  "heat illness": { url: "https://www.osha.gov/heat-exposure", label: "OSHA Heat Illness Prevention" },
+  "general duty clause": { url: "https://www.osha.gov/laws-regs/oshact/section5-duties", label: "OSHA General Duty Clause" },
+};
+
+function detectOSHA(text) {
+  const found = [];
+  const seen = new Set();
+  const t = text.toLowerCase();
+  for (const [keyword, link] of Object.entries(OSHA_LINKS)) {
+    if (t.includes(keyword) && !seen.has(link.url)) {
+      found.push(link);
+      seen.add(link.url);
+    }
+  }
+  return found.slice(0, 3);
+}
+
 function formatMarkdown(text) {
   return text
     .replace(/&/g, "&amp;")
@@ -1096,7 +1148,7 @@ function App() {
       const data = await res.json();
       const reply = data.content?.[0]?.text || "Sorry, I could not generate a response. Please try again or consult your Okland Safety Manager.";
       history.current = [...history.current, { role: "assistant", content: reply }];
-      setMessages(m => [...m, { role: "assistant", text: reply, sources: detectSources(reply), permits: detectPermits(reply) }]);
+      setMessages(m => [...m, { role: "assistant", text: reply, sources: detectSources(reply), permits: detectPermits(reply), oshaLinks: detectOSHA(reply) }]);
     } catch (e) {
       setMessages(m => [...m, { role: "assistant", text: "Connection error. Please check your internet and try again.", sources: [] }]);
     }
@@ -1138,6 +1190,21 @@ function App() {
                   },
                     React.createElement("span", null, "📄"),
                     p.label
+                  )
+                )
+              ),
+            msg.role === "assistant" && msg.oshaLinks && msg.oshaLinks.length > 0 &&
+              React.createElement("div", { style: { display: "flex", gap: 6, flexWrap: "wrap", marginTop: 6 } },
+                msg.oshaLinks.map((o, i) =>
+                  React.createElement("a", {
+                    key: i,
+                    href: o.url,
+                    target: "_blank",
+                    rel: "noopener noreferrer",
+                    style: { display: "inline-flex", alignItems: "center", gap: 5, background: "#EAF3DE", color: "#2d5a14", border: "1px solid #639922", borderRadius: 8, padding: "6px 12px", fontSize: 12, fontWeight: 600, cursor: "pointer", textDecoration: "none" }
+                  },
+                    React.createElement("span", null, "🔗"),
+                    o.label
                   )
                 )
               ),
