@@ -936,6 +936,67 @@ const SUGGESTIONS = [
   "What happens at 30 MPH winds?",
 ];
 
+const PERMIT_LINKS = {
+  "hot work permit": { url: "http://docs.okland.com/msa/safety/L5.pdf", label: "Open Hot Work Permit" },
+  "pre-task plan": { url: "http://docs.okland.com/msa/safety/L2-1.pdf", label: "Open Pre-Task Plan (PTP)" },
+  "job hazard analysis": { url: "http://docs.okland.com/msa/safety/L3.pdf", label: "Open Job Hazard Analysis (JHA)" },
+  "soil type a": { url: "http://docs.okland.com/msa/safety/L6-1.pdf", label: "Open Soil Type A Excavation Permit" },
+  "soil type b": { url: "http://docs.okland.com/msa/safety/L6-2.pdf", label: "Open Soil Type B Excavation Permit" },
+  "soil type c": { url: "http://docs.okland.com/msa/safety/L6-3.pdf", label: "Open Soil Type C Excavation Permit" },
+  "steel erection plan": { url: "http://docs.okland.com/msa/safety/L7.pdf", label: "Open Steel Erection Plan & Checklist" },
+  "heat stress": { url: "http://docs.okland.com/msa/safety/L8.pdf", label: "Open Heat Stress Index Table" },
+  "hierarchy of controls": { url: "http://docs.okland.com/msa/safety/L12.pdf", label: "Open Hierarchy of Controls" },
+  "confined space permit": { url: "http://docs.okland.com/msa/safety/L32.pdf", label: "Open Confined Space Permit" },
+  "soil disturbance permit": { url: "http://docs.okland.com/msa/safety/L33-1.pdf", label: "Open Soil Disturbance Permit" },
+  "hole cover standard": { url: "http://docs.okland.com/msa/safety/L35.pdf", label: "Open Hole Cover Standard" },
+  "barricade tape guidelines": { url: "http://docs.okland.com/msa/safety/L36.pdf", label: "Open Barricade Tape Guidelines" },
+  "scaffold erection permit": { url: "http://docs.okland.com/msa/safety/L40.pdf", label: "Open Scaffold Erection Permit" },
+  "stationary supported scaffold": { url: "http://docs.okland.com/msa/safety/L40.pdf", label: "Open Scaffold Erection Permit" },
+  "permit sleeve": { url: "http://docs.okland.com/msa/safety/L42.pdf", label: "Open Permit Sleeve Tracking Policy" },
+  "ppe variance": { url: "http://docs.okland.com/msa/safety/L43.pdf", label: "Open PPE Variance Policy" },
+  "near miss": { url: "http://docs.okland.com/msa/safety/L45.pdf", label: "Open Near Miss Incident Report" },
+  "drilling piles": { url: "http://docs.okland.com/msa/safety/L49.pdf", label: "Open Drilling Piles/Caissons Permit" },
+  "caissons permit": { url: "http://docs.okland.com/msa/safety/L49.pdf", label: "Open Drilling Piles/Caissons Permit" },
+  "temporary heater permit": { url: "http://docs.okland.com/msa/safety/L50.pdf", label: "Open Temporary Heater Permit" },
+  "selective demolition permit": { url: "http://docs.okland.com/msa/safety/L51.pdf", label: "Open Selective Demolition Permit" },
+  "total demolition permit": { url: "http://docs.okland.com/msa/safety/L52.pdf", label: "Open Total Demolition Permit" },
+  "heat illness prevention": { url: "http://docs.okland.com/msa/safety/L53.pdf", label: "Open Heat Illness Prevention Policy" },
+  "guardrail removal": { url: "http://docs.okland.com/msa/safety/L54.pdf", label: "Open Guardrail Removal & Modification Permit" },
+  "scaffold stair tower permit": { url: "http://docs.okland.com/msa/safety/L57.pdf", label: "Open Scaffold Stair Tower Permit" },
+  "trash chute permit": { url: "http://docs.okland.com/msa/safety/L58.pdf", label: "Open Trash Chute Permit" },
+  "overhead protection": { url: "http://docs.okland.com/msa/safety/L59.pdf", label: "Open Overhead Protection Policy" },
+  "non-crane lift": { url: "http://docs.okland.com/msa/safety/L60.pdf", label: "Open Non-Crane Lift Worksheet" },
+  "critical lift permit": { url: "http://docs.okland.com/msa/safety/L68.pdf", label: "Open Critical Lift Criteria & Permit" },
+  "mobile equipment in public": { url: "http://docs.okland.com/msa/safety/L69.pdf", label: "Open Mobile Equipment Public ROW Permit" },
+  "visitor orientation": { url: "http://docs.okland.com/msa/safety/L1-1.pdf", label: "Open Visitor Orientation Form" },
+  "mewp operators": { url: "http://docs.okland.com/msa/safety/L28.pdf", label: "Open MEWP Operators Inspection Form" },
+  "baker scaffold": { url: "http://docs.okland.com/msa/safety/L30.pdf", label: "Open Baker Scaffold Quick Reference" },
+  "forklift operators inspection": { url: "http://docs.okland.com/msa/safety/L27.pdf", label: "Open Forklift Inspection Form" },
+  "risk ranking": { url: "http://docs.okland.com/msa/safety/L21.pdf", label: "Open Risk Ranking Matrix" },
+  "silica exposure": { url: "http://docs.okland.com/msa/safety/L23.pdf", label: "Open Silica Exposure Control Plan" },
+  "injury/illness report": { url: "http://docs.okland.com/msa/safety/L16.pdf", label: "Open Injury/Illness Report Form" },
+  "property damage report": { url: "http://docs.okland.com/msa/safety/L17.pdf", label: "Open Property Damage Report Form" },
+  "disciplinary action form": { url: "http://docs.okland.com/msa/safety/L26.pdf", label: "Open Disciplinary Action Form" },
+  "tower crane assembly": { url: "http://docs.okland.com/msa/safety/L61.pdf", label: "Open Tower Crane Assembly Checklist" },
+  "tower crane disassembly": { url: "http://docs.okland.com/msa/safety/L62.pdf", label: "Open Tower Crane Disassembly Checklist" },
+  "mudsill reference": { url: "http://docs.okland.com/msa/safety/L41.pdf", label: "Open Mudsill Reference Sheet" },
+  "rigging & electrical color": { url: "http://docs.okland.com/msa/safety/L4.pdf", label: "Open Rigging & Electrical Color-Code" },
+  "glove matrix": { url: "http://docs.okland.com/msa/safety/L47.pdf", label: "Open Glove Matrix" },
+};
+
+function detectPermits(text) {
+  const found = [];
+  const seen = new Set();
+  const t = text.toLowerCase();
+  for (const [keyword, permit] of Object.entries(PERMIT_LINKS)) {
+    if (t.includes(keyword) && !seen.has(permit.url)) {
+      found.push(permit);
+      seen.add(permit.url);
+    }
+  }
+  return found.slice(0, 4);
+}
+
 function formatMarkdown(text) {
   return text
     .replace(/&/g, "&amp;")
@@ -1035,7 +1096,7 @@ function App() {
       const data = await res.json();
       const reply = data.content?.[0]?.text || "Sorry, I could not generate a response. Please try again or consult your Okland Safety Manager.";
       history.current = [...history.current, { role: "assistant", content: reply }];
-      setMessages(m => [...m, { role: "assistant", text: reply, sources: detectSources(reply) }]);
+      setMessages(m => [...m, { role: "assistant", text: reply, sources: detectSources(reply), permits: detectPermits(reply) }]);
     } catch (e) {
       setMessages(m => [...m, { role: "assistant", text: "Connection error. Please check your internet and try again.", sources: [] }]);
     }
@@ -1065,6 +1126,21 @@ function App() {
           ),
           React.createElement("div", null,
             React.createElement(MessageBubble, { msg }),
+            msg.role === "assistant" && msg.permits && msg.permits.length > 0 &&
+              React.createElement("div", { style: { display: "flex", gap: 6, flexWrap: "wrap", marginTop: 8 } },
+                msg.permits.map((p, i) =>
+                  React.createElement("a", {
+                    key: i,
+                    href: p.url,
+                    target: "_blank",
+                    rel: "noopener noreferrer",
+                    style: { display: "inline-flex", alignItems: "center", gap: 5, background: "#F5C400", color: "#1a1a1a", border: "none", borderRadius: 8, padding: "6px 12px", fontSize: 12, fontWeight: 600, cursor: "pointer", textDecoration: "none" }
+                  },
+                    React.createElement("span", null, "📄"),
+                    p.label
+                  )
+                )
+              ),
             msg.role === "assistant" && msg.sources && msg.sources.length > 0 &&
               React.createElement("div", { style: { display: "flex", gap: 5, flexWrap: "wrap", marginTop: 6 } },
                 msg.sources.map(s => React.createElement(SourceTag, { key: s, label: s }))
