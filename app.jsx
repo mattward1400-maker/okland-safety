@@ -1050,10 +1050,10 @@ function detectOSHA(text) {
 }
 
 const MANUAL_LINKS = [
-  { keyword: "okland specific manual", url: "https://raw.githubusercontent.com/mattward1400-maker/okland-safety/main/OSHM.pdf", label: "Open Okland Specific Manual", color: "#FFF8CC", border: "#E0C000", text: "#7a5f00" },
-  { keyword: "subcontractor specific manual", url: "https://raw.githubusercontent.com/mattward1400-maker/okland-safety/main/SSHM.pdf", label: "Open Subcontractor Specific Manual", color: "#EBF0FB", border: "#7a9cd4", text: "#1a3c8f" },
-  { keyword: "okland specific", url: "https://raw.githubusercontent.com/mattward1400-maker/okland-safety/main/OSHM.pdf", label: "Open Okland Specific Manual", color: "#FFF8CC", border: "#E0C000", text: "#7a5f00" },
-  { keyword: "subcontractor specific", url: "https://raw.githubusercontent.com/mattward1400-maker/okland-safety/main/SSHM.pdf", label: "Open Subcontractor Specific Manual", color: "#EBF0FB", border: "#7a9cd4", text: "#1a3c8f" },
+  { keyword: "okland specific manual", url: "https://github.com/mattward1400-maker/okland-safety/blob/main/OSHM.pdf", label: "Open Okland Specific Manual", color: "#FFF8CC", border: "#E0C000", text: "#7a5f00" },
+  { keyword: "subcontractor specific manual", url: "https://github.com/mattward1400-maker/okland-safety/blob/main/SSHM.pdf", label: "Open Subcontractor Specific Manual", color: "#EBF0FB", border: "#7a9cd4", text: "#1a3c8f" },
+  { keyword: "okland specific", url: "https://github.com/mattward1400-maker/okland-safety/blob/main/OSHM.pdf", label: "Open Okland Specific Manual", color: "#FFF8CC", border: "#E0C000", text: "#7a5f00" },
+  { keyword: "subcontractor specific", url: "https://github.com/mattward1400-maker/okland-safety/blob/main/SSHM.pdf", label: "Open Subcontractor Specific Manual", color: "#EBF0FB", border: "#7a9cd4", text: "#1a3c8f" },
 ];
 
 function detectManuals(text) {
