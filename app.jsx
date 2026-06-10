@@ -1049,6 +1049,26 @@ function detectOSHA(text) {
   return found.slice(0, 3);
 }
 
+const MANUAL_LINKS = [
+  { keyword: "okland specific manual", url: "https://raw.githubusercontent.com/mattward1400-maker/okland-safety/main/OSHM.pdf", label: "Open Okland Specific Manual", color: "#FFF8CC", border: "#E0C000", text: "#7a5f00" },
+  { keyword: "subcontractor specific manual", url: "https://raw.githubusercontent.com/mattward1400-maker/okland-safety/main/SSHM.pdf", label: "Open Subcontractor Specific Manual", color: "#EBF0FB", border: "#7a9cd4", text: "#1a3c8f" },
+  { keyword: "okland specific", url: "https://raw.githubusercontent.com/mattward1400-maker/okland-safety/main/OSHM.pdf", label: "Open Okland Specific Manual", color: "#FFF8CC", border: "#E0C000", text: "#7a5f00" },
+  { keyword: "subcontractor specific", url: "https://raw.githubusercontent.com/mattward1400-maker/okland-safety/main/SSHM.pdf", label: "Open Subcontractor Specific Manual", color: "#EBF0FB", border: "#7a9cd4", text: "#1a3c8f" },
+];
+
+function detectManuals(text) {
+  const found = [];
+  const seen = new Set();
+  const t = text.toLowerCase();
+  for (const link of MANUAL_LINKS) {
+    if (t.includes(link.keyword) && !seen.has(link.url)) {
+      found.push(link);
+      seen.add(link.url);
+    }
+  }
+  return found;
+}
+
 function formatMarkdown(text) {
   return text
     .replace(/&/g, "&amp;")
@@ -1148,7 +1168,7 @@ function App() {
       const data = await res.json();
       const reply = data.content?.[0]?.text || "Sorry, I could not generate a response. Please try again or consult your Okland Safety Manager.";
       history.current = [...history.current, { role: "assistant", content: reply }];
-      setMessages(m => [...m, { role: "assistant", text: reply, sources: detectSources(reply), permits: detectPermits(reply), oshaLinks: detectOSHA(reply) }]);
+      setMessages(m => [...m, { role: "assistant", text: reply, sources: detectSources(reply), permits: detectPermits(reply), oshaLinks: detectOSHA(reply), manualLinks: detectManuals(reply) }]);
     } catch (e) {
       setMessages(m => [...m, { role: "assistant", text: "Connection error. Please check your internet and try again.", sources: [] }]);
     }
@@ -1205,6 +1225,21 @@ function App() {
                   },
                     React.createElement("span", null, "🔗"),
                     o.label
+                  )
+                )
+              ),
+            msg.role === "assistant" && msg.manualLinks && msg.manualLinks.length > 0 &&
+              React.createElement("div", { style: { display: "flex", gap: 6, flexWrap: "wrap", marginTop: 6 } },
+                msg.manualLinks.map((m, i) =>
+                  React.createElement("a", {
+                    key: i,
+                    href: m.url,
+                    target: "_blank",
+                    rel: "noopener noreferrer",
+                    style: { display: "inline-flex", alignItems: "center", gap: 5, background: m.color, color: m.text, border: "1px solid " + m.border, borderRadius: 8, padding: "6px 12px", fontSize: 12, fontWeight: 600, cursor: "pointer", textDecoration: "none" }
+                  },
+                    React.createElement("span", null, "📖"),
+                    m.label
                   )
                 )
               ),
