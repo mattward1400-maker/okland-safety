@@ -1150,21 +1150,16 @@ function App() {
     history.current = [...history.current, { role: "user", content: text }];
     setLoading(true);
     try {
-      const res = await fetch("https://api.anthropic.com/v1/messages", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "x-api-key": API_KEY,
-          "anthropic-version": "2023-06-01",
-          "anthropic-dangerous-direct-browser-access": "true"
-        },
-        body: JSON.stringify({
-          model: "claude-opus-4-5",
-          max_tokens: 1500,
-          system: SYSTEM_PROMPT,
-          messages: history.current,
-        }),
-      });
+      const res = await fetch("/.netlify/functions/chat", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    system: SYSTEM_PROMPT,
+    messages: history.current,
+  }),
+});
       const data = await res.json();
       const reply = data.content?.[0]?.text || "Sorry, I could not generate a response. Please try again or consult your Okland Safety Manager.";
       history.current = [...history.current, { role: "assistant", content: reply }];
