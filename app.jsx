@@ -1051,8 +1051,8 @@ function detectOSHA(text) {
   return found.slice(0, 3);
 }
 
-const SSHM_BASE = "https://github.com/mattward1400-maker/okland-safety/blob/main/SSHM.pdf";
-const OSHM_BASE = "https://github.com/mattward1400-maker/okland-safety/blob/main/OSHM.pdf";
+const SSHM_BASE = "https://drive.google.com/file/d/1HMXghB4I-Rdo3yxfFkz0_XrlXy7NXTH4/preview";
+const OSHM_BASE = "https://drive.google.com/file/d/13o2350c1XVaeqECp0zWPNJuwf6AX1hn5/preview";
 
 const MANUAL_LINKS = [
   // OSHM - Okland Specific
