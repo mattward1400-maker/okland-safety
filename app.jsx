@@ -1200,7 +1200,16 @@ function App() {
     history.current = [...history.current, { role: "user", content: text }];
     setLoading(true);
     try {
-     
+      const res = await fetch("/.netlify/functions/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          system: SYSTEM_PROMPT,
+          messages: history.current,
+        }),
+      });
       const data = await res.json();
       const reply = data.content?.[0]?.text || "Sorry, I could not generate a response. Please try again or consult your Okland Safety Manager.";
       history.current = [...history.current, { role: "assistant", content: reply }];
@@ -1210,16 +1219,7 @@ function App() {
     }
     setLoading(false);
   }
-const res = await fetch("/.netlify/functions/chat", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify({
-    system: SYSTEM_PROMPT,
-    messages: history.current,
-  }),
-});
+
   return React.createElement("div", {
     style: { display: "flex", flexDirection: "column", height: "90vh", maxHeight: 700, background: "#fff", border: "1px solid #e0e0e0", borderRadius: 12, overflow: "hidden", boxShadow: "0 4px 24px rgba(0,0,0,0.08)" }
   },
