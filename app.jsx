@@ -1049,11 +1049,61 @@ function detectOSHA(text) {
   return found.slice(0, 3);
 }
 
+const SSHM_BASE = "https://github.com/mattward1400-maker/okland-safety/blob/main/SSHM.pdf";
+const OSHM_BASE = "https://github.com/mattward1400-maker/okland-safety/blob/main/OSHM.pdf";
+
 const MANUAL_LINKS = [
-  { keyword: "okland specific manual", url: "https://github.com/mattward1400-maker/okland-safety/blob/main/OSHM.pdf", label: "Open Okland Specific Manual", color: "#FFF8CC", border: "#E0C000", text: "#7a5f00" },
-  { keyword: "subcontractor specific manual", url: "https://github.com/mattward1400-maker/okland-safety/blob/main/SSHM.pdf", label: "Open Subcontractor Specific Manual", color: "#EBF0FB", border: "#7a9cd4", text: "#1a3c8f" },
-  { keyword: "okland specific", url: "https://github.com/mattward1400-maker/okland-safety/blob/main/OSHM.pdf", label: "Open Okland Specific Manual", color: "#FFF8CC", border: "#E0C000", text: "#7a5f00" },
-  { keyword: "subcontractor specific", url: "https://github.com/mattward1400-maker/okland-safety/blob/main/SSHM.pdf", label: "Open Subcontractor Specific Manual", color: "#EBF0FB", border: "#7a9cd4", text: "#1a3c8f" },
+  // OSHM - Okland Specific
+  { keyword: "responsibility matrix", url: OSHM_BASE + "#page=12", label: "View Responsibility Matrix (OSHM p.12)", color: "#FFF8CC", border: "#E0C000", text: "#7a5f00" },
+  { keyword: "senior leadership", url: OSHM_BASE + "#page=12", label: "View Senior Leadership Role (OSHM p.12)", color: "#FFF8CC", border: "#E0C000", text: "#7a5f00" },
+  { keyword: "all okland workers", url: OSHM_BASE + "#page=14", label: "View All Okland Workers Role (OSHM p.14)", color: "#FFF8CC", border: "#E0C000", text: "#7a5f00" },
+  { keyword: "crane superintendent", url: OSHM_BASE + "#page=14", label: "View Crane Superintendent Role (OSHM p.14)", color: "#FFF8CC", border: "#E0C000", text: "#7a5f00" },
+  { keyword: "okland specific manual", url: OSHM_BASE, label: "Open Okland Specific Manual", color: "#FFF8CC", border: "#E0C000", text: "#7a5f00" },
+  { keyword: "okland specific", url: OSHM_BASE, label: "Open Okland Specific Manual", color: "#FFF8CC", border: "#E0C000", text: "#7a5f00" },
+  // SSHM - Subcontractor Specific  
+  { keyword: "stop work authority", url: SSHM_BASE + "#page=13", label: "View Stop Work Authority (SSHM p.13)", color: "#EBF0FB", border: "#7a9cd4", text: "#1a3c8f" },
+  { keyword: "lone worker", url: SSHM_BASE + "#page=13", label: "View Lone Worker Rules (SSHM p.13)", color: "#EBF0FB", border: "#7a9cd4", text: "#1a3c8f" },
+  { keyword: "visitor", url: SSHM_BASE + "#page=16", label: "View Visitor Requirements (SSHM p.16)", color: "#EBF0FB", border: "#7a9cd4", text: "#1a3c8f" },
+  { keyword: "wind protocol", url: SSHM_BASE + "#page=27", label: "View Wind Protocols (SSHM p.27)", color: "#EBF0FB", border: "#7a9cd4", text: "#1a3c8f" },
+  { keyword: "lightning", url: SSHM_BASE + "#page=28", label: "View Lightning Protocols (SSHM p.28)", color: "#EBF0FB", border: "#7a9cd4", text: "#1a3c8f" },
+  { keyword: "personal protective equipment", url: SSHM_BASE + "#page=29", label: "View PPE Requirements (SSHM p.29)", color: "#EBF0FB", border: "#7a9cd4", text: "#1a3c8f" },
+  { keyword: "hard hat", url: SSHM_BASE + "#page=29", label: "View PPE Requirements (SSHM p.29)", color: "#EBF0FB", border: "#7a9cd4", text: "#1a3c8f" },
+  { keyword: "high-visibility", url: SSHM_BASE + "#page=29", label: "View PPE Requirements (SSHM p.29)", color: "#EBF0FB", border: "#7a9cd4", text: "#1a3c8f" },
+  { keyword: "fire extinguisher", url: SSHM_BASE + "#page=32", label: "View Fire Protection (SSHM p.32)", color: "#EBF0FB", border: "#7a9cd4", text: "#1a3c8f" },
+  { keyword: "flammable liquid", url: SSHM_BASE + "#page=32", label: "View Fire Protection (SSHM p.32)", color: "#EBF0FB", border: "#7a9cd4", text: "#1a3c8f" },
+  { keyword: "barricade tape", url: SSHM_BASE + "#page=36", label: "View Barricade Tape Rules (SSHM p.36)", color: "#EBF0FB", border: "#7a9cd4", text: "#1a3c8f" },
+  { keyword: "danger tape", url: SSHM_BASE + "#page=36", label: "View Barricade Tape Rules (SSHM p.36)", color: "#EBF0FB", border: "#7a9cd4", text: "#1a3c8f" },
+  { keyword: "caution tape", url: SSHM_BASE + "#page=36", label: "View Barricade Tape Rules (SSHM p.36)", color: "#EBF0FB", border: "#7a9cd4", text: "#1a3c8f" },
+  { keyword: "power tool", url: SSHM_BASE + "#page=39", label: "View Tools Requirements (SSHM p.39)", color: "#EBF0FB", border: "#7a9cd4", text: "#1a3c8f" },
+  { keyword: "lithium batter", url: SSHM_BASE + "#page=39", label: "View Tools Requirements (SSHM p.39)", color: "#EBF0FB", border: "#7a9cd4", text: "#1a3c8f" },
+  { keyword: "hot work permit", url: SSHM_BASE + "#page=44", label: "View Hot Work Requirements (SSHM p.44)", color: "#EBF0FB", border: "#7a9cd4", text: "#1a3c8f" },
+  { keyword: "fire watch", url: SSHM_BASE + "#page=44", label: "View Hot Work Requirements (SSHM p.44)", color: "#EBF0FB", border: "#7a9cd4", text: "#1a3c8f" },
+  { keyword: "welding", url: SSHM_BASE + "#page=44", label: "View Welding & Hot Work (SSHM p.44)", color: "#EBF0FB", border: "#7a9cd4", text: "#1a3c8f" },
+  { keyword: "scaffold", url: SSHM_BASE + "#page=49", label: "View Scaffold Requirements (SSHM p.49)", color: "#EBF0FB", border: "#7a9cd4", text: "#1a3c8f" },
+  { keyword: "fall protection", url: SSHM_BASE + "#page=57", label: "View Fall Protection (SSHM p.57)", color: "#EBF0FB", border: "#7a9cd4", text: "#1a3c8f" },
+  { keyword: "pfas", url: SSHM_BASE + "#page=57", label: "View Fall Protection (SSHM p.57)", color: "#EBF0FB", border: "#7a9cd4", text: "#1a3c8f" },
+  { keyword: "guardrail", url: SSHM_BASE + "#page=57", label: "View Fall Protection (SSHM p.57)", color: "#EBF0FB", border: "#7a9cd4", text: "#1a3c8f" },
+  { keyword: "hole cover", url: SSHM_BASE + "#page=57", label: "View Fall Protection (SSHM p.57)", color: "#EBF0FB", border: "#7a9cd4", text: "#1a3c8f" },
+  { keyword: "motor vehicle", url: SSHM_BASE + "#page=67", label: "View Motor Vehicle Rules (SSHM p.67)", color: "#EBF0FB", border: "#7a9cd4", text: "#1a3c8f" },
+  { keyword: "forklift", url: SSHM_BASE + "#page=67", label: "View Forklift Requirements (SSHM p.67)", color: "#EBF0FB", border: "#7a9cd4", text: "#1a3c8f" },
+  { keyword: "excavat", url: SSHM_BASE + "#page=73", label: "View Excavation Requirements (SSHM p.73)", color: "#EBF0FB", border: "#7a9cd4", text: "#1a3c8f" },
+  { keyword: "soil disturbance", url: SSHM_BASE + "#page=73", label: "View Soil Disturbance Rules (SSHM p.73)", color: "#EBF0FB", border: "#7a9cd4", text: "#1a3c8f" },
+  { keyword: "trench", url: SSHM_BASE + "#page=73", label: "View Excavation Requirements (SSHM p.73)", color: "#EBF0FB", border: "#7a9cd4", text: "#1a3c8f" },
+  { keyword: "concrete", url: SSHM_BASE + "#page=77", label: "View Concrete Requirements (SSHM p.77)", color: "#EBF0FB", border: "#7a9cd4", text: "#1a3c8f" },
+  { keyword: "rebar cap", url: SSHM_BASE + "#page=77", label: "View Concrete Requirements (SSHM p.77)", color: "#EBF0FB", border: "#7a9cd4", text: "#1a3c8f" },
+  { keyword: "steel erection", url: SSHM_BASE + "#page=80", label: "View Steel Erection (SSHM p.80)", color: "#EBF0FB", border: "#7a9cd4", text: "#1a3c8f" },
+  { keyword: "demolition", url: SSHM_BASE + "#page=81", label: "View Demolition Requirements (SSHM p.81)", color: "#EBF0FB", border: "#7a9cd4", text: "#1a3c8f" },
+  { keyword: "silica", url: SSHM_BASE + "#page=85", label: "View Toxic Substances (SSHM p.85)", color: "#EBF0FB", border: "#7a9cd4", text: "#1a3c8f" },
+  { keyword: "asbestos", url: SSHM_BASE + "#page=85", label: "View Toxic Substances (SSHM p.85)", color: "#EBF0FB", border: "#7a9cd4", text: "#1a3c8f" },
+  { keyword: "confined space", url: SSHM_BASE + "#page=87", label: "View Confined Space Rules (SSHM p.87)", color: "#EBF0FB", border: "#7a9cd4", text: "#1a3c8f" },
+  { keyword: "hole watch", url: SSHM_BASE + "#page=87", label: "View Confined Space Rules (SSHM p.87)", color: "#EBF0FB", border: "#7a9cd4", text: "#1a3c8f" },
+  { keyword: "crane", url: SSHM_BASE + "#page=87", label: "View Crane Requirements (SSHM p.87)", color: "#EBF0FB", border: "#7a9cd4", text: "#1a3c8f" },
+  { keyword: "critical lift", url: SSHM_BASE + "#page=94", label: "View Critical Lift Criteria (SSHM p.94)", color: "#EBF0FB", border: "#7a9cd4", text: "#1a3c8f" },
+  { keyword: "rigging", url: SSHM_BASE + "#page=91", label: "View Rigging Requirements (SSHM p.91)", color: "#EBF0FB", border: "#7a9cd4", text: "#1a3c8f" },
+  { keyword: "drug test", url: SSHM_BASE + "#page=98", label: "View Substance Abuse Policy (SSHM p.98)", color: "#EBF0FB", border: "#7a9cd4", text: "#1a3c8f" },
+  { keyword: "substance abuse", url: SSHM_BASE + "#page=98", label: "View Substance Abuse Policy (SSHM p.98)", color: "#EBF0FB", border: "#7a9cd4", text: "#1a3c8f" },
+  { keyword: "subcontractor specific manual", url: SSHM_BASE, label: "Open Subcontractor Specific Manual", color: "#EBF0FB", border: "#7a9cd4", text: "#1a3c8f" },
+  { keyword: "subcontractor specific", url: SSHM_BASE, label: "Open Subcontractor Specific Manual", color: "#EBF0FB", border: "#7a9cd4", text: "#1a3c8f" },
 ];
 
 function detectManuals(text) {
@@ -1150,16 +1200,21 @@ function App() {
     history.current = [...history.current, { role: "user", content: text }];
     setLoading(true);
     try {
-      const res = await fetch("/.netlify/functions/chat", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify({
-    system: SYSTEM_PROMPT,
-    messages: history.current,
-  }),
-});
+      const res = await fetch("https://api.anthropic.com/v1/messages", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": API_KEY,
+          "anthropic-version": "2023-06-01",
+          "anthropic-dangerous-direct-browser-access": "true"
+        },
+        body: JSON.stringify({
+          model: "claude-opus-4-5",
+          max_tokens: 1500,
+          system: SYSTEM_PROMPT,
+          messages: history.current,
+        }),
+      });
       const data = await res.json();
       const reply = data.content?.[0]?.text || "Sorry, I could not generate a response. Please try again or consult your Okland Safety Manager.";
       history.current = [...history.current, { role: "assistant", content: reply }];
