@@ -988,13 +988,15 @@ function detectPermits(text) {
   const found = [];
   const seen = new Set();
   const t = text.toLowerCase();
+  // Only match permits if the keyword appears in the first 500 chars (more relevant)
+  const tShort = t.substring(0, 500);
   for (const [keyword, permit] of Object.entries(PERMIT_LINKS)) {
-    if (t.includes(keyword) && !seen.has(permit.url)) {
+    if (tShort.includes(keyword) && !seen.has(permit.url)) {
       found.push(permit);
       seen.add(permit.url);
     }
   }
-  return found.slice(0, 4);
+  return found.slice(0, 3);
 }
 
 const OSHA_LINKS = {
@@ -1114,6 +1116,7 @@ function detectManuals(text) {
     if (t.includes(link.keyword) && !seen.has(link.url)) {
       found.push(link);
       seen.add(link.url);
+      if (found.length >= 3) break;
     }
   }
   return found;
