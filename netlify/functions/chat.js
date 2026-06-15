@@ -69,7 +69,6 @@ exports.handler = async function(event) {
     const lat = body.lat;
     const lon = body.lon;
 
-    // Step 1: Get weather if location provided and question is weather-related
     let weatherContext = "";
     if (lat && lon && isWeatherQuestion(userMessage)) {
       try {
@@ -83,20 +82,12 @@ exports.handler = async function(event) {
         const description = weather.weather?.[0]?.description || "unknown";
         const city = weather.name || "your location";
         const humidity = weather.main?.humidity || 0;
-
-        weatherContext = `\n\nCURRENT WEATHER AT JOBSITE (${city}):
-- Conditions: ${description}
-- Temperature: ${temp}°F
-- Wind Speed: ${windSpeed} MPH${windGust ? ` (gusts to ${windGust} MPH)` : ""}
-- Humidity: ${humidity}%
-
-Use this live weather data to give a specific, actionable answer based on Okland's wind and weather protocols.`;
+        weatherContext = "\n\nCURRENT WEATHER AT JOBSITE (" + city + "):\n- Conditions: " + description + "\n- Temperature: " + temp + "F\n- Wind Speed: " + windSpeed + " MPH" + (windGust ? " (gusts to " + windGust + " MPH)" : "") + "\n- Humidity: " + humidity + "%\n\nUse this live weather data to give a specific, actionable answer based on Okland wind and weather protocols.";
       } catch(e) {
         console.log("Weather fetch failed:", e.message);
       }
     }
 
-    // Step 2: Embed the query for RAG
     const embedResponse = await httpsRequest(
       "api.pinecone.io",
       "/embed",
@@ -113,5 +104,70 @@ Use this live weather data to give a specific, actionable answer based on Okland
 
     const queryVector = embedResponse.data[0].values;
 
-    // Step 3: Query Pinecone
-    const
+    const indexHost = process.env.PINECONE_INDEX_HOST;
+    const searchResponse = await httpsRequest(
+      indexHost,
+      "/query",
+      {
+        "Api-Key": process.env.PINECONE_API_KEY,
+        "X-Pinecone-Api-Version": "2025-10"
+      },
+      {
+        vector: queryVector,
+        topK: 5,
+        includeMetadata: true
+      }
+    );
+
+    let ragContext = "";
+    if (searchResponse.matches) {
+      searchResponse.matches.forEach(function(match) {
+        ragContext += "\n\n[" + match.metadata.source + " - Page " + match.metadata.page + "]\n" + match.metadata.text;
+      });
+    }
+
+    const systemWithContext = body.system + weatherContext + (ragContext ? "\n\nRELEVANT MANUAL CONTENT:\n" + ragContext : "");
+
+    const postData = JSON.stringify({
+      model: "claude-opus-4-5",
+      max_tokens: 1500,
+      system: systemWithContext,
+      messages: body.messages
+    });
+
+    const claudeData = await new Promise(function(resolve, reject) {
+      const options = {
+        hostname: "api.anthropic.com",
+        path: "/v1/messages",
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": process.env.API_KEY,
+          "anthropic-version": "2023-06-01",
+          "Content-Length": Buffer.byteLength(postData)
+        }
+      };
+      const req = https.request(options, function(res) {
+        let responseData = "";
+        res.on("data", function(chunk) { responseData += chunk; });
+        res.on("end", function() { resolve(JSON.parse(responseData)); });
+      });
+      req.on("error", reject);
+      req.write(postData);
+      req.end();
+    });
+
+    return {
+      statusCode: 200,
+      headers: { "Access-Control-Allow-Origin": "*" },
+      body: JSON.stringify(claudeData)
+    };
+
+  } catch (error) {
+    console.log("Error:", error.message);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: error.message })
+    };
+  }
+};
