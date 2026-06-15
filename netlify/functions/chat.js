@@ -1,6 +1,6 @@
 const https = require("https");
 
-function httpsPost(hostname, path, headers, body) {
+function httpsRequest(hostname, path, headers, body) {
   return new Promise((resolve, reject) => {
     const postData = JSON.stringify(body);
     const options = {
@@ -16,7 +16,15 @@ function httpsPost(hostname, path, headers, body) {
     const req = https.request(options, (res) => {
       let data = "";
       res.on("data", (chunk) => data += chunk);
-      res.on("end", () => resolve(JSON.parse(data)));
+      res.on("end", () => {
+        console.log("Response status:", res.statusCode);
+        console.log("Response body preview:", data.substring(0, 300));
+        try {
+          resolve(JSON.parse(data));
+        } catch(e) {
+          reject(new Error("JSON parse failed: " + data.substring(0, 200)));
+        }
+      });
     });
     req.on("error", reject);
     req.write(postData);
@@ -33,8 +41,8 @@ exports.handler = async function(event) {
     const body = JSON.parse(event.body);
     const userMessage = body.messages[body.messages.length - 1].content;
 
-    // Step 1: Search Pinecone for relevant chunks
-    const embedResponse = await httpsPost(
+    // Step 1: Embed the query
+    const embedResponse = await httpsRequest(
       "api.pinecone.io",
       "/embed",
       { "Api-Key": process.env.PINECONE_API_KEY },
@@ -45,12 +53,13 @@ exports.handler = async function(event) {
       }
     );
 
-    const queryVector = embedResponse.data ? embedResponse.data[0].values : embedResponse[0].values;
-    console.log("Embed response:", JSON.stringify(embedResponse).substring(0, 200));
+    console.log("Embed response keys:", Object.keys(embedResponse));
 
-    // Step 2: Query the index
+    const queryVector = embedResponse.data[0].values;
+
+    // Step 2: Query Pinecone index
     const indexHost = process.env.PINECONE_INDEX_HOST;
-    const searchResponse = await httpsPost(
+    const searchResponse = await httpsRequest(
       indexHost,
       "/query",
       { "Api-Key": process.env.PINECONE_API_KEY },
@@ -61,19 +70,16 @@ exports.handler = async function(event) {
       }
     );
 
-    // Step 3: Build context from results
+    // Step 3: Build context
     let context = "";
     if (searchResponse.matches) {
       searchResponse.matches.forEach((match) => {
-        const source = match.metadata.source;
-        const page = match.metadata.page;
-        const text = match.metadata.text;
-        context += `\n\n[${source} - Page ${page}]\n${text}`;
+        context += `\n\n[${match.metadata.source} - Page ${match.metadata.page}]\n${match.metadata.text}`;
       });
     }
 
-    // Step 4: Call Claude with context
-    const systemWithContext = body.system + (context ? `\n\nRELEVANT MANUAL CONTENT FOR THIS QUESTION:\n${context}` : "");
+    // Step 4: Call Claude
+    const systemWithContext = body.system + (context ? `\n\nRELEVANT MANUAL CONTENT:\n${context}` : "");
 
     const postData = JSON.stringify({
       model: "claude-opus-4-5",
@@ -82,7 +88,7 @@ exports.handler = async function(event) {
       messages: body.messages
     });
 
-    const data = await new Promise((resolve, reject) => {
+    const claudeData = await new Promise((resolve, reject) => {
       const options = {
         hostname: "api.anthropic.com",
         path: "/v1/messages",
@@ -107,10 +113,11 @@ exports.handler = async function(event) {
     return {
       statusCode: 200,
       headers: { "Access-Control-Allow-Origin": "*" },
-      body: JSON.stringify(data)
+      body: JSON.stringify(claudeData)
     };
 
   } catch (error) {
+    console.log("Full error:", error.message);
     return {
       statusCode: 500,
       body: JSON.stringify({ error: error.message })
