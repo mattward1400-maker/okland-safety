@@ -4,15 +4,22 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Okland Manual Viewer</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
-      body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #1a1a1a; display: flex; flex-direction: column; height: 100vh; }
+      body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #1a1a1a; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
       #toolbar { background: #1a1a1a; padding: 10px 16px; display: flex; align-items: center; gap: 12px; border-bottom: 2px solid #F5C400; flex-shrink: 0; }
       .logo { width: 32px; height: 32px; background: #F5C400; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; color: #1a1a1a; flex-shrink: 0; }
       .title { color: #fff; font-size: 14px; font-weight: 500; flex: 1; }
       .page-info { color: #F5C400; font-size: 13px; font-weight: 600; }
-      #back-btn { background: #F5C400; color: #1a1a1a; border: none; border-radius: 8px; padding: 6px 14px; font-size: 13px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block; }
-      #viewer { flex: 1; width: 100%; border: none; }
+      #back-btn { background: #F5C400; color: #1a1a1a; border: none; border-radius: 8px; padding: 6px 14px; font-size: 13px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block; white-space: nowrap; }
+      #nav { background: #2a2a2a; padding: 8px 16px; display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+      #nav button { background: #F5C400; color: #1a1a1a; border: none; border-radius: 6px; padding: 5px 12px; font-size: 12px; font-weight: 600; cursor: pointer; }
+      #nav button:disabled { background: #555; color: #999; cursor: default; }
+      #nav span { color: #fff; font-size: 12px; }
+      #canvas-container { flex: 1; overflow-y: auto; display: flex; flex-direction: column; align-items: center; padding: 16px; gap: 16px; background: #525659; }
+      canvas { box-shadow: 0 2px 8px rgba(0,0,0,0.5); background: white; max-width: 100%; }
+      #loading { color: #fff; font-size: 16px; margin: auto; }
     </style>
   </head>
   <body>
@@ -22,12 +29,19 @@
       <div class="page-info" id="page-info"></div>
       <a href="/" id="back-btn">← Back to Chat</a>
     </div>
-    <iframe id="viewer"></iframe>
+    <div id="nav">
+      <button id="prev-btn" disabled>← Prev</button>
+      <span id="nav-info">Loading...</span>
+      <button id="next-btn" disabled>Next →</button>
+    </div>
+    <div id="canvas-container">
+      <div id="loading">Loading manual...</div>
+    </div>
 
     <script>
       const params = new URLSearchParams(window.location.search);
       const doc = params.get('doc');
-      const page = parseInt(params.get('page')) || 1;
+      const targetPage = parseInt(params.get('page')) || 1;
 
       const docs = {
         'oshm': { file: '/OSHM.pdf', title: 'Okland Specific Manual (OSHM)' },
@@ -36,8 +50,39 @@
 
       const selected = docs[doc] || docs['sshm'];
       document.getElementById('doc-title').textContent = selected.title;
-      document.getElementById('page-info').textContent = 'Page ' + page;
-      document.getElementById('viewer').src = selected.file + '#page=' + page;
+      document.getElementById('page-info').textContent = 'Page ' + targetPage;
+
+      pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+      let pdfDoc = null;
+      let currentPage = targetPage;
+      const container = document.getElementById('canvas-container');
+
+      async function renderPage(num) {
+        container.innerHTML = '<div id="loading">Loading page...</div>';
+        const page = await pdfDoc.getPage(num);
+        const viewport = page.getViewport({ scale: 1.5 });
+        const canvas = document.createElement('canvas');
+        canvas.width = viewport.width;
+        canvas.height = viewport.height;
+        const ctx = canvas.getContext('2d');
+        await page.render({ canvasContext: ctx, viewport }).promise;
+        container.innerHTML = '';
+        container.appendChild(canvas);
+        document.getElementById('nav-info').textContent = `Page ${num} of ${pdfDoc.numPages}`;
+        document.getElementById('prev-btn').disabled = num <= 1;
+        document.getElementById('next-btn').disabled = num >= pdfDoc.numPages;
+        currentPage = num;
+      }
+
+      pdfjsLib.getDocument(selected.file).promise.then(pdf => {
+        pdfDoc = pdf;
+        renderPage(targetPage);
+        document.getElementById('prev-btn').addEventListener('click', () => { if (currentPage > 1) renderPage(currentPage - 1); });
+        document.getElementById('next-btn').addEventListener('click', () => { if (currentPage < pdfDoc.numPages) renderPage(currentPage + 1); });
+      }).catch(err => {
+        container.innerHTML = '<div id="loading">Error loading PDF: ' + err.message + '</div>';
+      });
     </script>
   </body>
 </html>
