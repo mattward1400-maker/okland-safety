@@ -1235,10 +1235,47 @@ function detectManuals(text) {
 }
 
 function formatMarkdown(text) {
+  // Render markdown tables as HTML tables
+  function renderTables(input) {
+    const lines = input.split('\n');
+    const output = [];
+    let i = 0;
+    while (i < lines.length) {
+      if (lines[i].includes('|') && i + 1 < lines.length && /^[\s|:-]+$/.test(lines[i + 1])) {
+        const tableLines = [];
+        while (i < lines.length && lines[i].trim().startsWith('|')) {
+          tableLines.push(lines[i]);
+          i++;
+        }
+        let tableHtml = '<table style="border-collapse:collapse;width:100%;margin:8px 0;font-size:12.5px">';
+        let isFirstDataRow = true;
+        tableLines.forEach((row) => {
+          if (/^[\s|:-]+$/.test(row)) return;
+          const cells = row.split('|').slice(1, -1);
+          const tag = isFirstDataRow ? 'th' : 'td';
+          const bg = isFirstDataRow ? 'background:#1a1a1a;color:#F5C400;font-weight:600;' : '';
+          tableHtml += '<tr style="' + bg + '">';
+          cells.forEach(cell => {
+            tableHtml += '<' + tag + ' style="border:1px solid #e0e0e0;padding:6px 10px;text-align:left;">' + cell.trim() + '</' + tag + '>';
+          });
+          tableHtml += '</tr>';
+          isFirstDataRow = false;
+        });
+        tableHtml += '</table>';
+        output.push(tableHtml);
+      } else {
+        output.push(lines[i]);
+        i++;
+      }
+    }
+    return output.join('\n');
+  }
+
+  text = renderTables(text);
+
   return text
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
+    .replace(/&(?!amp;|lt;|gt;|#)/g, "&amp;")
+    .replace(/<(?!table|\/table|tr|\/tr|th|\/th|td|\/td)/g, "&lt;")
     .replace(/^### (.+)$/gm, "<h4 style='font-size:13px;font-weight:600;margin:10px 0 4px 0'>$1</h4>")
     .replace(/^## (.+)$/gm, "<h3 style='font-size:14px;font-weight:700;margin:12px 0 6px 0'>$1</h3>")
     .replace(/^# (.+)$/gm, "<h2 style='font-size:15px;font-weight:700;margin:12px 0 6px 0'>$1</h2>")
@@ -1303,8 +1340,14 @@ function App() {
   const history = useRef([]);
   const bottomRef = useRef(null);
 
+  const lastMsgRef = useRef(null);
+
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (loading) {
+      bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+    } else if (lastMsgRef.current) {
+      lastMsgRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
   }, [messages, loading]);
 
   async function send(text) {
@@ -1352,7 +1395,7 @@ function App() {
     ),
     React.createElement("div", { style: { flex: 1, overflowY: "auto", padding: 16, display: "flex", flexDirection: "column", gap: 12, background: "#f9f9f9" } },
       messages.map((msg, i) =>
-        React.createElement("div", { key: i, style: { display: "flex", gap: 10, alignItems: "flex-start", maxWidth: "88%", alignSelf: msg.role === "user" ? "flex-end" : "flex-start", flexDirection: msg.role === "user" ? "row-reverse" : "row" } },
+        React.createElement("div", { key: i, ref: (i === messages.length - 1 && msg.role === "assistant") ? lastMsgRef : null, style: { display: "flex", gap: 10, alignItems: "flex-start", maxWidth: "88%", alignSelf: msg.role === "user" ? "flex-end" : "flex-start", flexDirection: msg.role === "user" ? "row-reverse" : "row" } },
           React.createElement("div", { style: { width: 30, height: 30, borderRadius: "50%", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 600, marginTop: 2, background: msg.role === "user" ? "#F5C400" : "#1a1a1a", color: msg.role === "user" ? "#1a1a1a" : "#F5C400" } },
             msg.role === "user" ? "ME" : "O"
           ),
