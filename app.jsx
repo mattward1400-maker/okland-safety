@@ -1040,9 +1040,14 @@ RESPONSE FORMAT:
 - Be practical and direct
 - For Okland employee role questions → Okland Specific Manual
 - For on-site compliance questions → Subcontractor Specific Manual
-- End high-risk topic answers recommending consultation with Okland Safety Manager for site-specific guidance`;
+- End high-risk topic answers recommending consultation with Okland Safety Manager for site-specific guidance
+- If the user's message is in Spanish OR if they ask you to respond in Spanish, respond entirely in Spanish including all labels, headers, and source citations`;
 
-const SUGGESTIONS = [
+const SYSTEM_PROMPT_ES = SYSTEM_PROMPT + `
+
+INSTRUCCIÓN IMPORTANTE: El usuario ha seleccionado español. Responde SIEMPRE en español, incluyendo todos los encabezados, viñetas y citas de fuentes. Traduce [Okland Specific Manual] como [Manual Específico de Okland], [Subcontractor Specific Manual] como [Manual Específico de Subcontratistas], y [OSHA 29 CFR 1926] permanece igual.`;
+
+const SUGGESTIONS_EN = [
   "What PPE is required on site?",
   "When is fall protection required?",
   "Who is responsible for crane safety?",
@@ -1050,6 +1055,17 @@ const SUGGESTIONS = [
   "What are the confined space requirements?",
   "What happens at 30 MPH winds?",
 ];
+
+const SUGGESTIONS_ES = [
+  "¿Qué EPP se requiere en el sitio?",
+  "¿Cuándo se requiere protección contra caídas?",
+  "¿Quién es responsable de la seguridad con grúas?",
+  "¿Cómo obtengo un permiso de trabajo en caliente?",
+  "¿Cuáles son los requisitos para espacios confinados?",
+  "¿Qué pasa a vientos de 30 MPH?",
+];
+
+const SUGGESTIONS = SUGGESTIONS_EN;
 
 const PERMIT_LINKS = {
   "hot work permit": { url: "http://docs.okland.com/msa/safety/L5.pdf", label: "Open Hot Work Permit" },
@@ -1329,6 +1345,7 @@ function MessageBubble({ msg }) {
 }
 
 function App() {
+  const [lang, setLang] = useState("en");
   const [messages, setMessages] = useState([{
     role: "assistant",
     text: "Hi! I'm the Okland Safety Assistant. Ask me anything about jobsite safety — I'll answer using Okland's manuals and OSHA standards.",
@@ -1364,7 +1381,7 @@ function App() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          system: SYSTEM_PROMPT,
+          system: lang === "es" ? SYSTEM_PROMPT_ES : SYSTEM_PROMPT,
           messages: history.current,
         }),
       });
@@ -1391,7 +1408,23 @@ function App() {
           )
         )
       ),
-      React.createElement("div", { style: { width: 8, height: 8, borderRadius: "50%", background: "#22c55e" } })
+      React.createElement("div", { style: { width: 8, height: 8, borderRadius: "50%", background: "#22c55e" } }),
+      React.createElement("button", {
+        onClick: () => {
+          const newLang = lang === "en" ? "es" : "en";
+          setLang(newLang);
+          setMessages([{
+            role: "assistant",
+            text: newLang === "es" 
+              ? "¡Hola! Soy el Asistente de Seguridad de Okland. Pregúntame cualquier cosa sobre seguridad en el trabajo — responderé usando los manuales de Okland y las normas OSHA."
+              : "Hi! I'm the Okland Safety Assistant. Ask me anything about jobsite safety — I'll answer using Okland's manuals and OSHA standards.",
+            sources: ["Okland Specific Manual", "Subcontractor Specific Manual", "OSHA 29 CFR 1926"],
+          }]);
+          setShowSuggestions(true);
+          history.current = [];
+        },
+        style: { background: lang === "es" ? "#F5C400" : "#333", color: lang === "es" ? "#1a1a1a" : "#fff", border: "1px solid #555", borderRadius: 8, padding: "5px 10px", fontSize: 12, fontWeight: 700, cursor: "pointer", flexShrink: 0 }
+      }, lang === "es" ? "🇲🇽 ES" : "🇺🇸 EN")
     ),
     React.createElement("div", { style: { flex: 1, overflowY: "auto", padding: 16, display: "flex", flexDirection: "column", gap: 12, background: "#f9f9f9" } },
       messages.map((msg, i) =>
@@ -1464,7 +1497,7 @@ function App() {
       React.createElement("div", { ref: bottomRef })
     ),
     showSuggestions && React.createElement("div", { style: { padding: "8px 16px", display: "flex", gap: 6, flexWrap: "wrap", background: "#fff", borderTop: "1px solid #f0f0f0" } },
-      SUGGESTIONS.map(s =>
+      (lang === "es" ? SUGGESTIONS_ES : SUGGESTIONS_EN).map(s =>
         React.createElement("button", { key: s, onClick: () => send(s), style: { background: "#f5f5f5", border: "1px solid #e0e0e0", borderRadius: 16, padding: "5px 11px", fontSize: 11.5, color: "#555", cursor: "pointer", whiteSpace: "nowrap" } }, s)
       )
     ),
@@ -1473,7 +1506,7 @@ function App() {
         value: input,
         onChange: e => setInput(e.target.value),
         onKeyDown: e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(input); } },
-        placeholder: "Ask a safety question...",
+        placeholder: lang === "es" ? "Haz una pregunta de seguridad..." : "Ask a safety question...",
         rows: 1,
         style: { flex: 1, padding: "9px 13px", border: "1px solid #ddd", borderRadius: 18, fontSize: 13.5, background: "#f9f9f9", color: "#1a1a1a", fontFamily: "inherit", outline: "none", resize: "none", maxHeight: 72 }
       }),
