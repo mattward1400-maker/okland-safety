@@ -45,7 +45,8 @@ exports.handler = async function(event) {
       }
     );
 
-    const queryVector = embedResponse.data[0].values;
+    const queryVector = embedResponse.data ? embedResponse.data[0].values : embedResponse[0].values;
+    console.log("Embed response:", JSON.stringify(embedResponse).substring(0, 200));
 
     // Step 2: Query the index
     const indexHost = process.env.PINECONE_INDEX_HOST;
