@@ -44,7 +44,8 @@ exports.handler = async function(event) {
     // Step 1: Embed the query
     const embedResponse = await httpsRequest(
       "api.pinecone.io",
-      "/embed",
+      "/v1/embed",
+      
       { "Api-Key": process.env.PINECONE_API_KEY },
       {
         model: "llama-text-embed-v2",
