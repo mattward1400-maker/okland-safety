@@ -62,7 +62,10 @@ exports.handler = async function(event) {
 
   try {
     const body = JSON.parse(event.body);
-    const userMessage = body.messages[body.messages.length - 1].content;
+    const lastMessage = body.messages[body.messages.length - 1];
+    const userMessage = typeof lastMessage.content === "string"
+      ? lastMessage.content
+      : lastMessage.content.find(c => c.type === "text")?.text || "";
     const lat = body.lat;
     const lon = body.lon;
 
@@ -103,7 +106,7 @@ Use this live weather data to give a specific, actionable answer based on Okland
       },
       {
         model: "llama-text-embed-v2",
-        inputs: [{ text: userMessage }],
+        inputs: [{ text: userMessage || "safety hazard identification" }],
         parameters: { input_type: "query", truncate: "END" }
       }
     );
@@ -111,72 +114,4 @@ Use this live weather data to give a specific, actionable answer based on Okland
     const queryVector = embedResponse.data[0].values;
 
     // Step 3: Query Pinecone
-    const indexHost = process.env.PINECONE_INDEX_HOST;
-    const searchResponse = await httpsRequest(
-      indexHost,
-      "/query",
-      {
-        "Api-Key": process.env.PINECONE_API_KEY,
-        "X-Pinecone-Api-Version": "2025-10"
-      },
-      {
-        vector: queryVector,
-        topK: 5,
-        includeMetadata: true
-      }
-    );
-
-    // Step 4: Build context
-    let ragContext = "";
-    if (searchResponse.matches) {
-      searchResponse.matches.forEach((match) => {
-        ragContext += `\n\n[${match.metadata.source} - Page ${match.metadata.page}]\n${match.metadata.text}`;
-      });
-    }
-
-    // Step 5: Call Claude with all context
-    const systemWithContext = body.system + weatherContext + (ragContext ? `\n\nRELEVANT MANUAL CONTENT:\n${ragContext}` : "");
-
-    const postData = JSON.stringify({
-      model: "claude-opus-4-5",
-      max_tokens: 1500,
-      system: systemWithContext,
-      messages: body.messages
-    });
-
-    const claudeData = await new Promise((resolve, reject) => {
-      const options = {
-        hostname: "api.anthropic.com",
-        path: "/v1/messages",
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "x-api-key": process.env.API_KEY,
-          "anthropic-version": "2023-06-01",
-          "Content-Length": Buffer.byteLength(postData)
-        }
-      };
-      const req = https.request(options, (res) => {
-        let responseData = "";
-        res.on("data", (chunk) => responseData += chunk);
-        res.on("end", () => resolve(JSON.parse(responseData)));
-      });
-      req.on("error", reject);
-      req.write(postData);
-      req.end();
-    });
-
-    return {
-      statusCode: 200,
-      headers: { "Access-Control-Allow-Origin": "*" },
-      body: JSON.stringify(claudeData)
-    };
-
-  } catch (error) {
-    console.log("Error:", error.message);
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: error.message })
-    };
-  }
-};
+    const
