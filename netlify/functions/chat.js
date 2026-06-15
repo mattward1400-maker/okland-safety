@@ -17,8 +17,8 @@ function httpsRequest(hostname, path, headers, body) {
       let data = "";
       res.on("data", (chunk) => data += chunk);
       res.on("end", () => {
-        console.log("Response status:", res.statusCode);
-        console.log("Response body preview:", data.substring(0, 300));
+        console.log("Status:", res.statusCode);
+        console.log("Preview:", data.substring(0, 300));
         try {
           resolve(JSON.parse(data));
         } catch(e) {
@@ -44,18 +44,19 @@ exports.handler = async function(event) {
     // Step 1: Embed the query
     const embedResponse = await httpsRequest(
       "api.pinecone.io",
-      "/v1/embed",
-      
-      { "Api-Key": process.env.PINECONE_API_KEY },
+      "/embed",
+      {
+        "Api-Key": process.env.PINECONE_API_KEY,
+        "X-Pinecone-Api-Version": "2025-10"
+      },
       {
         model: "llama-text-embed-v2",
         inputs: [{ text: userMessage }],
-        parameters: { input_type: "query" }
+        parameters: { input_type: "query", truncate: "END" }
       }
     );
 
-    console.log("Embed response keys:", Object.keys(embedResponse));
-
+    console.log("Embed keys:", Object.keys(embedResponse));
     const queryVector = embedResponse.data[0].values;
 
     // Step 2: Query Pinecone index
@@ -63,7 +64,10 @@ exports.handler = async function(event) {
     const searchResponse = await httpsRequest(
       indexHost,
       "/query",
-      { "Api-Key": process.env.PINECONE_API_KEY },
+      {
+        "Api-Key": process.env.PINECONE_API_KEY,
+        "X-Pinecone-Api-Version": "2025-10"
+      },
       {
         vector: queryVector,
         topK: 5,
@@ -118,7 +122,7 @@ exports.handler = async function(event) {
     };
 
   } catch (error) {
-    console.log("Full error:", error.message);
+    console.log("Error:", error.message);
     return {
       statusCode: 500,
       body: JSON.stringify({ error: error.message })
