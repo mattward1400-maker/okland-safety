@@ -1584,6 +1584,7 @@ function formatMarkdown(text) {
     .replace(/^### (.+)$/gm, "<h4 style='font-size:13px;font-weight:600;margin:10px 0 4px 0'>$1</h4>")
     .replace(/^## (.+)$/gm, "<h3 style='font-size:14px;font-weight:700;margin:12px 0 6px 0'>$1</h3>")
     .replace(/^# (.+)$/gm, "<h2 style='font-size:15px;font-weight:700;margin:12px 0 6px 0'>$1</h2>")
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, "<a href=\"$2\" target=\"_blank\" rel=\"noopener noreferrer\" style=\"color:#1a6fc4;text-decoration:underline;\">$1</a>")
     .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
     .replace(/\*(.+?)\*/g, "<em>$1</em>")
     .replace(/^---$/gm, "<hr style='border:none;border-top:1px solid #e8e8e8;margin:10px 0'/>")
