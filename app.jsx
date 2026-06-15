@@ -1034,6 +1034,295 @@ TEMPORARY HEATER PERMIT:
 - Who signs: Operation and Inspection Competent Person (Print Name, Sign, Contact No.), Contractor Supervisor (Print Name, Sign, Contact No.), Okland Superintendent/Management (Print Name, Sign, Contact No.). Attestation: 'I have visually verified that the permit requester has completed the Okland+ course'
 - Key requirements: JHA and Heater Permit must be completed prior to installation. Each company using heaters must complete their own permit. If heater is added or moved more than 20' from location noted on current permit, new permit required. Permits valid no more than 30 days. Okland authorized signers must walk areas in question prior to signing. Each heater must be inspected at start of each shift (AM and PM) and documented on the green Temporary Heater Tag posted on each unit. If green tag is not up to date or missing, heater is OUT OF SERVICE and must be turned off immediately. Heater permits must be logged on permit tracking board and posted in green sleeve adjacent to tracking board in job office. Only trained, competent, authorized employees may install, adjust, move, or maintain heaters. LOTO required for any maintenance or repairs. Shut-off valves required at: main/meter/tank, each floor, each T in the gas line, end of each hose assembly just prior to heater connection. Floor shut-off valves marked for quick identification. Safety features NEVER overridden. No alterations to factory controls to bypass temperature settings. Barriers must protect main supply sources from vehicular traffic.
 
+
+═══════════════════════════════
+SOURCE 5: OKLAND SAFETY EXPERTS & FATAL 10
+═══════════════════════════════
+
+OKLAND SAFETY EXPERT CONTACTS:
+- Cranes & Rigging Expert: Cory Hollis (Operator)
+- Mobile Equipment Expert: David Peebler (Senior Safety Manager)
+- Vehicle Expert: Carlyn Chester (Senior Safety Manager)
+- Fall Exposure Expert: Austin Hunsaker (Senior Safety Manager)
+- Scaffold Expert: Joshua Nix (Senior Safety Manager)
+- Stored Energy Expert: Jason Hamilton (Senior Safety Manager)
+- Fire and Explosion Expert: Rich Tarzia (Senior Safety Manager - Advanced Manufacturing)
+- Confined Spaces Expert: Joseph Knickerbocker (Senior Safety Manager)
+- Underground Utility & Excavation Expert: Cameron Holman (Safety Manager)
+
+FATAL 10 — OKLAND'S 10 MOST CRITICAL SAFETY RISKS:
+
+1. CRANES & RIGGING:
+- 220 crane-related deaths in the US from 2011-2015 (average 44 per year)
+- Over half involved workers struck by an object or equipment
+- 60 cases involved a worker struck by an object falling from a crane
+- Transportation incidents and falls each made up 14% of crane fatalities
+- Expert: Cory Hollis
+
+2. MOBILE EQUIPMENT:
+- Rollovers, struck-by, and caught-in/between are common injury types
+- Forklifts are the most common piece of mobile equipment used by Okland employees
+- Forklift accidents cause about 85 fatalities annually and 30,000+ serious injuries per year
+- Expert: David Peebler
+
+3. VEHICLES & DRIVING:
+- Motor vehicle crashes are the leading cause of work-related deaths in the US (CDC)
+- Workers must be on the Approved Drivers List to drive for company business
+- Expert: Carlyn Chester
+
+4. FALL EXPOSURE:
+- More than 40% of fatal falls occur from 15 feet or less
+- Most common height to fall from is 6-10 feet
+- In 2017, falls were the leading cause of worker deaths in construction
+- Fatal falls to lower level: 693; same level: 132; through surface/opening: 83; collapsing structure: 47
+- Expert: Austin Hunsaker
+
+5. SCAFFOLDING:
+- Common source of serious injuries and fatalities on large-scale construction projects
+- OSHA reports dozens killed every year in scaffolding accidents
+- Expert: Joshua Nix
+
+6. STORED ENERGY (LOTO):
+- Energy forms include: chemical, mechanical, gravitational, radiant, thermal, motion, sound, electrical, hydraulic, pneumatic, elastic, electromagnetic
+- Inadequate training or failure to recognize hazards can result in severe injury or death
+- Expert: Jason Hamilton
+
+7. FIRE & EXPLOSION:
+- Can result in catastrophic consequences including deaths and serious property damage
+- All employees and subcontractors must prevent ignition of flammable substances
+- Expert: Rich Tarzia
+
+8. CONFINED SPACES:
+- 481 confined space fatalities over a 5-year study period in the US (almost 2 per week)
+- Over 60% of those killed worked in the construction industry
+- Two-thirds of confined space deaths globally are individuals attempting to rescue someone
+- Expert: Joseph Knickerbocker
+
+9. EXCAVATION & TRENCHING:
+- Fatality rate for excavation work is 112% higher than general construction
+- Over 100 deaths and thousands of disabling injuries occur every year
+- A cave-in can trap a worker within seconds and kill within minutes
+- Two cubic yards of soil weigh about 6,000 pounds
+- If buried, a worker can suffocate in less than three minutes
+- Expert: Cameron Holman
+
+10. STRUCK-BY & CAUGHT-IN/BETWEEN:
+- Struck-by: forcible contact between injured person and object/equipment (falling, flying, swinging objects)
+- Caught-in/between: person squeezed, caught, crushed, pinched between objects or equipment
+- In 2015, 162 construction workers died from struck-by injuries
+- Nearly 1 in 5 (18%) construction worker deaths result from struck-by incidents
+- Between 2003-2015, caught-in/between injuries resulted in 1,059 construction worker deaths (8% of industry fatalities)
+
+═══════════════════════════════
+SOURCE 6: RIGGING & ELECTRICAL COLOR CODE
+═══════════════════════════════
+
+MONTHLY INSPECTION COLOR CODE (Crane Rigging & Electrical):
+- January: BLUE
+- February: YELLOW
+- March: ORANGE
+- April: PURPLE
+- May: BROWN
+- June: BLACK
+- July: BLUE
+- August: YELLOW
+- September: ORANGE
+- October: PURPLE
+- November: BROWN
+- December: BLACK
+
+SPECIAL RIGGING COLORS (always apply regardless of month):
+- Forklift Rigging: WHITE + current monthly color
+- Fall Protection Rigging: GREEN + current monthly color
+
+IMPORTANT RULES:
+- DO NOT mix forklift and crane rigging
+- Rigging used with a forklift CANNOT be used with a crane
+- Contact Okland's Crane Superintendent (Cory Hollis) with any questions
+
+CURRENT MONTH: June — Current color is BLACK
+
+
+═══════════════════════════════
+SOURCE 7: OKLAND SAFETY FUNDAMENTALS (11-13)
+═══════════════════════════════
+
+FUNDAMENTAL 11 — PLANNING & PREPARATION:
+- 11.1: Emergency Response Plan readily available via hardcopy or immediately available electronically
+- 11.2: Emergency contact numbers posted in office/trailer
+- 11.3: Next 30 days of work reviewed — potential hazards and control measures discussed
+- 11.4: Self-perform work potential hazards and control measures discussed
+- 11.5: JHA/JSAs submitted — select one and confirm it matches work in field
+- 11.6: Pre-Task Plans filled out and signed before work begins — pick one job and confirm PTP
+- 11.7: PTP understood by workers — speak with one worker at random and confirm they KNOW hazards and controls listed on PTP for their task
+- 11.8: Workers onsite have gone through safety orientation — select one worker at random to verify
+
+FUNDAMENTAL 12 — PERSONAL & PUBLIC PROTECTION:
+- 12.1: Job boundaries secured by fence or other acceptable means
+- 12.2: Flaggers on public access roads are trained and certified
+- 12.3: Required flaggers are stationed appropriately
+- 12.4: Public (pedestrian and vehicle) is protected from falling debris (netting, covered walkways, etc.)
+- 12.5: People on site (workers and visitors) have standard PPE — hard hat/helmet, eye protection, work boots with puncture resistant soles, Hi-Viz shirt/vest/jacket, retroreflective around equipment and/or at night
+- 12.6: Task specific PPE is being used
+
+FUNDAMENTAL 13 — CLEAN/SAFE WORK CONDITIONS:
+- 13.1: Proper respiratory protection is being used
+- 13.2: Porta johns are located a safe distance away from any ongoing work location (e.g. where they can be struck by equipment)
+- 13.3: Site is clean and material organized — no protruding nails, no spills/leaks
+- 13.4: Wood is stored in proper location and stacked neatly with all nails removed
+- 13.5: Staging areas are orderly — no trip hazards, materials on pallets, etc.
+- 13.6: Proper respiratory protection is being used
+- 13.7: Chemicals are in adequate storage containers
+- 13.8: Workers have access to necessary SDS information — select one worker at random and ask
+- 13.9: Observed chemicals are being stored properly when not in use
+
+═══════════════════════════════
+SOURCE 8: OKLAND FREQUENT 4 (14-17)
+═══════════════════════════════
+
+FREQUENT 4 #14 — FORMING & STRIPPING:
+- 14.1: Protruding nails and screws removed from any observed stripped material
+- 14.2: Wall chain hooks fully locked when used
+- 14.3: When post-tensioning operations are taking place, area is adequately barricaded
+- 14.4: Hoses and slick lines safely routed and secured
+- 14.5: When a fall exposure exists on the opposite side of a wall form, fall protection is in place on the backside of the wall
+- 14.6: When silica exposure is present, required controls are in place
+- 14.7: Controlled access zone established prior to tilt-up operation and workers adhering to the zone
+
+FREQUENT 4 #15 — SLIPS, TRIPS & FALLS:
+- 15.1: All main egress routes are adequately lighted
+- 15.2: Adequate general lighting is provided by Okland
+- 15.3: All main egress routes are clear of material or debris
+- 15.4: Safe and adequate access in and out of footing excavations is maintained
+- 15.5: Main walkways clear of ice and snow
+- 15.6: Main walkways do not have steep grades
+- 15.7: Walkways with a change in elevation of 19 inches or more has stairway, ladder, or ramp
+
+FREQUENT 4 #16 — MATERIAL HANDLING/CARRYING:
+- 16.1: Individual workers not lifting more than 50 lbs
+- 16.2: Proper lifting techniques are being used
+
+FREQUENT 4 #17 — EXTREME WEATHER:
+- 17.1: Appropriate drinking water provided for Okland employees
+- 17.2: Appropriate drinking water provided by trade partners for their workers
+
+
+═══════════════════════════════
+SOURCE 9: OKLAND ORIENTATION & OKLAND+ INFORMATION
+═══════════════════════════════
+
+ANNUAL GENERAL OKLAND SAFETY ORIENTATION:
+- All workers must complete the Annual Safety Orientation BEFORE coming on site
+- Okland Employee Orientation Course available at: okland.myabsorb.com
+- Trade Partner Orientation Course available at: oklandtradepartners.myabsorb.com
+- Orientation duration: approximately 2 hours 10 minutes (English), 2 hours 30 minutes (Spanish)
+- Spanish orientation available at: care.okland-const.com/orientation-esp
+- Orientation Review Handout available at: oklandconstruction.box.com/s/vtliwphn4shjvjyclee7f0g9mz0hcip6
+
+OKLAND+ ORIENTATIONS:
+- Okland+ courses available at: care.okland-const.com/okland
+- Spanish Okland+ courses available at: care.okland-const.com/okland-esp
+- Trade Partners can receive credit for permit certification courses (Soil Disturbance, Hot Work, etc.) by logging in at: oklandtradepartners.myabsorb.com
+- Okland employees receive credit on the Okland LMS at: lms.okland.com
+- Prior to filling out ANY Okland Permit, workers must take the associated permit training on Okland+
+
+LONE WORKER ACTIVITIES (from Orientation page):
+Workers conducting the following activities shall only do so when they can be visually seen and heard by at least one other worker. The identified person must be conducting a joint activity with the lone worker:
+1. Activities where a Personal Fall Arrest System is required
+2. Activities where work is being performed on elevated decks/floors or a temporary means of access/egress is required
+3. Activities in a trench 4 feet or greater in depth
+4. Activities entering a permit or non-permit required confined space
+5. Activities conducting live electrical work of any voltage
+6. Activities using a respirator for any reason
+7. Activities conducting demolition work
+8. Activities working on or around the project outside normal hours
+9. Activities operating earth or material handling equipment (forklifts, skid-steers, backhoes, scrapers, graders) in remote areas, remote yards, or where operation poses a risk of striking workers or public
+10. Activities involving maintenance or repair of mobile or fixed equipment (MEWPs, man/material hoists, forklifts, skid-steers, backhoes) where there is potential for release of stored energy
+
+COMPANIES WITH APPROVED DRUG SCREENING POLICY:
+- Current list available at: partner.okland.com/docs/approved-companies
+
+═══════════════════════════════
+SOURCE 10: OKLAND PERMIT DOWNLOAD LINKS (care.okland-const.com)
+═══════════════════════════════
+
+All permits require associated Okland+ permit training BEFORE filling out the permit.
+
+- Confined Space Access Permit: oklandconstruction.box.com/s/1g7d244hjp6zdvz4y90ga87n4xxk3m9a
+- Energized Electrical Work Permit: oklandconstruction.box.com/s/rkw010zq18uf16xuqywiv3qs0714xktx
+- Guardrail Removal and Modification Permit: oklandconstruction.box.com/s/zzfqbvuphaq5xgm40rlu3pqioc2zdb4g
+- Hot Work Permit: oklandconstruction.box.com/s/tbtz8pv00jup2taxjlkybrlpyp8c499n
+- Soil Type A Over 4' Excavation & Trench Access Permit: oklandconstruction.box.com/s/sjkhzhoul5uvobe5xtvu2q1s1r6l09yh
+- Soil Type B Over 4' Excavation & Trench Access Permit: oklandconstruction.box.com/s/d54btjdcwc5z1jgcz57cf31bt0bkfsdh
+- Soil Type C (Default) Over 4' Excavation & Trench Access Permit: oklandconstruction.box.com/s/a20c4kxu4mcha70fy5s9tzws94ixlokt
+- Scaffold Erection Over 24' Permit: oklandconstruction.box.com/s/x15bz98fvbfbr1qyzzdcps1zzqga7t2w
+- Scaffold Stair Tower Permit: oklandconstruction.box.com/s/yx2g9p9y7jrpejaij30tw9dp5uuwaxc3
+- Scaffold Trash Chute Permit: oklandconstruction.box.com/s/moyp1gui0rk0qjpms59pu57dnba1xt4b
+- Pile Drilling & Caissons Permit: oklandconstruction.box.com/s/jg7bgi03kjp61rz7fgxvy0t4izu4mcdh
+- Soil Disturbance Permit Set-Up Checklist: oklandconstruction.box.com/s/ofm93z7mgjfrjh50uny6chley3uq9r15
+- Soil Disturbance Permit Cover Sheet: oklandconstruction.box.com/s/ilj1nhczwlfxzbxvj5iai3e4ue52dmh1
+- Soil Disturbance Permit SOP: oklandconstruction.box.com/s/d79nizvual3ulo7x3muwno3mcvrcna2b
+- Temporary Heater Permit: oklandconstruction.box.com/s/xmfro623cdxridjw20uv307043dxzimg
+
+
+═══════════════════════════════
+SOURCE 11: OKLAND CARE SITE — DOCUMENTS & RESOURCES
+═══════════════════════════════
+
+CARE SITE HOME (care.okland-const.com/safety):
+- A resource for those working on an Okland jobsite
+- Spanish resources available in the navigation menu (Recursos en español disponibles en el menú de navegación)
+- Quick links: Documents, Fatal 10, Fundamentals, Frequent 4, Okland+, Orientation, Permits, Safety Manuals
+
+SAFETY MANUALS (care.okland-const.com/safety-manuals):
+- Okland Specific Health & Safety Manual (OSHM): docs.okland.com/msa/safety/OSHM.pdf
+- Subcontractor Specific Health & Safety Manual (SSHM): docs.okland.com/msa/safety/SSHM.pdf
+
+DOCUMENTS PAGE (care.okland-const.com/documents):
+
+Barricade Signage Downloads:
+- CAUTION sign: oklandconstruction.box.com/s/r5mmhib1vw5ivm6czlotff2nzxeu6i4m
+- CAUTION sign Spanish: oklandconstruction.box.com/s/0alfh37xbwpqkscsxu7z11yy2ymqufvi
+- DANGER sign: oklandconstruction.box.com/s/vmqryiyt0am7n7n7wo0l7vn7u05jkls6
+- DANGER sign Spanish: oklandconstruction.box.com/s/jc1pt5timmoc2x1d9zcy5k77jbw6f53e
+- NOTICE sign: oklandconstruction.box.com/s/0qqv6h1m4kvwqkc6xudllbr9yg7i85t1
+- NOTICE sign Spanish: oklandconstruction.box.com/s/imli4k70u4mokg41wegzb8uv6hionrcd
+- WARNING sign: oklandconstruction.box.com/s/51spf8qi6wnbhlhyia9dl8l25miaqxjd
+- WARNING sign Spanish: oklandconstruction.box.com/s/5khgwhb0s5oskttebysq40zfvx3xsy0w
+- Yellow Tape Sign CAUTION: oklandconstruction.box.com/s/ia93cvvpk28d6q8udxhtui71v0uf6mkg
+- Yellow Tape Sign CAUTION Spanish: oklandconstruction.box.com/s/ud2493r35dx14k19y32hiusp65954w5d
+- Red Tape Sign DANGER: oklandconstruction.box.com/s/1io4bb6kydb2r0supfk8l8jniqvphybz
+- Red Tape Sign DANGER Spanish: oklandconstruction.box.com/s/ad7w960l9aa789zd057jjipqq9hpud3w
+- Blue Tape Sign NOTICE: oklandconstruction.box.com/s/ivguif33oo6m9pcf9k5pvume8huyand4
+- Blue Tape Sign NOTICE Spanish: oklandconstruction.box.com/s/bopmtnadoiooom5jb1m9jopgmdlmkza6
+- Safety Barricade Tape Guidelines: oklandconstruction.box.com/s/l096dd5deiw67u1ckx78ovnigrsxafrs
+- Safety Barricade Tape Guidelines Spanish: oklandconstruction.box.com/s/350203wdmo3dxph0mkf82nd4vt69p2jt
+
+Pre-Task Plan (PTP) Downloads:
+- Pre-Task Plan (PTP): oklandconstruction.box.com/s/xlmvds0mlsmnd27w2zmul9p6b93vlya8
+- PTP Guide Sheet: oklandconstruction.box.com/s/ozi5cfwwqi3dmvl5nxycvlesc6aurgr5
+
+SDS E-Binder (MSDS Online): chemmanagement.ehs.com/9/88c3cdb2-a47e-4a9f-a66f-751ab55e639f/ebinder
+
+Inspection Forms Downloads:
+- Forklift Operators Inspection: oklandconstruction.box.com/s/k1z6k3ckkqhc5n9aq1t1d28t4cghnpqe
+- MEWP Operators Inspection: oklandconstruction.box.com/s/jj6l4fuo5shlufqt7qaabipkiapn2knw
+- Mobile Equipment Pre-Operational Checklist: oklandconstruction.box.com/s/dsu3pea6j16q985tk6gw50791kuej6mf
+- Mobile Equipment Pre-Operational Inspection Guide: oklandconstruction.box.com/s/g4vty2972lkntvgi1yo765kyvxklt56d
+- ProJax Narrow Frame Scaffold Inspection Form: oklandconstruction.box.com/s/7n62xtilza6u3tze2inj4iggh1159kza
+- Rigging Inspection Checklist: oklandconstruction.box.com/s/9fob3x2cbv2cu47i7g7b3x798375okkg
+
+Lift Planning Worksheet Downloads:
+- Hydraulic-Lattice Boom Lift Planning Worksheet: oklandconstruction.box.com/s/l2o1cn8ownr7bscsrqy241imysdpvg5n
+- Non-Crane Lift Planning Worksheet: oklandconstruction.box.com/s/ifd5niucthtms6b85eaifwuxmv7buevx
+- Tower Crane Lift Planning Worksheet: oklandconstruction.box.com/s/32x41lhopxdi74cyuzl65h9oojn2rk7f
+
+SPANISH ORIENTATION (care.okland-const.com/orientation-esp):
+- Okland Employee Orientation Course Spanish: okland.myabsorb.com/#/online-courses/a229d434-d140-4dce-90b1-d8caa1c6518e
+- Trade Partner Orientation Course Spanish: oklandtradepartners.myabsorb.com?KeyName=eg2z28wuCVtTgZmllZ43
+- Orientation Review Handout Spanish: oklandconstruction.box.com/s/w26vgdbghhabwtvt86kmyq7w2p0xvjpi
+- Approved drug screening companies list: partner.okland.com/docs/approved-companies
+
 RESPONSE FORMAT:
 - Always cite source using [Okland Specific Manual], [Subcontractor Specific Manual], or [OSHA 29 CFR 1926]
 - Use bullet points and headers for clarity
