@@ -1367,6 +1367,18 @@ function App() {
     }
   }, [messages, loading]);
 
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          window._userLat = pos.coords.latitude;
+          window._userLon = pos.coords.longitude;
+        },
+        () => {}
+      );
+    }
+  }, []);
+
   async function send(text) {
     if (!text.trim() || loading) return;
     setShowSuggestions(false);
@@ -1383,6 +1395,8 @@ function App() {
         body: JSON.stringify({
           system: lang === "es" ? SYSTEM_PROMPT_ES : SYSTEM_PROMPT,
           messages: history.current,
+          lat: window._userLat || null,
+          lon: window._userLon || null,
         }),
       });
       const data = await res.json();
