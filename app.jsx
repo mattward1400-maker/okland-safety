@@ -1339,7 +1339,10 @@ function MessageBubble({ msg }) {
     borderRadius: isUser ? "16px 16px 4px 16px" : "16px 16px 16px 4px",
   };
   if (isUser) {
-    return React.createElement("div", { style: bubbleStyle }, msg.text);
+    return React.createElement("div", { style: bubbleStyle },
+      msg.image && React.createElement("img", { src: msg.image, style: { maxWidth: "100%", borderRadius: 8, marginBottom: msg.text ? 8 : 0, display: "block" } }),
+      msg.text && React.createElement("div", null, msg.text)
+    );
   }
   return React.createElement("div", { style: bubbleStyle, dangerouslySetInnerHTML: { __html: formatMarkdown(msg.text) } });
 }
@@ -1354,6 +1357,9 @@ function App() {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(true);
+  const [pendingImage, setPendingImage] = useState(null);
+  const [pendingImageBase64, setPendingImageBase64] = useState(null);
+  const fileInputRef = useRef(null);
   const history = useRef([]);
   const bottomRef = useRef(null);
 
@@ -1379,12 +1385,56 @@ function App() {
     }
   }, []);
 
+  function handleImageSelect(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      const base64 = ev.target.result.split(",")[1];
+      setPendingImage(ev.target.result);
+      setPendingImageBase64(base64);
+    };
+    reader.readAsDataURL(file);
+  }
+
   async function send(text) {
-    if (!text.trim() || loading) return;
+    if ((!text.trim() && !pendingImage) || loading) return;
     setShowSuggestions(false);
+    const imageToSend = pendingImageBase64;
+    const imagePreview = pendingImage;
     setInput("");
-    setMessages(m => [...m, { role: "user", text }]);
-    history.current = [...history.current, { role: "user", content: text }];
+    setPendingImage(null);
+    setPendingImageBase64(null);
+
+    // Build user message for display
+    const userDisplayText = text.trim() || (lang === "es" ? "¿Puedes identificar los peligros de seguridad en esta foto?" : "Can you identify any safety hazards in this photo?");
+    setMessages(m => [...m, { role: "user", text: userDisplayText, image: imagePreview }]);
+
+    // Build message for API - include image if present
+    let apiMessage;
+    if (imageToSend) {
+      apiMessage = {
+        role: "user",
+        content: [
+          {
+            type: "image",
+            source: {
+              type: "base64",
+              media_type: "image/jpeg",
+              data: imageToSend
+            }
+          },
+          {
+            type: "text",
+            text: text.trim() || (lang === "es" ? "Por favor analiza esta foto del sitio de construcción e identifica todos los peligros de seguridad según los manuales de Okland y las normas OSHA." : "Please analyze this construction site photo and identify all safety hazards according to Okland's manuals and OSHA standards.")
+          }
+        ]
+      };
+    } else {
+      apiMessage = { role: "user", content: text };
+    }
+
+    history.current = [...history.current, apiMessage];
     setLoading(true);
     try {
       const res = await fetch("/.netlify/functions/chat", {
@@ -1515,20 +1565,42 @@ function App() {
         React.createElement("button", { key: s, onClick: () => send(s), style: { background: "#f5f5f5", border: "1px solid #e0e0e0", borderRadius: 16, padding: "5px 11px", fontSize: 11.5, color: "#555", cursor: "pointer", whiteSpace: "nowrap" } }, s)
       )
     ),
-    React.createElement("div", { style: { padding: "10px 14px", borderTop: "1px solid #e8e8e8", display: "flex", gap: 8, alignItems: "center", background: "#fff" } },
-      React.createElement("textarea", {
-        value: input,
-        onChange: e => setInput(e.target.value),
-        onKeyDown: e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(input); } },
-        placeholder: lang === "es" ? "Haz una pregunta de seguridad..." : "Ask a safety question...",
-        rows: 1,
-        style: { flex: 1, padding: "9px 13px", border: "1px solid #ddd", borderRadius: 18, fontSize: 13.5, background: "#f9f9f9", color: "#1a1a1a", fontFamily: "inherit", outline: "none", resize: "none", maxHeight: 72 }
-      }),
-      React.createElement("button", {
-        onClick: () => send(input),
-        disabled: loading || !input.trim(),
-        style: { width: 36, height: 36, borderRadius: "50%", background: loading || !input.trim() ? "#ddd" : "#F5C400", border: "none", cursor: loading || !input.trim() ? "default" : "pointer", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, fontSize: 16 }
-      }, "↑")
+    React.createElement("div", { style: { borderTop: "1px solid #e8e8e8", background: "#fff" } },
+      pendingImage && React.createElement("div", { style: { padding: "8px 14px 0", display: "flex", alignItems: "center", gap: 8 } },
+        React.createElement("img", { src: pendingImage, style: { height: 60, borderRadius: 8, objectFit: "cover" } }),
+        React.createElement("button", {
+          onClick: () => { setPendingImage(null); setPendingImageBase64(null); },
+          style: { background: "#ff4444", color: "#fff", border: "none", borderRadius: "50%", width: 22, height: 22, cursor: "pointer", fontSize: 12, display: "flex", alignItems: "center", justifyContent: "center" }
+        }, "✕")
+      ),
+      React.createElement("div", { style: { padding: "10px 14px", display: "flex", gap: 8, alignItems: "center" } },
+        React.createElement("input", {
+          type: "file",
+          accept: "image/*",
+          capture: "environment",
+          ref: fileInputRef,
+          onChange: handleImageSelect,
+          style: { display: "none" }
+        }),
+        React.createElement("button", {
+          onClick: () => fileInputRef.current.click(),
+          title: lang === "es" ? "Tomar foto" : "Take photo",
+          style: { width: 36, height: 36, borderRadius: "50%", background: pendingImage ? "#F5C400" : "#f0f0f0", border: "1px solid #ddd", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, fontSize: 18 }
+        }, "📷"),
+        React.createElement("textarea", {
+          value: input,
+          onChange: e => setInput(e.target.value),
+          onKeyDown: e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(input); } },
+          placeholder: lang === "es" ? "Haz una pregunta o toma una foto..." : "Ask a question or take a photo...",
+          rows: 1,
+          style: { flex: 1, padding: "9px 13px", border: "1px solid #ddd", borderRadius: 18, fontSize: 13.5, background: "#f9f9f9", color: "#1a1a1a", fontFamily: "inherit", outline: "none", resize: "none", maxHeight: 72 }
+        }),
+        React.createElement("button", {
+          onClick: () => send(input),
+          disabled: loading || (!input.trim() && !pendingImage),
+          style: { width: 36, height: 36, borderRadius: "50%", background: loading || (!input.trim() && !pendingImage) ? "#ddd" : "#F5C400", border: "none", cursor: loading || (!input.trim() && !pendingImage) ? "default" : "pointer", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, fontSize: 16 }
+        }, "↑")
+      )
     )
   );
 }
