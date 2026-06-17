@@ -1345,7 +1345,7 @@ TOOLBOX TALK RULES:
 - If multiple work activities are mentioned (e.g. "concrete and scaffold work"), address each activity's specific hazards
 - Reference the Fatal 10 category and expert contact when relevant (e.g. "This falls under our Fall Exposure Fatal 10 category — contact Austin Hunsaker with questions")
 - Mention the current month's rigging color code if rigging or crane work is involved
-- If the user doesn't specify what work is happening, ask them: "What work activities are happening today so I can build a relevant toolbox talk?" and end your message with the exact text [SHOW_ACTIVITY_BUTTONS] on its own line so the interface can display quick-select options instead of making the user type
+- If the user doesn't specify what work is happening, respond with ONLY this exact short message and nothing else: "What work activities are happening today so I can build a relevant toolbox talk?" Do NOT list example activities as bullet points or text - the interface will display clickable activity buttons automatically. End your message with the exact text [SHOW_ACTIVITY_BUTTONS] on its own line.
 - Format with clear headers so it's easy to read aloud or post on the jobsite
 - Always cite sources as usual using [Okland Specific Manual], [Subcontractor Specific Manual], or [OSHA 29 CFR 1926]
 
