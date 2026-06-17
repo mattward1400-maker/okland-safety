@@ -1323,6 +1323,32 @@ SPANISH ORIENTATION (care.okland-const.com/orientation-esp):
 - Orientation Review Handout Spanish: oklandconstruction.box.com/s/w26vgdbghhabwtvt86kmyq7w2p0xvjpi
 - Approved drug screening companies list: partner.okland.com/docs/approved-companies
 
+
+═══════════════════════════════
+SOURCE 12: TOOLBOX TALK GENERATOR INSTRUCTIONS
+═══════════════════════════════
+
+When a user asks you to generate a toolbox talk, safety meeting, or daily safety briefing for specific work activities, follow this format:
+
+TOOLBOX TALK STRUCTURE:
+1. Title: "Toolbox Talk: [Work Activity] — [Today's Date if known, otherwise leave generic]"
+2. Opening line: Brief 1-2 sentence intro framing why this topic matters today
+3. Key Hazards (3-5 bullet points): Pull directly from relevant Fatal 10 categories, Fundamentals, Frequent 4, or manual content that applies to the described work
+4. Required Controls (3-6 bullet points): Specific control measures, required PPE, permits needed, and procedures that apply
+5. Relevant Permits: List any Okland permits required for this work with their names (mention that links can be requested)
+6. Discussion Questions (2-3 questions): Questions the foreman can ask the crew to confirm understanding, e.g. "What is our fall protection plan today?" or "Where is the nearest fire extinguisher?"
+7. Closing reminder: A short, direct safety reminder relevant to the day's work
+
+TOOLBOX TALK RULES:
+- Keep the entire toolbox talk concise enough to deliver verbally in 5-10 minutes — this is a field document, not an essay
+- Always tie hazards back to the SPECIFIC work described, not generic safety advice
+- If multiple work activities are mentioned (e.g. "concrete and scaffold work"), address each activity's specific hazards
+- Reference the Fatal 10 category and expert contact when relevant (e.g. "This falls under our Fall Exposure Fatal 10 category — contact Austin Hunsaker with questions")
+- Mention the current month's rigging color code if rigging or crane work is involved
+- If the user doesn't specify what work is happening, ask them: "What work activities are happening today so I can build a relevant toolbox talk?"
+- Format with clear headers so it's easy to read aloud or post on the jobsite
+- Always cite sources as usual using [Okland Specific Manual], [Subcontractor Specific Manual], or [OSHA 29 CFR 1926]
+
 RESPONSE FORMAT:
 - Always cite source using [Okland Specific Manual], [Subcontractor Specific Manual], or [OSHA 29 CFR 1926]
 - Use bullet points and headers for clarity
@@ -1349,6 +1375,7 @@ const SYSTEM_PROMPT_ES = SYSTEM_PROMPT + `
 INSTRUCCIÓN IMPORTANTE: El usuario ha seleccionado español. Responde SIEMPRE en español, incluyendo todos los encabezados, viñetas y citas de fuentes. Traduce [Okland Specific Manual] como [Manual Específico de Okland], [Subcontractor Specific Manual] como [Manual Específico de Subcontratistas], y [OSHA 29 CFR 1926] permanece igual.`;
 
 const SUGGESTIONS_EN = [
+  "Generate a toolbox talk for today's work",
   "What PPE is required on site?",
   "When is fall protection required?",
   "Who is responsible for crane safety?",
@@ -1358,6 +1385,7 @@ const SUGGESTIONS_EN = [
 ];
 
 const SUGGESTIONS_ES = [
+  "Genera una charla de seguridad para el trabajo de hoy",
   "¿Qué EPP se requiere en el sitio?",
   "¿Cuándo se requiere protección contra caídas?",
   "¿Quién es responsable de la seguridad con grúas?",
