@@ -1345,7 +1345,7 @@ TOOLBOX TALK RULES:
 - If multiple work activities are mentioned (e.g. "concrete and scaffold work"), address each activity's specific hazards
 - Reference the Fatal 10 category and expert contact when relevant (e.g. "This falls under our Fall Exposure Fatal 10 category — contact Austin Hunsaker with questions")
 - Mention the current month's rigging color code if rigging or crane work is involved
-- If the user doesn't specify what work is happening, ask them: "What work activities are happening today so I can build a relevant toolbox talk?"
+- If the user doesn't specify what work is happening, ask them: "What work activities are happening today so I can build a relevant toolbox talk?" and end your message with the exact text [SHOW_ACTIVITY_BUTTONS] on its own line so the interface can display quick-select options instead of making the user type
 - Format with clear headers so it's easy to read aloud or post on the jobsite
 - Always cite sources as usual using [Okland Specific Manual], [Subcontractor Specific Manual], or [OSHA 29 CFR 1926]
 
@@ -1579,6 +1579,17 @@ function detectManuals(text) {
   return found;
 }
 
+const ACTIVITY_OPTIONS_EN = ["Concrete pour and forming", "Steel erection", "Scaffold work", "Excavation/trenching", "Crane operations", "Roofing", "Hot work/welding", "Demolition", "Electrical work", "Other"];
+const ACTIVITY_OPTIONS_ES = ["Vaciado de concreto y encofrado", "Montaje de acero", "Trabajo de andamios", "Excavacion/zanjas", "Operaciones de grua", "Techado", "Trabajo en caliente/soldadura", "Demolicion", "Trabajo electrico", "Otro"];
+
+function detectActivityButtons(text) {
+  return text.includes("[SHOW_ACTIVITY_BUTTONS]");
+}
+
+function stripActivityMarker(text) {
+  return text.replace("[SHOW_ACTIVITY_BUTTONS]", "").trim();
+}
+
 function formatMarkdown(text) {
   // Render markdown tables as HTML tables
   function renderTables(input) {
@@ -1689,6 +1700,7 @@ function App() {
   const [showSuggestions, setShowSuggestions] = useState(true);
   const [pendingImage, setPendingImage] = useState(null);
   const [pendingImageBase64, setPendingImageBase64] = useState(null);
+  const [showOtherInput, setShowOtherInput] = useState(false);
   const fileInputRef = useRef(null);
   const history = useRef([]);
   const bottomRef = useRef(null);
@@ -1752,6 +1764,7 @@ function App() {
   async function send(text) {
     if ((!text.trim() && !pendingImage) || loading) return;
     setShowSuggestions(false);
+    setShowOtherInput(false);
     const imageToSend = pendingImageBase64;
     const imagePreview = pendingImage;
     setInput("");
@@ -1803,8 +1816,10 @@ function App() {
       });
       const data = await res.json();
       const reply = data.content?.[0]?.text || "Sorry, I could not generate a response. Please try again or consult your Okland Safety Manager.";
-      history.current = [...history.current, { role: "assistant", content: reply }];
-      setMessages(m => [...m, { role: "assistant", text: reply, sources: detectSources(reply), permits: detectPermits(reply), oshaLinks: detectOSHA(reply), manualLinks: detectManuals(reply) }]);
+      const showActivityButtons = detectActivityButtons(reply);
+      const cleanReply = stripActivityMarker(reply);
+      history.current = [...history.current, { role: "assistant", content: cleanReply }];
+      setMessages(m => [...m, { role: "assistant", text: cleanReply, sources: detectSources(cleanReply), permits: detectPermits(cleanReply), oshaLinks: detectOSHA(cleanReply), manualLinks: detectManuals(cleanReply), showActivityButtons }]);
     } catch (e) {
       setMessages(m => [...m, { role: "assistant", text: "Connection error. Please check your internet and try again.", sources: [] }]);
     }
@@ -1893,6 +1908,36 @@ function App() {
                     React.createElement("span", null, "📖"),
                     m.label
                   )
+                )
+              ),
+            msg.role === "assistant" && msg.showActivityButtons && i === messages.length - 1 &&
+              React.createElement("div", { style: { display: "flex", flexDirection: "column", gap: 6, marginTop: 10, maxWidth: 320 } },
+                (lang === "es" ? ACTIVITY_OPTIONS_ES : ACTIVITY_OPTIONS_EN).map((opt, oi) =>
+                  React.createElement("button", {
+                    key: oi,
+                    onClick: () => {
+                      const isOther = opt === "Other" || opt === "Otro";
+                      if (isOther) {
+                        setShowOtherInput(true);
+                      } else {
+                        send(opt);
+                      }
+                    },
+                    style: { background: "#fff", border: "1.5px solid #F5C400", borderRadius: 10, padding: "9px 14px", fontSize: 13, color: "#1a1a1a", cursor: "pointer", textAlign: "left", fontWeight: 500 }
+                  }, opt)
+                ),
+                showOtherInput && React.createElement("div", { style: { display: "flex", gap: 6, marginTop: 4 } },
+                  React.createElement("input", {
+                    type: "text",
+                    placeholder: lang === "es" ? "Describe el trabajo..." : "Describe the work...",
+                    onKeyDown: (e) => {
+                      if (e.key === "Enter" && e.target.value.trim()) {
+                        send(e.target.value.trim());
+                        setShowOtherInput(false);
+                      }
+                    },
+                    style: { flex: 1, padding: "8px 12px", border: "1px solid #ddd", borderRadius: 8, fontSize: 13, outline: "none" }
+                  })
                 )
               ),
             msg.role === "assistant" && msg.sources && msg.sources.length > 0 &&
