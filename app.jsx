@@ -1351,11 +1351,14 @@ TOOLBOX TALK RULES:
 
 RESPONSE FORMAT:
 - Always cite source using [Okland Specific Manual], [Subcontractor Specific Manual], or [OSHA 29 CFR 1926]
-- Use bullet points and headers for clarity
-- Be practical and direct
+- Be concise and direct — keep answers short and to the point. Workers need fast answers, not essays.
+- Use bullet points for lists, but keep each bullet to one clear sentence
+- Avoid long introductions or conclusions — get straight to the answer
+- For simple questions, answer in 3-5 bullet points maximum
+- For complex questions (permits, toolbox talks), use headers but still keep each section brief
 - For Okland employee role questions → Okland Specific Manual
 - For on-site compliance questions → Subcontractor Specific Manual
-- End high-risk topic answers recommending consultation with Okland Safety Manager for site-specific guidance
+- Only recommend consulting the Okland Safety Manager for genuinely complex or site-specific situations
 - If the user's message is in Spanish OR if they ask you to respond in Spanish, respond entirely in Spanish including all labels, headers, and source citations
 
 INTERACTIVE BEHAVIOR:
@@ -1804,9 +1807,7 @@ function App() {
     try {
       const res = await fetch("/.netlify/functions/chat", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           system: lang === "es" ? SYSTEM_PROMPT_ES : SYSTEM_PROMPT,
           messages: history.current,
@@ -1814,16 +1815,56 @@ function App() {
           lon: window._userLon || null,
         }),
       });
-      const data = await res.json();
-      const reply = data.content?.[0]?.text || "Sorry, I could not generate a response. Please try again or consult your Okland Safety Manager.";
-      const showActivityButtons = detectActivityButtons(reply);
-      const cleanReply = stripActivityMarker(reply);
+
+      if (!res.ok) throw new Error("Network error");
+
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let fullText = "";
+      const msgId = Date.now();
+
+      setMessages(m => [...m, { role: "assistant", text: "", sources: [], id: msgId }]);
+      setLoading(false);
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        const chunk = decoder.decode(value, { stream: true });
+        const lines = chunk.split("\n").filter(l => l.startsWith("data: "));
+        for (const line of lines) {
+          const data = line.slice(6);
+          if (data === "[DONE]") break;
+          try {
+            const parsed = JSON.parse(data);
+            const delta = parsed.delta?.text || "";
+            if (delta) {
+              fullText += delta;
+              setMessages(m => m.map(msg =>
+                msg.id === msgId ? { ...msg, text: fullText } : msg
+              ));
+            }
+          } catch(e) {}
+        }
+      }
+
+      const showActivityButtons = detectActivityButtons(fullText);
+      const cleanReply = stripActivityMarker(fullText);
       history.current = [...history.current, { role: "assistant", content: cleanReply }];
-      setMessages(m => [...m, { role: "assistant", text: cleanReply, sources: detectSources(cleanReply), permits: detectPermits(cleanReply), oshaLinks: detectOSHA(cleanReply), manualLinks: detectManuals(cleanReply), showActivityButtons }]);
+      setMessages(m => m.map(msg =>
+        msg.id === msgId ? {
+          ...msg,
+          text: cleanReply,
+          sources: detectSources(cleanReply),
+          permits: detectPermits(cleanReply),
+          oshaLinks: detectOSHA(cleanReply),
+          manualLinks: detectManuals(cleanReply),
+          showActivityButtons
+        } : msg
+      ));
     } catch (e) {
+      setLoading(false);
       setMessages(m => [...m, { role: "assistant", text: "Connection error. Please check your internet and try again.", sources: [] }]);
     }
-    setLoading(false);
   }
 
   return React.createElement("div", {
