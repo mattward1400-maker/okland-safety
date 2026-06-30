@@ -1818,53 +1818,24 @@ function App() {
 
       if (!res.ok) throw new Error("Network error");
 
-      const reader = res.body.getReader();
-      const decoder = new TextDecoder();
-      let fullText = "";
-      const msgId = Date.now();
-
-      setMessages(m => [...m, { role: "assistant", text: "", sources: [], id: msgId }]);
-      setLoading(false);
-
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-        const chunk = decoder.decode(value, { stream: true });
-        const lines = chunk.split("\n").filter(l => l.startsWith("data: "));
-        for (const line of lines) {
-          const data = line.slice(6);
-          if (data === "[DONE]") break;
-          try {
-            const parsed = JSON.parse(data);
-            const delta = parsed.delta?.text || "";
-            if (delta) {
-              fullText += delta;
-              setMessages(m => m.map(msg =>
-                msg.id === msgId ? { ...msg, text: fullText } : msg
-              ));
-            }
-          } catch(e) {}
-        }
-      }
-
-      const showActivityButtons = detectActivityButtons(fullText);
-      const cleanReply = stripActivityMarker(fullText);
+      const data = await res.json();
+      const reply = data.content?.[0]?.text || "Sorry, I could not generate a response. Please try again or consult your Okland Safety Manager.";
+      const showActivityButtons = detectActivityButtons(reply);
+      const cleanReply = stripActivityMarker(reply);
       history.current = [...history.current, { role: "assistant", content: cleanReply }];
-      setMessages(m => m.map(msg =>
-        msg.id === msgId ? {
-          ...msg,
-          text: cleanReply,
-          sources: detectSources(cleanReply),
-          permits: detectPermits(cleanReply),
-          oshaLinks: detectOSHA(cleanReply),
-          manualLinks: detectManuals(cleanReply),
-          showActivityButtons
-        } : msg
-      ));
+      setMessages(m => [...m, {
+        role: "assistant",
+        text: cleanReply,
+        sources: detectSources(cleanReply),
+        permits: detectPermits(cleanReply),
+        oshaLinks: detectOSHA(cleanReply),
+        manualLinks: detectManuals(cleanReply),
+        showActivityButtons
+      }]);
     } catch (e) {
-      setLoading(false);
       setMessages(m => [...m, { role: "assistant", text: "Connection error. Please check your internet and try again.", sources: [] }]);
     }
+    setLoading(false);
   }
 
   return React.createElement("div", {
