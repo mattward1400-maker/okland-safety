@@ -1,4 +1,5 @@
 const https = require("https");
+const { getStore } = require("@netlify/blobs");
 
 function httpsGet(hostname, path) {
   return new Promise((resolve, reject) => {
@@ -46,6 +47,23 @@ function isWeatherQuestion(text) {
   return keywords.some(k => text.toLowerCase().includes(k));
 }
 
+async function logQuestion(question, lang, hasImage) {
+  try {
+    const store = getStore("analytics");
+    const today = new Date().toISOString().split("T")[0];
+    const key = "log-" + Date.now() + "-" + Math.random().toString(36).substring(2, 8);
+    await store.setJSON(key, {
+      question: question.substring(0, 300),
+      lang: lang || "en",
+      hasImage: !!hasImage,
+      date: today,
+      timestamp: Date.now()
+    });
+  } catch(e) {
+    console.log("Logging failed:", e.message);
+  }
+}
+
 exports.handler = async function(event) {
   if (event.httpMethod !== "POST") {
     return { statusCode: 405, body: "Method Not Allowed" };
@@ -60,6 +78,10 @@ exports.handler = async function(event) {
     const lat = body.lat;
     const lon = body.lon;
     const hasImage = typeof lastMessage.content !== "string";
+    const lang = body.system && body.system.includes("INSTRUCCIÓN IMPORTANTE") ? "es" : "en";
+
+    // Log this question (don't block on it)
+    logQuestion(userMessage, lang, hasImage);
 
     // Step 1: Weather context
     let weatherContext = "";
@@ -112,18 +134,16 @@ exports.handler = async function(event) {
       }
     }
 
-    // Step 3: Stream from Claude
     const systemWithContext = body.system + weatherContext + (ragContext ? "\n\nRELEVANT MANUAL CONTENT:\n" + ragContext : "");
 
     const postData = JSON.stringify({
       model: "claude-opus-4-5",
       max_tokens: 1024,
-      stream: true,
       system: systemWithContext,
       messages: body.messages
     });
 
-    return new Promise((resolve, reject) => {
+    const claudeData = await new Promise((resolve, reject) => {
       const options = {
         hostname: "api.anthropic.com",
         path: "/v1/messages",
@@ -135,57 +155,21 @@ exports.handler = async function(event) {
           "Content-Length": Buffer.byteLength(postData)
         }
       };
-
       const req = https.request(options, (res) => {
-        let responseBody = "";
-        const chunks = [];
-
-        res.on("data", (chunk) => {
-          chunks.push(chunk);
-          responseBody += chunk.toString();
-        });
-
-        res.on("end", () => {
-          const sseLines = responseBody.split("\n");
-          let fullText = "";
-
-          for (const line of sseLines) {
-            if (line.startsWith("data: ")) {
-              const data = line.slice(6).trim();
-              if (data === "[DONE]") continue;
-              try {
-                const parsed = JSON.parse(data);
-                if (parsed.type === "content_block_delta" && parsed.delta?.text) {
-                  fullText += parsed.delta.text;
-                }
-              } catch(e) {}
-            }
-          }
-
-          const sseFinal = "data: " + JSON.stringify({ delta: { text: fullText } }) + "\n\ndata: [DONE]\n\n";
-
-          resolve({
-            statusCode: 200,
-            headers: {
-              "Content-Type": "text/event-stream",
-              "Access-Control-Allow-Origin": "*",
-              "Cache-Control": "no-cache"
-            },
-            body: sseFinal
-          });
-        });
+        let responseData = "";
+        res.on("data", (chunk) => responseData += chunk);
+        res.on("end", () => resolve(JSON.parse(responseData)));
       });
-
-      req.on("error", (e) => {
-        resolve({
-          statusCode: 500,
-          body: JSON.stringify({ error: e.message })
-        });
-      });
-
+      req.on("error", reject);
       req.write(postData);
       req.end();
     });
+
+    return {
+      statusCode: 200,
+      headers: { "Access-Control-Allow-Origin": "*" },
+      body: JSON.stringify(claudeData)
+    };
 
   } catch (error) {
     console.log("Error:", error.message);
