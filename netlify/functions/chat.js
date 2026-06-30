@@ -49,7 +49,11 @@ function isWeatherQuestion(text) {
 
 async function logQuestion(question, lang, hasImage) {
   try {
-    const store = getStore("analytics");
+    const store = getStore({
+      name: "analytics",
+      siteID: "4e55c5f7-9574-42d6-9f5d-cd52a1e6f6a5",
+      token: process.env.NETLIFY_AUTH_TOKEN
+    });
     const today = new Date().toISOString().split("T")[0];
     const key = "log-" + Date.now() + "-" + Math.random().toString(36).substring(2, 8);
     await store.setJSON(key, {
@@ -80,10 +84,8 @@ exports.handler = async function(event) {
     const hasImage = typeof lastMessage.content !== "string";
     const lang = body.system && body.system.includes("INSTRUCCIÓN IMPORTANTE") ? "es" : "en";
 
-    // Log this question (don't block on it)
     logQuestion(userMessage, lang, hasImage);
 
-    // Step 1: Weather context
     let weatherContext = "";
     if (lat && lon && isWeatherQuestion(userMessage)) {
       try {
@@ -103,7 +105,6 @@ exports.handler = async function(event) {
       }
     }
 
-    // Step 2: RAG (skip if image attached)
     let ragContext = "";
     if (!hasImage) {
       try {
