@@ -1695,8 +1695,8 @@ function App() {
   const [lang, setLang] = useState("en");
   const [messages, setMessages] = useState([{
     role: "assistant",
-    text: "Hi! I'm the Okland Safety Assistant. Ask me anything about jobsite safety — I'll answer using Okland's manuals and OSHA standards.",
-    sources: ["Okland Specific Manual", "Subcontractor Specific Manual", "OSHA 29 CFR 1926"],
+    text: "Hi, I'm the Okland Safety Assistant. Ask me anything about jobsite safety and I'll answer using Okland's manuals and OSHA standards.",
+    sources: [],
   }]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -1870,17 +1870,13 @@ function App() {
   return React.createElement("div", {
     style: { display: "flex", flexDirection: "column", height: "90vh", maxHeight: 700, background: "#fff", border: "1px solid #e0e0e0", borderRadius: 12, overflow: "hidden", boxShadow: "0 4px 24px rgba(0,0,0,0.08)" }
   },
-    React.createElement("div", { style: { background: "#1a1a1a", padding: "13px 18px", display: "flex", alignItems: "center", gap: 12, flexShrink: 0 } },
-      React.createElement("div", { style: { width: 34, height: 34, background: "#F5C400", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 600, fontSize: 13, color: "#1a1a1a", flexShrink: 0 } }, "O"),
-      React.createElement("div", { style: { flex: 1 } },
-        React.createElement("div", { style: { color: "#fff", fontWeight: 500, fontSize: 15 } }, "Okland Safety Assistant"),
-        React.createElement("div", { style: { display: "flex", gap: 5, marginTop: 4, flexWrap: "wrap" } },
-          ["Okland Specific Manual", "Subcontractor Specific Manual", "OSHA 29 CFR 1926"].map(s =>
-            React.createElement(SourceTag, { key: s, label: s })
-          )
-        )
+    React.createElement("div", { style: { background: "#1a1a1a", padding: "14px 18px", display: "flex", alignItems: "center", gap: 12, flexShrink: 0 } },
+      React.createElement("div", { style: { width: 34, height: 34, background: "#F5C400", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: 13, color: "#1a1a1a", flexShrink: 0 } }, "O"),
+      React.createElement("div", { style: { flex: 1, display: "flex", flexDirection: "column", gap: 2 } },
+        React.createElement("div", { style: { color: "#fff", fontWeight: 600, fontSize: 15, letterSpacing: "-0.01em" } }, "Okland Safety Assistant"),
+        React.createElement("div", { style: { color: "#9a9a9a", fontSize: 11.5, fontWeight: 400 } }, "Manuals, OSHA & permits")
       ),
-      React.createElement("div", { style: { width: 8, height: 8, borderRadius: "50%", background: "#22c55e" } }),
+      React.createElement("div", { style: { width: 7, height: 7, borderRadius: "50%", background: "#22c55e", flexShrink: 0 } }),
       React.createElement("button", {
         onClick: () => {
           const newLang = lang === "en" ? "es" : "en";
@@ -1888,9 +1884,9 @@ function App() {
           setMessages([{
             role: "assistant",
             text: newLang === "es" 
-              ? "¡Hola! Soy el Asistente de Seguridad de Okland. Pregúntame cualquier cosa sobre seguridad en el trabajo — responderé usando los manuales de Okland y las normas OSHA."
-              : "Hi! I'm the Okland Safety Assistant. Ask me anything about jobsite safety — I'll answer using Okland's manuals and OSHA standards.",
-            sources: ["Okland Specific Manual", "Subcontractor Specific Manual", "OSHA 29 CFR 1926"],
+              ? "Hola, soy el Asistente de Seguridad de Okland. Pregúntame cualquier cosa sobre seguridad en el trabajo y responderé usando los manuales de Okland y las normas OSHA."
+              : "Hi, I'm the Okland Safety Assistant. Ask me anything about jobsite safety and I'll answer using Okland's manuals and OSHA standards.",
+            sources: [],
           }]);
           setShowSuggestions(true);
           history.current = [];
@@ -1906,51 +1902,28 @@ function App() {
           ),
           React.createElement("div", null,
             React.createElement(MessageBubble, { msg }),
-            msg.role === "assistant" && msg.permits && msg.permits.length > 0 &&
-              React.createElement("div", { style: { display: "flex", gap: 6, flexWrap: "wrap", marginTop: 8 } },
-                msg.permits.map((p, i) =>
+            msg.role === "assistant" && (() => {
+              const allLinks = [
+                ...(msg.permits || []).map(p => ({ ...p, icon: "\u2193" })),
+                ...(msg.manualLinks || []).map(m => ({ ...m, icon: "\u2192" })),
+                ...(msg.oshaLinks || []).map(o => ({ ...o, icon: "\u2192" })),
+              ].slice(0, 4);
+              if (allLinks.length === 0) return null;
+              return React.createElement("div", { style: { display: "flex", gap: 6, flexWrap: "wrap", marginTop: 8 } },
+                allLinks.map((l, i) =>
                   React.createElement("a", {
                     key: i,
-                    href: p.url,
+                    href: l.url,
                     target: "_blank",
                     rel: "noopener noreferrer",
-                    style: { display: "inline-flex", alignItems: "center", gap: 5, background: "#F5C400", color: "#1a1a1a", border: "none", borderRadius: 8, padding: "6px 12px", fontSize: 12, fontWeight: 600, cursor: "pointer", textDecoration: "none" }
+                    style: { display: "inline-flex", alignItems: "center", gap: 5, background: "#fff", color: "#1a1a1a", border: "1px solid #e0e0e0", borderRadius: 7, padding: "6px 11px", fontSize: 12, fontWeight: 500, cursor: "pointer", textDecoration: "none" }
                   },
-                    React.createElement("span", null, "📄"),
-                    p.label
+                    React.createElement("span", { style: { color: "#999", fontSize: 11 } }, l.icon),
+                    l.label
                   )
                 )
-              ),
-            msg.role === "assistant" && msg.oshaLinks && msg.oshaLinks.length > 0 &&
-              React.createElement("div", { style: { display: "flex", gap: 6, flexWrap: "wrap", marginTop: 6 } },
-                msg.oshaLinks.map((o, i) =>
-                  React.createElement("a", {
-                    key: i,
-                    href: o.url,
-                    target: "_blank",
-                    rel: "noopener noreferrer",
-                    style: { display: "inline-flex", alignItems: "center", gap: 5, background: "#EAF3DE", color: "#2d5a14", border: "1px solid #639922", borderRadius: 8, padding: "6px 12px", fontSize: 12, fontWeight: 600, cursor: "pointer", textDecoration: "none" }
-                  },
-                    React.createElement("span", null, "🔗"),
-                    o.label
-                  )
-                )
-              ),
-            msg.role === "assistant" && msg.manualLinks && msg.manualLinks.length > 0 &&
-              React.createElement("div", { style: { display: "flex", gap: 6, flexWrap: "wrap", marginTop: 6 } },
-                msg.manualLinks.map((m, i) =>
-                  React.createElement("a", {
-                    key: i,
-                    href: m.url,
-                    target: "_blank",
-                    rel: "noopener noreferrer",
-                    style: { display: "inline-flex", alignItems: "center", gap: 5, background: m.color, color: m.text, border: "1px solid " + m.border, borderRadius: 8, padding: "6px 12px", fontSize: 12, fontWeight: 600, cursor: "pointer", textDecoration: "none" }
-                  },
-                    React.createElement("span", null, "📖"),
-                    m.label
-                  )
-                )
-              ),
+              );
+            })(),
             msg.role === "assistant" && msg.showActivityButtons && i === messages.length - 1 &&
               React.createElement("div", { style: { display: "flex", flexDirection: "column", gap: 6, marginTop: 10, maxWidth: 320 } },
                 (lang === "es" ? ACTIVITY_OPTIONS_ES : ACTIVITY_OPTIONS_EN).map((opt, oi) =>
@@ -1981,10 +1954,7 @@ function App() {
                   })
                 )
               ),
-            msg.role === "assistant" && msg.sources && msg.sources.length > 0 &&
-              React.createElement("div", { style: { display: "flex", gap: 5, flexWrap: "wrap", marginTop: 6 } },
-                msg.sources.map(s => React.createElement(SourceTag, { key: s, label: s }))
-              )
+            null
           )
         )
       ),
