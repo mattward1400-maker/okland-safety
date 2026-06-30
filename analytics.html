@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Okland Safety Assistant - Analytics</title>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; color: #1a1a1a; padding: 24px; }
+      .container { max-width: 1000px; margin: 0 auto; }
+      .header { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+      .logo { width: 36px; height: 36px; background: #F5C400; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; }
+      h1 { font-size: 20px; font-weight: 600; }
+      .subtitle { color: #888; font-size: 13px; margin-top: 2px; }
+      .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px; margin-bottom: 28px; }
+      .stat-card { background: #fff; border: 1px solid #e5e5e5; border-radius: 12px; padding: 18px; }
+      .stat-value { font-size: 28px; font-weight: 700; color: #1a1a1a; }
+      .stat-label { font-size: 12.5px; color: #888; margin-top: 4px; }
+      .section { background: #fff; border: 1px solid #e5e5e5; border-radius: 12px; padding: 20px; margin-bottom: 20px; }
+      .section h2 { font-size: 15px; font-weight: 600; margin-bottom: 14px; }
+      table { width: 100%; border-collapse: collapse; }
+      th { text-align: left; font-size: 11.5px; color: #999; text-transform: uppercase; padding: 8px 10px; border-bottom: 1px solid #eee; font-weight: 600; }
+      td { padding: 10px; font-size: 13px; border-bottom: 1px solid #f5f5f5; }
+      .badge { display: inline-block; padding: 2px 8px; border-radius: 6px; font-size: 11px; font-weight: 600; }
+      .badge-en { background: #EBF0FB; color: #1a3c8f; }
+      .badge-es { background: #FFF8CC; color: #7a5f00; }
+      .badge-img { background: #EAF3DE; color: #2d5a14; margin-left: 4px; }
+      .loading { text-align: center; padding: 60px; color: #888; }
+      .empty { text-align: center; padding: 40px; color: #888; font-size: 13px; }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <div class="logo">O</div>
+        <div>
+          <h1>Okland Safety Assistant Analytics</h1>
+          <div class="subtitle">Usage insights from the chatbot</div>
+        </div>
+      </div>
+
+      <div id="content" class="loading">Loading analytics...</div>
+    </div>
+
+    <script>
+      fetch("/.netlify/functions/get-analytics")
+        .then(res => res.json())
+        .then(data => {
+          const content = document.getElementById("content");
+
+          if (data.totalQuestions === 0) {
+            content.innerHTML = '<div class="section"><div class="empty">No questions logged yet. Once people start using the chatbot, data will appear here.</div></div>';
+            return;
+          }
+
+          const enPct = Math.round((data.langCounts.en || 0) / data.totalQuestions * 100);
+          const esPct = Math.round((data.langCounts.es || 0) / data.totalQuestions * 100);
+
+          let html = '<div class="stats-grid">';
+          html += '<div class="stat-card"><div class="stat-value">' + data.totalQuestions + '</div><div class="stat-label">Total Questions Asked</div></div>';
+          html += '<div class="stat-card"><div class="stat-value">' + enPct + '%</div><div class="stat-label">English</div></div>';
+          html += '<div class="stat-card"><div class="stat-value">' + esPct + '%</div><div class="stat-label">Spanish</div></div>';
+          html += '<div class="stat-card"><div class="stat-value">' + data.imageCount + '</div><div class="stat-label">Photo Hazard Checks</div></div>';
+          html += '</div>';
+
+          html += '<div class="section"><h2>Recent Questions</h2><table><tr><th>Question</th><th>Language</th><th>Date</th></tr>';
+          data.recentQuestions.slice(0, 50).forEach(q => {
+            const langBadge = q.lang === "es" ? '<span class="badge badge-es">ES</span>' : '<span class="badge badge-en">EN</span>';
+            const imgBadge = q.hasImage ? '<span class="badge badge-img">PHOTO</span>' : '';
+            html += '<tr><td>' + (q.question || "(photo only)").replace(/</g, "&lt;") + '</td><td>' + langBadge + imgBadge + '</td><td>' + q.date + '</td></tr>';
+          });
+          html += '</table></div>';
+
+          content.innerHTML = html;
+        })
+        .catch(err => {
+          document.getElementById("content").innerHTML = '<div class="section"><div class="empty">Error loading analytics: ' + err.message + '</div></div>';
+        });
+    </script>
+  </body>
+</html>
