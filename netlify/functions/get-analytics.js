@@ -2,7 +2,11 @@ const { getStore } = require("@netlify/blobs");
 
 exports.handler = async function(event) {
   try {
-    const store = getStore("analytics");
+    const store = getStore({
+      name: "analytics",
+      siteID: "4e55c5f7-9574-42d6-9f5d-cd52a1e6f6a5",
+      token: process.env.NETLIFY_AUTH_TOKEN
+    });
     const { blobs } = await store.list();
 
     const entries = [];
@@ -13,10 +17,8 @@ exports.handler = async function(event) {
       } catch(e) {}
     }
 
-    // Sort newest first
     entries.sort((a, b) => b.timestamp - a.timestamp);
 
-    // Compute stats
     const totalQuestions = entries.length;
     const langCounts = { en: 0, es: 0 };
     const imageCount = entries.filter(e => e.hasImage).length;
