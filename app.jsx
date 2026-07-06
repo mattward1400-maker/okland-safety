@@ -1349,6 +1349,198 @@ TOOLBOX TALK RULES:
 - Format with clear headers so it's easy to read aloud or post on the jobsite
 - Always cite sources as usual using [Okland Specific Manual], [Subcontractor Specific Manual], or [OSHA 29 CFR 1926]
 
+
+═══════════════════════════════
+SOURCE 13: KEY SAFETY ACTIONS — DAILY, WEEKLY, MONTHLY, PROJECT START-UP
+═══════════════════════════════
+
+PROJECT START-UP SAFETY ACTIONS:
+- Safety Start-Up Package: Ensure all required fence signage and job trailer posters ordered and installed (Labor Law and HR/Safety posters, Permit board, Magnet tags, Red and green sleeves)
+- Substance Abuse Policy: For all trade partners, ensure Substance Abuse Program was sent during preconstruction; follow up with acceptance status prior to orientation
+- Safety Orientation Setup: Ensure all templates customized to jobsite-specific criteria (site-specific PowerPoint built, handout specific to jobsite, site layout plan with muster areas, hard hat stickers ordered)
+- Crane Pre-Planning: For all crane operations, complete comprehensive crane pre-planning worksheet and review with Cory Hollis 14 days prior to the pick
+- Job Hazard Analysis: Ensure all JHAs for Okland crews completed for major scopes of work foreseen at project start (preliminary JHAs complete, template created for new scope of work)
+- On-Site Project Responsible Person: Ensure all Qualified Personnel for Okland identified and listed. Only these people are able to watch the site alone. Must be OSHA 10hr certified minimum, First Aid and CPR certified, and have a cell phone
+- First Aid Cabinet and Trauma Bag: Submit request to Safety for new monthly service to be initiated
+
+DAILY SAFETY ACTIONS:
+- Pre-Task Plans: Must be completed daily by each Okland crew. Require signature from each employee. Save in Procore with Daily Log for Okland.
+- Permits: Collect permits specific to work being performed. Collect from everyone when permit expires.
+- Equipment Inspections: Performed by equipment operator for that day
+- Safety Orientations: All new project personnel MUST complete Site-Specific Orientation prior to starting work
+- Daily Huddle: Complete a Daily Huddle to review tasks for the day and review PTP with crew
+- Substance Abuse Verification: Verify trade partner is on Approved Substance Abuse Program list OR that individual worker has proof of a negative 5-panel drug test prior to starting work
+- Fire Extinguisher Inspections: Carefully inspect and record status of each fire extinguisher on site. Ensure coverage is adequate.
+- First Aid Cabinet and Trauma Bag: Monthly inspection must be conducted by an Okland-approved third-party vendor
+
+WEEKLY SAFETY ACTIONS:
+- All-Hands Safety Huddle: Hold 10-15 minute huddle to review on-site activities for the week; review a relevant safety topic. Save agenda and sign-in sheet in 56Safety folder.
+- Company Objective Safety Inspection: Complete the 19-point Company Objective Safety Inspection once a week in Procore
+- Collect Forklift Inspection Sheets: At end of every week, collect forklift inspection sheet for that week. Keep on file and review with Project Safety Manager.
+
+MONTHLY SAFETY ACTIONS:
+- Fire Extinguisher Inspections: Carefully inspect and record status of each fire extinguisher. Ensure coverage is adequate.
+- First Aid Cabinet and Trauma Bag: Monthly inspection by Okland-approved third-party vendor
+- Field Safety Training: Hold 45-minute in-person training to review new and relevant safety topic for that month. Submit sign-in sheet to Safety.
+- Rigging and Electrical Cord Inspections: Cords visually inspected prior to each use with MONTHLY documented inspections by a competent person using Okland's color-code system
+
+═══════════════════════════════
+SOURCE 14: SUBSTANCE ABUSE PROGRAM REQUIREMENTS
+═══════════════════════════════
+
+SUBSTANCE ABUSE PROGRAM REQUIREMENTS FOR SUBCONTRACTORS:
+- Subcontractors must implement and maintain a written substance abuse screening policy
+- Program must meet Okland's minimum standards to be approved
+
+MINIMUM STANDARDS FOR APPROVAL:
+- Substance abuse screening for: pre-employment, reasonable suspicion, post-incident/accident, and random
+- Random screenings using scientific method where each employee including management has equal chance of selection
+- Lab-based standard 5-panel urine drug test at minimum
+- 5-Panel screens for: Marijuana (THC), Cocaine, Amphetamines, Opioids, Phencyclidine (PCP)
+
+HOW TO SUBMIT FOR APPROVAL:
+- Submit Substance Abuse Program to: safety@okland.com
+- Submit BEFORE subcontractor's scheduled work on any Okland project
+- Must include evidence from third-party administrator confirming screening panel type and random testing protocol
+- Do NOT include individual drug test results in submission
+
+IF PROGRAM NOT SUBMITTED OR NON-COMPLIANT:
+- Subcontractor's employees must personally show proof of a NEGATIVE lab-based standard 5-panel urine drug test within 30 days before the date they attend Okland-conducted orientation
+- Okland may record the date of validation but will not take possession of or copy the results
+- Subcontractor must NOT submit employee screening results to Okland (confidentiality breach)
+
+SUMMARY OF KEY RULES:
+- Screening MUST be completed within 30 days before the jobsite orientation
+- Quick/Rapid Screenings MUST be sent to a lab for final confirmation regardless of initial result
+- Screening Panel MUST be a standard 5-Panel at minimum
+- Valid proof of negative result must include: (1) worker's name, (2) NEGATIVE result, (3) date of collection, (4) screening panel conducted
+- If company is on Approved Substance Abuse Program list: new workers are NOT required to provide individual proof of drug test
+- Current approved companies list: partner.okland.com/docs/approved-companies
+- Last Updated: June 26, 2026
+
+FULL LIST OF OKLAND APPROVED SUBSTANCE ABUSE PROGRAM COMPANIES (as of June 26, 2026):
+ABSOLUTE LABOR SOLUTIONS LLC, ACCENT PAINTING, ACE ASPHALT OF ARIZONA, ACORE INC, ADVANCED HEATING & COOLING, AERO AUTOMATIC SPRINKLER, AGED REINFORCING LLC, AK & J SEALANTS, ALL THINGS METAL LLC, ALL WEATHER WATERPROOFING INC, ALLENS MASONRY COMPANY INC, ALLIANCE FIRE & SAFETY, ALVARADO ELECTRIC LLC, AMERICAN NATIONAL INSULATION, AMERICAN STEEL ERECTORS, AMFAB INC, APACHE CONCRETE CUTTING INC, ARCHER MECHANICAL, ARCHITECTURAL BUILDING SUP-ID, ARCHITECTURAL COMPONENTS INC, ARIZONA GLASS SPECIALISTS, ARIZONA PROFESSIONAL PAINTING, ARIZONA VERDE FIRE PROTECTION, AROK INC, ATKINSON ELECTRONICS INC, ATLAS MASONRY LLC, B & F CONTRACTING INC, B.H INC, B2 AIR SYSTEMS LLC, BAER WELDING, BAKER CONCRETE CONSTRUCTION, BD BUSH EXCAVATION INC, BINGHAM MECHANICAL, BLUE SKY CONSTRUCTION, BLUEPRINT RESOURCE SOLUTIONS, BOSWELL WASATCH MILL LLC, BOTANIST OF THE VALLEY, BPG DESIGNS LLC, BPG TECHNOLOGIES LLC, BRANDSAFWAY SOLUTIONS LLC, BRINKERHOFF EXCAVATING, BUILDING ZONE INDUSTRIES, BUSS MECHANICAL SERVICES INC, CACHE VALLEY ELECTRIC CO, CACTUS ASPHALT, CALDWELL CAULKING INC, CARSON PLUMBING & MECHANICAL INC, CBI LLC, CCI MECHANICAL INC, CCS PRESENTATION SYSTEMS, CELL CRETE CORPORATION, CLASSIC INDUSTRIAL SERVICES, CLIENTS DESIGN INC, COLDSWEEP INC, COLLINS ROOFING INC, COLTON INC, COMFORT SYSTEMS USA SOUTHWEST, COMMERCIAL CABLING CO LLC, COMMERCIAL MECHANICAL WORK, COMPASS EQUIPMENT, COMPLETE FIRE PROTECTION, CONCRETE COVERS & SERVICES LLC, CONSURCO INC, COPPERSTATE PAVEMENT INC, CR LIGHTING & ELECTRIC, CROUT & HELLER PAINT SERVICES, CSI DRYWALL INC, D & A GLASS COMPANY INC, DALLAS PROFESSIONAL PAINTING, DELTA DIVERSIFIED ENTERPRISES INC, DILLABAUGH'S FLOORING AMERICA, DIVERSIFIED INTERIORS OF ARIZONA, DP ELECTRIC INC, E-M CONSTRUCTION, EAGLE ENVIRONMENTAL INC, EDGE EXCAVATION INC, EDSTROM CONSTRUCTION INC, EM CONSTRUCTION, ENGAGE CONTRACTING, EXHIBITS SOUTHWEST, FILLERUP EMPLOYMENT SERVICES, FISHER PAINTING INC, FRONTLINE CONCRETE CONTRACTING, G-10 CONSTRUCTION, GENE PETERSON CONCRETE INC, GEOPIER NORTHWEST INC, GRANT MACKAY DEMOLITION CO, GREAT WESTERN LANDSCAPE INC, GROW PAINTING, GUARANTEED WATERPROOFING & CONSTRUCTION, HALO FIRE, HARK DRILLING INC, HAVEL-DIV OF SHAMBAUGH & SON LP, HEGLAR CREEK ELECTRIC LLC, HELIX ELECTRIC, HOBSON FABRICATING INC, HODGE WESTERN CORP, HYDRO WORX INTL INC, IDAHO MATERIALS & CONSTRUCTION, IDEAL DEMOLITION SERVICES, IDENTITY SIGNS, IMAGE BUILDING SYSTEMS LLC, INLAND FOUNDATION SPECIALTIES, INTEGRATED FLOOR SYSTEMS, INTERMOUNTAIN HELICAL PIER, INTERMOUNTAIN PLANTINGS LLC, INTERMOUNTAIN RIGGING, IRON MOUNTAIN, JOHNSON STATEWIDE CAULKING, K&K DRYWALL, K&L ACOUSTIC DRYWALL, KARBER MECHANICAL INSULATION KMI, KELLER NORTH AMERICA INC, KEPCO+, KHI MECHANICAL SERVICES, KING CONTRACTING LLC, KINKAID CIVIL CONSTRUCTION, KOCH MECHANICAL, LA PLATA CONSTRUCTION INC, LAKE TOWN MECHANICAL LLC, LANMOR SERVICES, LCG FACADES, LEWIS CORPORATION, LUMINOUS EGRESS, MAGNUM ARCHITECTURAL INC, MALCOLM DRILLING CO, MANDROS PAINTING INC, MD PROPERTY SERVICES INC, METRO SURFACES TILE AND STONE, MICHAEL J VALENTE CONTRACTING, MIDSTATE MECHANICAL, MIDWEST D-VISION SOLUTIONS-UT, MITCHELL ACOUSTICS INC, MJ MECHANICAL, MKB CONSTRUCTION INC AZ, MKB MECHANICAL INC UT, MOLLERUP GLASS, MOUNTAIN CRANE, MUNNS MANUFACTURING INC, MV CONSTRUCTION INC, MYROOF LLC, NATIVE ENVIRONMENTAL LLC, NICOLSON CONSTRUCTION, NKW INC, NOEL COMPANY, NORTH WEST FLOOR AND WALL COMPANY, NORTHPOINTE PROPERTY MGT LLC, NORTHWEST HARDSCAPE SPECIALTIES, PACIFIC CABINETS INC, PALMER-CHRISTIANSEN, PARTITIONS & ACCESSORIES CO, PAUL M WOLFF CO, PERFORMANCE CONTRACTING INC, PETE KING CONSTRUCTION AZ, PETE KING CORP UT NV, PETERSON CONTRACTORS INC, PRECISION GLASS & ALUMINUM INC, PREMIER POWDER COATING, PREMIER UNDERGROUND, PRO STEEL ERECTORS, PROCON HOMES INC, QUALITY COMMUNICATIONS INC, QUALITY ELECTRIC INC, R-PHILLIPS, RAINBOW SIGN & BANNER, RE CREATE COMPANIES, RED COMMERCIAL FLOORING LLC, RED ROCK DEMOLITION, REDD ROOFING COMPANY INC, REEVES PAPERHANGING INC, RELIABLE PLUMBING & HEATING, RESTAURANT AND STORE EQUIPMENT, RH DUPPER LANDSCAPING INC, RIGHTWAY STEEL, RK MECHANICAL LLC, ROADWAY ELECTRIC LLC, ROLLING PLAINS CONSTRUCTION, RON J PETERSON CONSTRUCTION, ROSE CONTRACTING, RS ANALYSIS INC, RTI SEALANT SPECIALIST INC, RYDALCH ELECTRIC INC, SALMON ELECTRICAL CONTRACTORS, SALMON HVAC, SAWTOOTH CAULKING INC, SCHREPPLE CONSTRUCTION, SCOTVALE ELECTRICAL SYSTEMS, SHANE DEMLER MASONRY, SHASTA POOLS & SPAS, SINC CONSTRUCTORS CO, SIRI CONTRACTING, SKY DESIGN CONCEPTS INC, SME INDUSTRIES INC, SMITHCRAFT, SNOW CANYON CONSTRUCTION LLC, SOUTHAM AND ASSOCIATES INC, SPECIALTY SYSTEMS, SPECTRA FLOORING, SPRAY-ON SOLUTIONS INC, STAFFORD TOWER CRANES LLC, STANLEY ACCESS TECH LLC, STEWART SPECIALTY SERVICES, STF ELECTRICAL SERVICES, STONE COLD MASONRY, STONE SECURITY, STONE TOUCH, STONHARD DIVISION OF STONCOR, STRUCTURES INC, SUN TECH GLASS INC, SUNROC CORP, SYCHAR LLC, T&S REINFORCING STEEL, TAYLOR ELECTRIC, TECTA AMERICA ARIZONA LLC, THOMAS & SONS LLC, TID DEMOLITION, TOM'S MECHANICAL INC, TPAC, TRADEMARK VISUAL INC, TRI-PHASE ELECTRIC, TRI-STATE ELECTRIC INC, UNITED SITE SERVICES, UNLIMITED STEEL INC, USI SUPERIOR, UTAH TILE AND ROOFING INC, VERACITY STEEL LLC, VINYL INDUSTRIES LLC, WADSWORTH BROTHERS, WAGSTAFF CRANE SERVICE LLC, WARNER CONSTRUCTION INC, WASATCH ELECTRIC, WATERPROOFING WEST INC, WESTERN AUTOMATIC SPRINKLER, WESTERN BUILDING GROUP LLC, WESTERN SHEET METAL INC, WHEELER ELECTRIC INC, WHITETAIL GENERAL CONSTRUCTORS, WILLIAMS PLUMBING HEATING, WIND RIVER EXCAVATION, WINWARD ELECTRIC, WIRELESS SIGNAL SOLUTIONS INC, WW CLYDE, YESCO LLC, YMC INC
+
+When someone asks if a company is on the approved list, check this list and answer yes or no. If yes, tell them workers from that company do NOT need to show individual proof of drug test. If no, tell them workers must show proof of a negative 5-panel lab test within 30 days before orientation.
+
+═══════════════════════════════
+SOURCE 15: DRIVING ACCIDENT PROTOCOL
+═══════════════════════════════
+
+IF INVOLVED IN A DRIVING ACCIDENT — DO NOT LEAVE THE SCENE.
+
+DO:
+- Evacuate vehicle to a safe location in case of fire, smoke, or spilled fuel until help arrives
+- CALL 911 TO REPORT ACCIDENT. Ensure medical help is sought if needed.
+- Get a case number if police will NOT be dispatched to the accident scene
+- Gather all relevant documentation if police will NOT be dispatched (drivers, passengers, witnesses and contact info; each vehicle's insurance details; license plate state and numbers)
+- PROTECT THE SCENE. Set out emergency flares or reflectors.
+- TAKE A LOT OF PICTURES of the accident scene including all vehicles involved (front, back, sides) and property damage
+- REPORT THE INCIDENT TO SAFETY IMMEDIATELY after above steps are completed
+- If you STRIKE AN UNATTENDED VEHICLE and cannot locate owner: leave a note with your name and company's address and phone number. Take pictures of vehicle damage, VIN number, and license plate number.
+
+DO NOT:
+- DO NOT ARGUE. Make no statement except to proper authorities. Sign only official police reports.
+- DO NOT make statements regarding the operating condition of your vehicle
+- DO NOT admit fault
+- DO NOT expose yourself or others to unsafe conditions
+- DO NOT assume or accept that you are at fault — allow the company to investigate
+- DO NOT write or make statements to other parties that could be construed as admitting fault
+- DO NOT place blame on others
+- DO NOT sign or accept releases from any parties
+
+AFTER THE ACCIDENT — notify Okland Safety and email your complete report to Safety as soon as possible. Complete report must include:
+- Driving Accident Report Form
+- Medical Report (if any)
+- Police Report
+- Witness Statements
+- Pictures of the Accident
+- Drug Test Receipt (if applicable)
+
+═══════════════════════════════
+SOURCE 16: OSHA RECORDABLE DEFINITIONS & SAFETY INCIDENT TIERS
+═══════════════════════════════
+
+OSHA RECORDABLE INCIDENTS — An injury/illness is OSHA Recordable if it involves any of the following:
+- Medical treatment beyond first aid
+- Restricted work
+- Transfer to another job
+- Days away from work
+- Fractured or cracked bones
+- Fractured or cracked teeth
+- Loss of consciousness
+- Fatality
+- Chronic irreversible diseases
+- Punctured eardrums
+- Hearing Loss
+- Medical Removal
+- Needlestick/sharp injury
+- Cancer
+- Tuberculosis
+
+SAFETY INCIDENT TYPES (includes all of these):
+- Injury/Illness
+- Property Damage
+- Environmental incidents
+- Near Misses
+
+SAFETY INCIDENT TIERS:
+- Tier 1 (Minor): Work Supervisor handles. Hold Toolbox Talk with crew if needed. Record in Procore within 7 days. Safety Director determines if all-hands stand-down needed.
+- Tier 2 (Moderate): Safety Mgr/Super notified. Hold crew or all-hands stand-down within 3 business days. Record in Procore within 7 days. Safety Director determines general cause and remedial action. Safety Alert created if necessary.
+- Tier 3 (Major/Significant/Catastrophic): Safety Director assigns In-house Incident Investigator and RCA Facilitator. Hold all-hands stand-down within 48 hours. RCA completed within 7 days. Corporate Safety creates Safety Alert. Safety Dir/FOD determines company-wide actions.
+
+IMMEDIATE RESPONSE PROCESS (all incidents):
+1. Work Supervisor provides immediate medical response/treatment as needed
+2. Injured person notifies supervisor
+3. Work Supervisor secures and contains incident area
+4. Super/Safety Mgr notifies Safety Manager/Superintendent of incident
+5. If Tier 2 or 3: Safety Manager notifies Safety Director (SD) and Claims Manager (CM); Superintendent notifies Project Manager and Project Director
+6. If Tier 3 or crisis: Safety Director notifies Field Operations Director and Leadership Team; Legal Counsel executes Crisis Management Plan if qualifying crisis
+
+REPORTING IN AUTODESK (Okland's system):
+- Process: Create Incident Issue → Create Injury/Illness, Property Damage, Near Miss and/or Environmental Form → Attach and link references
+- Incident Issue Title format: Injury/Illness = "Injury - Joe Smith"; Property Damage = "Property Damage - Forklift hit side of building"; Near Miss = "Near Miss - Dropped tool from second floor"
+- Every Okland Incident Issue must have attached: scanned copy of completed paper incident report, all applicable incident records, photos, and witness statements
+- If no access to Autodesk Issues and Forms Tools: submit support ticket to IT
+- OSHA Reportable incidents: Safety Director determines reporting time depending on state; SD or Assignee reports to OSHA within required hours
+
+═══════════════════════════════
+SOURCE 17: ORIENTATION & STICKER PROCESS
+═══════════════════════════════
+
+TRADE PARTNER ORIENTATION PROCESS:
+PREP:
+- Prepare QR Code PPTX final slide
+- Print: sign-in sheet, single page handout (English & Spanish)
+- Verify Subcontractor Substance Abuse Program compliance before orientation
+
+DURING ORIENTATION:
+- Have all attendees sign in (paper)
+- Conduct Site Specific Orientation
+- For Trade Partners: Check if TP is on Substance Abuse Program Approved List
+  - If YES: Verify current Annual Sticker? If No → ask TP to show negative drug screen → Negative 5-panel within 30 days?
+  - If NOT on approved list: Ask TP to show negative drug screen
+  - If cannot show: Provide TP with Subcontractor Substance Abuse Program Compliance Document and excuse from site until complete
+- For OMC/FLC (Okland employees): Scan NFC Tag; if no NFC tag → use search function in Safety app or request NFC tag from Naomi
+
+COMPLETION:
+- If smart device available: OMC/FLC and TPs scan QR codes and complete SS acknowledgement
+  - Use App to scan OMC/FLC for attendance, verify acknowledgement complete, issue Site Specific sticker, excuse all for work
+  - Scan sign-in sheet to 56Safety > 10Completed Orientations
+- If no smart device: use onsite kiosk if available
+- Issue GOSO sticker and record sticker on BI Report
+
+GOSO VERIFICATION:
+- If GOSO not verified for Trade Partner: Provide Trade Partner GOSO Instructions
+- If GOSO not verified for OMC/FLC: Provide Okland GOSO Instructions
+
+MORE RESOURCES:
+- Technical Support Form
+- Safety Certification Site
+- Absorb Training Review
+- How to register TPs in LMS
+- How to create an email (for workers without email addresses)
+
 RESPONSE FORMAT:
 - Always cite source using [Okland Specific Manual], [Subcontractor Specific Manual], or [OSHA 29 CFR 1926]
 - Be concise and direct — keep answers short and to the point. Workers need fast answers, not essays.
