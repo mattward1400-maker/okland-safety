@@ -1263,6 +1263,13 @@ All permits require associated Okland+ permit training BEFORE filling out the pe
 - Soil Disturbance Permit Cover Sheet: oklandconstruction.box.com/s/ilj1nhczwlfxzbxvj5iai3e4ue52dmh1
 - Soil Disturbance Permit SOP: oklandconstruction.box.com/s/d79nizvual3ulo7x3muwno3mcvrcna2b
 - Temporary Heater Permit: oklandconstruction.box.com/s/xmfro623cdxridjw20uv307043dxzimg
+- Public ROW Permit: oklandconst.sharepoint.com/sites/doc-portal/Documents/Forms/AllItems.aspx?id=%2Fsites%2Fdoc%2Dportal%2FDocuments%2FPublic%20ROW%20Permit%2Epdf&parent=%2Fsites%2Fdoc%2Dportal%2FDocuments
+- Critical Lift Criteria & Permit: oklandconst.sharepoint.com/sites/doc-portal/Documents/Forms/AllItems.aspx?id=%2Fsites%2Fdoc%2Dportal%2FDocuments%2FCritical%20Lift%20Criteria%20and%20Permit%2Epdf&parent=%2Fsites%2Fdoc%2Dportal%2FDocuments
+- Scaffold Trash Chute Permit: oklandconst.sharepoint.com/sites/doc-portal/Documents/Forms/AllItems.aspx?id=%2Fsites%2Fdoc%2Dportal%2FDocuments%2FScaffoldTrashChutePermit%2Epdf&parent=%2Fsites%2Fdoc%2Dportal%2FDocuments
+- Air Monitoring Log v3: oklandconst.sharepoint.com/sites/doc-portal/Documents/Forms/AllItems.aspx?id=%2Fsites%2Fdoc%2Dportal%2FDocuments%2FAir%20Monitoring%20Log%20v3%20%281%29%2Epdf&parent=%2Fsites%2Fdoc%2Dportal%2FDocuments
+- Selective Demolition Permit: oklandconst.sharepoint.com/sites/doc-portal/Documents/Forms/AllItems.aspx?id=%2Fsites%2Fdoc%2Dportal%2FDocuments%2FDemo%20Permit%20%2D%20Selective%5F06%2E08%2E26%2Epdf&parent=%2Fsites%2Fdoc%2Dportal%2FDocuments
+- Total Demolition Permit: oklandconst.sharepoint.com/sites/doc-portal/Documents/Forms/AllItems.aspx?id=%2Fsites%2Fdoc%2Dportal%2FDocuments%2FDemo%20Permit%20%2D%20Total%5F06%2E08%2E26%2Epdf&parent=%2Fsites%2Fdoc%2Dportal%2FDocuments
+- Roofing Permit: oklandconst.sharepoint.com/sites/doc-portal/Documents/Forms/AllItems.aspx?id=%2Fsites%2Fdoc%2Dportal%2FDocuments%2FRoofing%20Permit%2Epdf&parent=%2Fsites%2Fdoc%2Dportal%2FDocuments
 
 
 ═══════════════════════════════
@@ -1621,8 +1628,15 @@ const PERMIT_LINKS = {
   "trash chute permit": { url: "http://docs.okland.com/msa/safety/L58.pdf", label: "Open Trash Chute Permit" },
   "overhead protection": { url: "http://docs.okland.com/msa/safety/L59.pdf", label: "Open Overhead Protection Policy" },
   "non-crane lift": { url: "http://docs.okland.com/msa/safety/L60.pdf", label: "Open Non-Crane Lift Worksheet" },
-  "critical lift permit": { url: "http://docs.okland.com/msa/safety/L68.pdf", label: "Open Critical Lift Criteria & Permit" },
+  "critical lift permit": { url: "https://oklandconst.sharepoint.com/sites/doc-portal/Documents/Forms/AllItems.aspx?id=%2Fsites%2Fdoc%2Dportal%2FDocuments%2FCritical%20Lift%20Criteria%20and%20Permit%2Epdf&parent=%2Fsites%2Fdoc%2Dportal%2FDocuments", label: "Open Critical Lift Criteria & Permit" },
   "mobile equipment in public": { url: "http://docs.okland.com/msa/safety/L69.pdf", label: "Open Mobile Equipment Public ROW Permit" },
+  "public row permit": { url: "https://oklandconst.sharepoint.com/sites/doc-portal/Documents/Forms/AllItems.aspx?id=%2Fsites%2Fdoc%2Dportal%2FDocuments%2FPublic%20ROW%20Permit%2Epdf&parent=%2Fsites%2Fdoc%2Dportal%2FDocuments", label: "Open Public ROW Permit" },
+  "public right of way permit": { url: "https://oklandconst.sharepoint.com/sites/doc-portal/Documents/Forms/AllItems.aspx?id=%2Fsites%2Fdoc%2Dportal%2FDocuments%2FPublic%20ROW%20Permit%2Epdf&parent=%2Fsites%2Fdoc%2Dportal%2FDocuments", label: "Open Public ROW Permit" },
+  "trash chute permit": { url: "https://oklandconst.sharepoint.com/sites/doc-portal/Documents/Forms/AllItems.aspx?id=%2Fsites%2Fdoc%2Dportal%2FDocuments%2FScaffoldTrashChutePermit%2Epdf&parent=%2Fsites%2Fdoc%2Dportal%2FDocuments", label: "Open Scaffold Trash Chute Permit" },
+  "air monitoring log": { url: "https://oklandconst.sharepoint.com/sites/doc-portal/Documents/Forms/AllItems.aspx?id=%2Fsites%2Fdoc%2Dportal%2FDocuments%2FAir%20Monitoring%20Log%20v3%20%281%29%2Epdf&parent=%2Fsites%2Fdoc%2Dportal%2FDocuments", label: "Open Air Monitoring Log" },
+  "roofing permit": { url: "https://oklandconst.sharepoint.com/sites/doc-portal/Documents/Forms/AllItems.aspx?id=%2Fsites%2Fdoc%2Dportal%2FDocuments%2FRoofing%20Permit%2Epdf&parent=%2Fsites%2Fdoc%2Dportal%2FDocuments", label: "Open Roofing Permit" },
+  "selective demolition permit": { url: "https://oklandconst.sharepoint.com/sites/doc-portal/Documents/Forms/AllItems.aspx?id=%2Fsites%2Fdoc%2Dportal%2FDocuments%2FDemo%20Permit%20%2D%20Selective%5F06%2E08%2E26%2Epdf&parent=%2Fsites%2Fdoc%2Dportal%2FDocuments", label: "Open Selective Demo Permit" },
+  "total demolition permit": { url: "https://oklandconst.sharepoint.com/sites/doc-portal/Documents/Forms/AllItems.aspx?id=%2Fsites%2Fdoc%2Dportal%2FDocuments%2FDemo%20Permit%20%2D%20Total%5F06%2E08%2E26%2Epdf&parent=%2Fsites%2Fdoc%2Dportal%2FDocuments", label: "Open Total Demo Permit" },
   "visitor orientation": { url: "http://docs.okland.com/msa/safety/L1-1.pdf", label: "Open Visitor Orientation Form" },
   "mewp operators": { url: "http://docs.okland.com/msa/safety/L28.pdf", label: "Open MEWP Operators Inspection Form" },
   "baker scaffold": { url: "http://docs.okland.com/msa/safety/L30.pdf", label: "Open Baker Scaffold Quick Reference" },
