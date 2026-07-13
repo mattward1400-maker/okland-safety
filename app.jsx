@@ -1548,6 +1548,60 @@ MORE RESOURCES:
 - How to register TPs in LMS
 - How to create an email (for workers without email addresses)
 
+
+OKLAND SHAREPOINT DOCUMENT LINKS (doc-portal):
+
+FORMS & CHECKLISTS:
+- Boot Policy 07.01.22: oklandconst.sharepoint.com/sites/doc-portal/Documents/Forms/AllItems.aspx?id=%2Fsites%2Fdoc%2Dportal%2FDocuments%2FBoot%20Policy%2007%2E01%2E22%2Epdf&parent=%2Fsites%2Fdoc%2Dportal%2FDocuments
+- CARE Link Phone Instructions (English): oklandconst.sharepoint.com/sites/doc-portal/Documents/Forms/AllItems.aspx?id=%2Fsites%2Fdoc%2Dportal%2FDocuments%2FCARE%20Link%20Phone%20Instructions%20%2D%20English%2Epdf&parent=%2Fsites%2Fdoc%2Dportal%2FDocuments
+- CARE Link Phone Instructions (Spanish): oklandconst.sharepoint.com/sites/doc-portal/Documents/Forms/AllItems.aspx?id=%2Fsites%2Fdoc%2Dportal%2FDocuments%2FCARE%20Link%20Phone%20Instructions%20%2D%20Spanish%2Epdf&parent=%2Fsites%2Fdoc%2Dportal%2FDocuments
+- Crane Inspection Checklist: oklandconst.sharepoint.com/:w:/r/sites/doc-portal/_layouts/15/Doc.aspx?sourcedoc=%7B91CD87DD-6162-4850-BECA-71B5FAE7CBAA%7D&file=Crane%20Inspection%20Checklist.doc&action=default&mobileredirect=true
+- Crane Request Form 2026: oklandconst.sharepoint.com/sites/doc-portal/Documents/Forms/AllItems.aspx?id=%2Fsites%2Fdoc%2Dportal%2FDocuments%2FCrane%20Request%20Form%5F2026%2Epdf&parent=%2Fsites%2Fdoc%2Dportal%2FDocuments
+- Crane Rigging Inspection Colors: oklandconst.sharepoint.com/sites/doc-portal/Documents/Forms/AllItems.aspx?id=%2Fsites%2Fdoc%2Dportal%2FDocuments%2FCrane%20Rigging%20Inspection%20Colors%2Epdf&parent=%2Fsites%2Fdoc%2Dportal%2FDocuments
+- Disciplinary Action Form: oklandconst.sharepoint.com/sites/doc-portal/Documents/Forms/AllItems.aspx?id=%2Fsites%2Fdoc%2Dportal%2FDocuments%2FDisciplinary%20Action%20Form%2Epdf&parent=%2Fsites%2Fdoc%2Dportal%2FDocuments
+- Emergency Information Sheet: oklandconst.sharepoint.com/:w:/r/sites/doc-portal/_layouts/15/Doc.aspx?sourcedoc=%7BDEC0E33F-2A1E-4618-941E-B867AD7648B3%7D&file=Emergency%20Information%20Sheet.docx&action=default&mobileredirect=true
+- Equipment Waiver Form: oklandconst.sharepoint.com/sites/doc-portal/Documents/Forms/AllItems.aspx?id=%2Fsites%2Fdoc%2Dportal%2FDocuments%2FEquipment%20Waiver%20Form%2Epdf&parent=%2Fsites%2Fdoc%2Dportal%2FDocuments
+- Eye Protection Activities Table: oklandconst.sharepoint.com/sites/doc-portal/Documents/Forms/AllItems.aspx?id=%2Fsites%2Fdoc%2Dportal%2FDocuments%2FEye%20Protection%20Activities%20Table%2Epdf&parent=%2Fsites%2Fdoc%2Dportal%2FDocuments
+- Fabricated Frame Scaffold Reference Sheet: oklandconst.sharepoint.com/sites/doc-portal/Documents/Forms/AllItems.aspx?id=%2Fsites%2Fdoc%2Dportal%2FDocuments%2FFabricated%20Frame%20Scaffold%20Reference%20Sheet%2Epdf&parent=%2Fsites%2Fdoc%2Dportal%2FDocuments
+- Fire Extinguisher Barricade Tape Stand: oklandconst.sharepoint.com/sites/doc-portal/Documents/Forms/AllItems.aspx?id=%2Fsites%2Fdoc%2Dportal%2FDocuments%2FFire%20Extinguisher%20Barricade%20Tape%20Stand%2Epdf&parent=%2Fsites%2Fdoc%2Dportal%2FDocuments
+- Forklift Travel-Public ROW Checklist: oklandconst.sharepoint.com/sites/doc-portal/Documents/Forms/AllItems.aspx?id=%2Fsites%2Fdoc%2Dportal%2FDocuments%2FForklift%20Travel%2DPublic%20ROW%20Checklist%2Epdf&parent=%2Fsites%2Fdoc%2Dportal%2FDocuments
+- FST Sign In Sheet 2025: oklandconst.sharepoint.com/sites/doc-portal/Documents/Forms/AllItems.aspx?id=%2Fsites%2Fdoc%2Dportal%2FDocuments%2FFST%5FSign%20In%20Sheet%2D2025%2Epdf&parent=%2Fsites%2Fdoc%2Dportal%2FDocuments
+- Inspection Cue Card: oklandconst.sharepoint.com/sites/doc-portal/Documents/Forms/AllItems.aspx?id=%2Fsites%2Fdoc%2Dportal%2FDocuments%2FInspection%20Cue%20Card%2Epdf&parent=%2Fsites%2Fdoc%2Dportal%2FDocuments
+- Man Material Hoist Daily Inspection Form: oklandconst.sharepoint.com/sites/doc-portal/Documents/Forms/AllItems.aspx?id=%2Fsites%2Fdoc%2Dportal%2FDocuments%2FMan%20Material%20Hoist%20Daily%20Inspection%20%5F%20FormFillable%2Epdf&parent=%2Fsites%2Fdoc%2Dportal%2FDocuments
+- Man Material Hoist Assembly Checklist: oklandconst.sharepoint.com/sites/doc-portal/Documents/Forms/AllItems.aspx?id=%2Fsites%2Fdoc%2Dportal%2FDocuments%2FMan%20Material%20Hoist%20Assembly%20Checklist%20v4%2D%20Form%20Fill%2Epdf&parent=%2Fsites%2Fdoc%2Dportal%2FDocuments
+- Mudsill Reference: oklandconst.sharepoint.com/sites/doc-portal/Documents/Forms/AllItems.aspx?id=%2Fsites%2Fdoc%2Dportal%2FDocuments%2FMudsill%5FReference%2Epdf&parent=%2Fsites%2Fdoc%2Dportal%2FDocuments
+- OSHA Inspection Form: oklandconst.sharepoint.com/sites/doc-portal/Documents/Forms/AllItems.aspx?id=%2Fsites%2Fdoc%2Dportal%2FDocuments%2FOSHA%20Inspection%20Form%2Epdf&parent=%2Fsites%2Fdoc%2Dportal%2FDocuments
+- OSHA Inspection Guidesheet: oklandconst.sharepoint.com/sites/doc-portal/Documents/Forms/AllItems.aspx?id=%2Fsites%2Fdoc%2Dportal%2FDocuments%2FOSHA%20Inspection%20Guidesheet%20%283%5F22%29%2Epdf&parent=%2Fsites%2Fdoc%2Dportal%2FDocuments
+- PFAS Out of Service Form: oklandconst.sharepoint.com/sites/doc-portal/Documents/Forms/AllItems.aspx?id=%2Fsites%2Fdoc%2Dportal%2FDocuments%2FPFAS%20Out%20of%20Service%20Form%2005%2E18%2E21%2Epdf&parent=%2Fsites%2Fdoc%2Dportal%2FDocuments
+- PFAS Training Acknowledgment Form (English): oklandconst.sharepoint.com/sites/doc-portal/Documents/Forms/AllItems.aspx?id=%2Fsites%2Fdoc%2Dportal%2FDocuments%2FPFAS%20Training%20Acknl%2E%20Form%20v5%2005%2E18%2E21%20ENGLISH%2Epdf&parent=%2Fsites%2Fdoc%2Dportal%2FDocuments
+- PFAS Training Acknowledgment Form (Spanish): oklandconst.sharepoint.com/sites/doc-portal/Documents/Forms/AllItems.aspx?id=%2Fsites%2Fdoc%2Dportal%2FDocuments%2FPFAS%20Training%20Acknl%2E%20Form%20v5%2005%2E18%2E21%20SPANISH%2Epdf&parent=%2Fsites%2Fdoc%2Dportal%2FDocuments
+- ProJax Maintenance Procedures: oklandconst.sharepoint.com/sites/doc-portal/Documents/Forms/AllItems.aspx?id=%2Fsites%2Fdoc%2Dportal%2FDocuments%2FProJax%20Maintenance%20Procedures%2Epdf&parent=%2Fsites%2Fdoc%2Dportal%2FDocuments
+- ProJax Narrow Frame Scaffold Inspection Form: oklandconst.sharepoint.com/sites/doc-portal/Documents/Forms/AllItems.aspx?id=%2Fsites%2Fdoc%2Dportal%2FDocuments%2FProJax%20Narrow%20Frame%20Scaffold%20Inspection%20Form%2Epdf&parent=%2Fsites%2Fdoc%2Dportal%2FDocuments
+- QR Codes for Safety Trainings: oklandconst.sharepoint.com/sites/doc-portal/Documents/Forms/AllItems.aspx?id=%2Fsites%2Fdoc%2Dportal%2FDocuments%2FQR%20Codes%20for%20Safety%20Trainings%2Epdf&parent=%2Fsites%2Fdoc%2Dportal%2FDocuments
+- Rigger Evaluation Request Process: oklandconst.sharepoint.com/:w:/r/sites/doc-portal/_layouts/15/Doc.aspx?sourcedoc=%7BF2D563E2-A00E-4060-8D83-068FC08AA9D3%7D&file=Rigger%20Evaluation%20Request%20Process%20V2.docx&action=default&mobileredirect=true
+- Rigger Training LV1 to LV2: oklandconst.sharepoint.com/sites/doc-portal/Documents/Forms/AllItems.aspx?id=%2Fsites%2Fdoc%2Dportal%2FDocuments%2FRigger%20Training%20LV1%20to%20LV2%2Epdf&parent=%2Fsites%2Fdoc%2Dportal%2FDocuments
+- Rigging Inspection Checklist: oklandconst.sharepoint.com/sites/doc-portal/Documents/Forms/AllItems.aspx?id=%2Fsites%2Fdoc%2Dportal%2FDocuments%2FRigging%20Inspection%20Checklist%2Epdf&parent=%2Fsites%2Fdoc%2Dportal%2FDocuments
+- Rigging and Crane Signal Practical Test: oklandconst.sharepoint.com/sites/doc-portal/Documents/Forms/AllItems.aspx?id=%2Fsites%2Fdoc%2Dportal%2FDocuments%2FRigging%20and%20Crane%20Signal%20Practical%20Test%2Epdf&parent=%2Fsites%2Fdoc%2Dportal%2FDocuments
+- Safety Eyewear Program: oklandconst.sharepoint.com/sites/doc-portal/Documents/Forms/AllItems.aspx?id=%2Fsites%2Fdoc%2Dportal%2FDocuments%2FSafety%2DEyewear%2DProgram%205%2E19%2E26%2Epdf&parent=%2Fsites%2Fdoc%2Dportal%2FDocuments
+- SIPP Guidelines: oklandconst.sharepoint.com/sites/doc-portal/Documents/Forms/AllItems.aspx?id=%2Fsites%2Fdoc%2Dportal%2FDocuments%2FSIPP%20Guidelines%2Epdf&parent=%2Fsites%2Fdoc%2Dportal%2FDocuments
+- Steel Erection Plan Checklist: oklandconst.sharepoint.com/:w:/r/sites/doc-portal/_layouts/15/Doc.aspx?sourcedoc=%7BCF106414-C536-41E2-A281-AFA022B377C3%7D&file=Steel%20Erection%20Plan%20Checklist.docx&action=default&mobileredirect=true
+- Tower Crane Assembly Checklist: oklandconst.sharepoint.com/:w:/r/sites/doc-portal/_layouts/15/Doc.aspx?sourcedoc=%7B7DF243AB-C4B9-46E8-AEED-A5D7124FA61F%7D&file=Tower%20Crane%20Assembly%20Checklist.docx&action=default&mobileredirect=true
+- Tower Crane Assembly Process Map: oklandconst.sharepoint.com/sites/doc-portal/Documents/Forms/AllItems.aspx?id=%2Fsites%2Fdoc%2Dportal%2FDocuments%2FTower%20Crane%20Assembly%20Process%20Map%2Epdf&parent=%2Fsites%2Fdoc%2Dportal%2FDocuments
+- Tower Crane Assembly-Disassembly Authorization Form: oklandconst.sharepoint.com/sites/doc-portal/Documents/Forms/AllItems.aspx?id=%2Fsites%2Fdoc%2Dportal%2FDocuments%2FTower%20Crane%20Assembly%2DDisassembly%20Authorization%20Form%2Epdf&parent=%2Fsites%2Fdoc%2Dportal%2FDocuments
+- Tower Crane Base HRFOW: oklandconst.sharepoint.com/sites/doc-portal/Documents/Forms/AllItems.aspx?id=%2Fsites%2Fdoc%2Dportal%2FDocuments%2FTower%20Crane%20Base%20%2D%20HRFOW%2Epdf&parent=%2Fsites%2Fdoc%2Dportal%2FDocuments
+- Tower Crane Disassembly Checklist: oklandconst.sharepoint.com/:w:/r/sites/doc-portal/_layouts/15/Doc.aspx?sourcedoc=%7B80922B6B-26A7-4F64-91A3-DA0407F230C7%7D&file=Tower%20Crane%20Disassembly%20Checklist.docx&action=default&mobileredirect=true
+- Utility Strike Accountability Policy: oklandconst.sharepoint.com/sites/doc-portal/Documents/Forms/AllItems.aspx?id=%2Fsites%2Fdoc%2Dportal%2FDocuments%2FUtility%20Strike%20Accountability%20Policy%2Epdf&parent=%2Fsites%2Fdoc%2Dportal%2FDocuments
+- Okland Standard PPE and Safety Supply List: oklandconst.sharepoint.com/:x:/r/sites/doc-portal/_layouts/15/Doc.aspx?sourcedoc=%7BB7215BCA-4410-4112-87EE-C1A11E0F61FC%7D&file=Okland%20Standard%20PPE%20and%20Safety%20Supply%20List%20(30).xlsx&action=default&mobileredirect=true
+
+WC INJURY & DRUG TEST CLINICS BY STATE:
+- Utah WC Injury & Drug Test Clinics: oklandconst.sharepoint.com/sites/doc-portal/Documents/Forms/AllItems.aspx?id=%2Fsites%2Fdoc%2Dportal%2FDocuments%2F6%20%2D%20Utah%20WC%20Injury%20%26%20Drug%20Test%20Clinics%2Epdf&parent=%2Fsites%2Fdoc%2Dportal%2FDocuments
+- Arizona WC Injury & Drug Test Clinics: oklandconst.sharepoint.com/sites/doc-portal/Documents/Forms/AllItems.aspx?id=%2Fsites%2Fdoc%2Dportal%2FDocuments%2F1%20%2D%20Arizona%20WC%20Injury%20%26%20Drug%20Test%20Clinics%2Epdf&parent=%2Fsites%2Fdoc%2Dportal%2FDocuments
+- Idaho WC Injury & Drug Test Clinics: oklandconst.sharepoint.com/sites/doc-portal/Documents/Forms/AllItems.aspx?id=%2Fsites%2Fdoc%2Dportal%2FDocuments%2F3%20%2D%20Idaho%20WC%20Injury%20%26%20Drug%20Test%20Clinics%2Epdf&parent=%2Fsites%2Fdoc%2Dportal%2FDocuments
+
+REPORTING:
+- Corporate Reporting Procedures: oklandconst.sharepoint.com/sites/doc-portal/Documents/Forms/AllItems.aspx?id=%2Fsites%2Fdoc%2Dportal%2FDocuments%2FCorporate%20Reporting%20Procedures%2Epdf&parent=%2Fsites%2Fdoc%2Dportal%2FDocuments
+- Witness Statement Form: oklandconst.sharepoint.com/sites/doc-portal/Documents/Forms/AllItems.aspx?id=%2Fsites%2Fdoc%2Dportal%2FDocuments%2FWitness%20Statement%20Form%5F02%2D13%2D2023%2Epdf&parent=%2Fsites%2Fdoc%2Dportal%2FDocuments
+
 RESPONSE FORMAT:
 - Always cite source using [Okland Specific Manual], [Subcontractor Specific Manual], or [OSHA 29 CFR 1926]
 - Be concise and direct — keep answers short and to the point. Workers need fast answers, not essays.
