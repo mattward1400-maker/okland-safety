@@ -47,6 +47,11 @@ function isWeatherQuestion(text) {
   return keywords.some(k => text.toLowerCase().includes(k));
 }
 
+// Appended to every system prompt, regardless of what app.jsx sends or what RAG
+// pulls back from the manuals. This is the one place every request passes through,
+// so this rule guarantees consistent link formatting no matter the permit or source.
+const LINK_FORMATTING_RULE = "\n\nCRITICAL LINK FORMATTING RULE: Whenever your response references a permit, form, document, manual, or webpage that has a URL — whether that URL comes from your system instructions, from the RELEVANT MANUAL CONTENT retrieved below, or anywhere else — you must ALWAYS format it as a markdown link using the pattern [Descriptive Name](URL). NEVER output a bare or raw URL as plain text under any circumstance. This applies to every single link in your response, with no exceptions, including links found inside retrieved manual excerpts that may themselves be written as plain text.";
+
 async function logQuestion(question, lang, hasImage) {
   try {
     const store = getStore({
@@ -135,7 +140,7 @@ exports.handler = async function(event) {
       }
     }
 
-    const systemWithContext = body.system + weatherContext + (ragContext ? "\n\nRELEVANT MANUAL CONTENT:\n" + ragContext : "");
+    const systemWithContext = body.system + weatherContext + (ragContext ? "\n\nRELEVANT MANUAL CONTENT:\n" + ragContext : "") + LINK_FORMATTING_RULE;
 
     const postData = JSON.stringify({
       model: "claude-opus-4-5",
