@@ -144,6 +144,15 @@ exports.handler = async function(event) {
     // requests for a given language, so it's marked as a cache breakpoint. Anthropic
     // caches everything up to and including this block; on repeat hits within the
     // cache window it's billed at 10% of normal input price instead of full price.
+    //
+    // ttl: "1h" extends that window from the 5-minute default to 1 hour. Since real
+    // usage here is spread out (roughly one question per 30 min per worker), the
+    // default 5-minute window was expiring between almost every question, meaning
+    // nearly every request paid the full cache-write price instead of the 90%-off
+    // cache-read price. The 1-hour write costs a bit more (2x base rate vs 1.25x),
+    // but any question — from anyone, on any device — within that hour reuses the
+    // same cache and pays the discounted rate. No beta header is required for this.
+    //
     // Weather + RAG results change every request, so they stay in a separate,
     // uncached block after the breakpoint.
     const dynamicContext = weatherContext + (ragContext ? "\n\nRELEVANT MANUAL CONTENT:\n" + ragContext : "");
@@ -156,7 +165,7 @@ exports.handler = async function(event) {
         {
           type: "text",
           text: body.system + LINK_FORMATTING_RULE,
-          cache_control: { type: "ephemeral" }
+          cache_control: { type: "ephemeral", ttl: "1h" }
         },
         {
           type: "text",
