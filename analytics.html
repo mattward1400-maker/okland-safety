@@ -38,6 +38,15 @@
   header h1 { margin: 0; font-size: 18px; font-weight: 700; color: #fff; }
   header p { margin: 2px 0 0; font-size: 13px; color: #A6A6A6; }
   main { max-width: 1100px; margin: 0 auto; padding: 28px 24px 60px; }
+
+  .range-row { display: flex; align-items: center; justify-content: flex-end; gap: 8px; margin-bottom: 16px; }
+  .range-btn {
+    background: var(--card); border: 1px solid var(--border); border-radius: 8px;
+    padding: 7px 14px; font-size: 13px; font-weight: 600; color: var(--muted); cursor: pointer;
+  }
+  .range-btn.active { background: var(--charcoal); color: var(--yellow); border-color: var(--charcoal); }
+  .range-btn:hover:not(.active) { background: var(--bg); }
+
   .stat-row {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -46,14 +55,23 @@
   .stat-card { background: var(--card); border-radius: 12px; padding: 18px 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
   .stat-card .value { font-size: 30px; font-weight: 800; letter-spacing: -0.5px; font-variant-numeric: tabular-nums; }
   .stat-card .label { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .stat-card .sublabel { font-size: 11px; color: var(--muted); margin-top: 6px; }
   .stat-card.highlight { background: var(--charcoal); }
   .stat-card.highlight .value { color: var(--yellow); }
-  .stat-card.highlight .label { color: #C9C9C9; }
-  .chart-row { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin-bottom: 24px; }
+  .stat-card.highlight .label, .stat-card.highlight .sublabel { color: #C9C9C9; }
+
+  .trend { font-size: 13px; font-weight: 700; margin-left: 8px; }
+  .trend.up { color: #0F7B3F; }
+  .trend.down { color: #B42318; }
+  .trend.flat { color: var(--muted); }
+
+  .chart-row { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin-bottom: 16px; }
   @media (max-width: 720px) { .chart-row { grid-template-columns: 1fr; } }
   .panel { background: var(--card); border-radius: 12px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
-  .panel h2 { font-size: 14px; font-weight: 700; margin: 0 0 14px; color: var(--charcoal); text-transform: uppercase; letter-spacing: 0.4px; }
-  .table-panel { background: var(--card); border-radius: 12px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+  .panel h2 { font-size: 14px; font-weight: 700; margin: 0 0 4px; color: var(--charcoal); text-transform: uppercase; letter-spacing: 0.4px; }
+  .panel .panel-caption { font-size: 11px; color: var(--muted); margin: 0 0 14px; }
+
+  .table-panel { background: var(--card); border-radius: 12px; padding: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); margin-top: 16px; }
   table { width: 100%; border-collapse: collapse; font-size: 14px; }
   thead th { text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); padding: 8px 10px; border-bottom: 1px solid var(--border); }
   thead th.lang-col, thead th.date-col { text-align: right; width: 90px; }
@@ -65,13 +83,22 @@
   .show-more { display: block; margin: 16px auto 0; background: none; border: 1px solid var(--border); border-radius: 8px; padding: 8px 18px; font-size: 13px; font-weight: 600; color: var(--charcoal); cursor: pointer; }
   .show-more:hover { background: var(--bg); }
   .empty-state, .loading-state { text-align: center; padding: 60px 20px; color: var(--muted); }
+
   .bar-chart { display: flex; align-items: flex-end; gap: 10px; height: 200px; padding-top: 10px; }
   .bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; height: 100%; }
-  .bar-track { flex: 1; display: flex; align-items: flex-end; width: 100%; justify-content: center; }
+  .bar-track { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; width: 100%; }
+  .bar-value { font-size: 12px; font-weight: 700; color: var(--charcoal); margin-bottom: 4px; }
   .bar { width: 60%; max-width: 36px; background: var(--yellow); border-radius: 4px 4px 0 0; min-height: 2px; }
   .bar-label { font-size: 11px; color: var(--muted); margin-top: 6px; }
+
   .legend-row { display: flex; align-items: center; gap: 8px; font-size: 13px; margin-top: 8px; }
   .legend-dot { width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; }
+
+  .topic-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+  .topic-name { width: 150px; flex-shrink: 0; font-size: 13px; font-weight: 600; color: var(--text); }
+  .topic-track { flex: 1; background: var(--bg); border-radius: 6px; height: 18px; overflow: hidden; }
+  .topic-fill { background: var(--yellow); height: 100%; border-radius: 6px; }
+  .topic-count { width: 30px; text-align: right; font-size: 13px; font-weight: 700; color: var(--muted); flex-shrink: 0; }
 </style>
 </head>
 <body>
@@ -93,8 +120,30 @@
 <script>
   const ENDPOINT = "/.netlify/functions/get-analytics";
 
+  // Cost-per-question rates measured directly from real CACHE STATS log lines
+  // on 2026-07-29 (Sonnet 5, 1-hour cache TTL). Not pulled from live token
+  // counts (get-analytics.js doesn't log those) -- this is an estimate that
+  // assumes roughly one cache "wake-up" per day and the rest as cache hits.
+  const CACHE_HIT_COST = 0.024;
+  const CACHE_MISS_COST = 0.254;
+
+  const TOPIC_KEYWORDS = [
+    ["Permits", ["permit"]],
+    ["PPE", ["ppe", "mask", "respirat", "glove", "harness", "hard hat", "safety glasses", "protective equipment"]],
+    ["Weather / Wind", ["wind", "weather", "mph", "storm", "rain", "lightning", "temperature", "heat", "cold", "freeze", "snow"]],
+    ["Confined Space", ["confined space", "csi", "confined"]],
+    ["Crane / Lift", ["crane", "lift", "rigging", "hoist"]],
+    ["Hot Work", ["hot work", "fire watch", "welding", "grinding", "torch"]],
+    ["Fall Protection", ["fall protection", "guardrail", "tie off", "tie-off", "floor opening"]],
+    ["Substance / Drug", ["drug", "substance", "approved list", "alcohol"]],
+    ["Orientation / Training", ["orientation", "orentation", "training", "onboard"]],
+    ["Hazard ID", ["hazard", "chipping", "concrete dust", "photo"]]
+  ];
+
+  let rawData = null;
   let allQuestions = [];
   let shownCount = 15;
+  let currentRange = "30";
 
   function escapeHtml(str) {
     const div = document.createElement("div");
@@ -106,6 +155,28 @@
     const parts = (d || "").split("-");
     if (parts.length !== 3) return d || "\u2014";
     return parts[1] + "/" + parts[2];
+  }
+
+  function daysAgo(n) {
+    const d = new Date();
+    d.setDate(d.getDate() - n);
+    return d.toISOString().split("T")[0];
+  }
+
+  function filterDateCounts(dateCounts, range) {
+    if (range === "all") return dateCounts;
+    const cutoff = daysAgo(range === "7" ? 6 : 29);
+    const out = {};
+    Object.keys(dateCounts).forEach(function(d) {
+      if (d >= cutoff) out[d] = dateCounts[d];
+    });
+    return out;
+  }
+
+  function filterQuestions(questions, range) {
+    if (range === "all") return questions;
+    const cutoff = daysAgo(range === "7" ? 6 : 29);
+    return questions.filter(function(q) { return (q.date || "") >= cutoff; });
   }
 
   function renderTable() {
@@ -132,11 +203,15 @@
 
   function renderBarChart(dateCounts) {
     const dates = Object.keys(dateCounts).sort();
+    if (!dates.length) {
+      return '<div class="empty-state" style="padding:30px 0;">No questions in this range yet.</div>';
+    }
     const max = Math.max.apply(null, dates.map(function(d) { return dateCounts[d]; }).concat([1]));
     return '<div class="bar-chart">' + dates.map(function(d) {
-      const pct = Math.round((dateCounts[d] / max) * 100);
+      const count = dateCounts[d];
+      const pct = Math.round((count / max) * 100);
       return '<div class="bar-col">' +
-        '<div class="bar-track"><div class="bar" style="height:' + pct + '%" title="' + dateCounts[d] + ' questions"></div></div>' +
+        '<div class="bar-track"><div class="bar-value">' + count + '</div><div class="bar" style="height:' + pct + '%" title="' + count + ' questions"></div></div>' +
         '<div class="bar-label">' + formatDate(d) + '</div>' +
         '</div>';
     }).join('') + '</div>';
@@ -159,6 +234,149 @@
       '</div>';
   }
 
+  function computeTopics(questions) {
+    const counts = {};
+    TOPIC_KEYWORDS.forEach(function(t) { counts[t[0]] = 0; });
+    let other = 0;
+    questions.forEach(function(q) {
+      const text = (q.question || "").toLowerCase();
+      let matched = false;
+      for (let i = 0; i < TOPIC_KEYWORDS.length; i++) {
+        const name = TOPIC_KEYWORDS[i][0];
+        const keywords = TOPIC_KEYWORDS[i][1];
+        if (keywords.some(function(k) { return text.indexOf(k) !== -1; })) {
+          counts[name]++;
+          matched = true;
+          break;
+        }
+      }
+      if (!matched) other++;
+    });
+    const list = TOPIC_KEYWORDS.map(function(t) { return [t[0], counts[t[0]]]; });
+    list.push(["Other", other]);
+    list.sort(function(a, b) { return b[1] - a[1]; });
+    return list.filter(function(t) { return t[1] > 0; }).slice(0, 8);
+  }
+
+  function renderTopics(questions) {
+    const topics = computeTopics(questions);
+    if (!topics.length) {
+      return '<div class="empty-state" style="padding:20px 0;">No questions in this range yet.</div>';
+    }
+    const max = Math.max.apply(null, topics.map(function(t) { return t[1]; }));
+    return topics.map(function(t) {
+      const pct = Math.round((t[1] / max) * 100);
+      return '<div class="topic-row">' +
+        '<div class="topic-name">' + t[0] + '</div>' +
+        '<div class="topic-track"><div class="topic-fill" style="width:' + pct + '%"></div></div>' +
+        '<div class="topic-count">' + t[1] + '</div>' +
+        '</div>';
+    }).join('');
+  }
+
+  function estimateCost(dateCounts) {
+    let total = 0;
+    Object.keys(dateCounts).forEach(function(d) {
+      const count = dateCounts[d];
+      if (count <= 0) return;
+      const misses = 1;
+      const hits = Math.max(0, count - misses);
+      total += misses * CACHE_MISS_COST + hits * CACHE_HIT_COST;
+    });
+    return total;
+  }
+
+  function weekOverWeek(dateCounts) {
+    const dates = Object.keys(dateCounts).sort();
+    if (!dates.length) return null;
+    const last = new Date(dates[dates.length - 1]);
+    function sumRange(startOffset, endOffset) {
+      let sum = 0;
+      Object.keys(dateCounts).forEach(function(d) {
+        const dt = new Date(d);
+        const diffDays = Math.round((last - dt) / 86400000);
+        if (diffDays >= startOffset && diffDays <= endOffset) sum += dateCounts[d];
+      });
+      return sum;
+    }
+    const thisWeek = sumRange(0, 6);
+    const lastWeek = sumRange(7, 13);
+    if (lastWeek === 0) return null;
+    const pct = Math.round(((thisWeek - lastWeek) / lastWeek) * 100);
+    return { pct: pct, thisWeek: thisWeek, lastWeek: lastWeek };
+  }
+
+  function render() {
+    const dateCounts = filterDateCounts(rawData.dateCounts || {}, currentRange);
+    const questionsInRange = filterQuestions(allQuestions, currentRange);
+
+    const totalInRange = Object.values(dateCounts).reduce(function(a, b) { return a + b; }, 0);
+
+    let busiestDay = null, busiestCount = 0;
+    Object.keys(dateCounts).forEach(function(d) {
+      if (dateCounts[d] > busiestCount) { busiestCount = dateCounts[d]; busiestDay = d; }
+    });
+
+    const wow = weekOverWeek(rawData.dateCounts || {});
+    let trendHtml = "";
+    if (wow) {
+      const cls = wow.pct > 0 ? "up" : (wow.pct < 0 ? "down" : "flat");
+      const arrow = wow.pct > 0 ? "\u25b2" : (wow.pct < 0 ? "\u25bc" : "\u2013");
+      trendHtml = '<span class="trend ' + cls + '">' + arrow + ' ' + Math.abs(wow.pct) + '% vs prior week</span>';
+    }
+
+    const cost = estimateCost(dateCounts);
+    const langCounts = rawData.langCounts || {};
+    const imageCount = rawData.imageCount || 0;
+
+    document.getElementById("content").innerHTML =
+      '<div class="range-row">' +
+        '<button class="range-btn" data-range="7">Last 7 Days</button>' +
+        '<button class="range-btn" data-range="30">Last 30 Days</button>' +
+        '<button class="range-btn" data-range="all">All Time</button>' +
+      '</div>' +
+      '<div class="stat-row">' +
+        '<div class="stat-card"><div class="value">' + totalInRange + trendHtml + '</div><div class="label">Total Questions</div></div>' +
+        '<div class="stat-card"><div class="value">' + (busiestDay ? formatDate(busiestDay) : '\u2014') + '</div><div class="label">Busiest Day (' + busiestCount + ' questions)</div></div>' +
+        '<div class="stat-card"><div class="value">' + imageCount + '</div><div class="label">Photo Hazard Checks</div><div class="sublabel">All time</div></div>' +
+        '<div class="stat-card highlight"><div class="value">$' + cost.toFixed(2) + '</div><div class="label">Est. Anthropic Cost</div><div class="sublabel">Estimate, not a bill \u2014 see note below</div></div>' +
+      '</div>' +
+      '<div class="chart-row">' +
+        '<div class="panel"><h2>Questions Per Day</h2><p class="panel-caption">&nbsp;</p>' + renderBarChart(dateCounts) + '</div>' +
+        '<div class="panel"><h2>Language Split</h2><p class="panel-caption">All time</p>' + renderDonut(langCounts.en || 0, langCounts.es || 0) + '</div>' +
+      '</div>' +
+      '<div class="panel">' +
+        '<h2>Top Topics</h2>' +
+        '<p class="panel-caption">Keyword-matched from question text, based on the most recent ' + allQuestions.length + ' logged questions</p>' +
+        renderTopics(questionsInRange) +
+      '</div>' +
+      '<div class="table-panel">' +
+        '<h2 style="margin-bottom:14px;">Recent Questions</h2>' +
+        '<table>' +
+          '<thead><tr><th>Question</th><th class="lang-col">Language</th><th class="date-col">Date</th></tr></thead>' +
+          '<tbody id="q-tbody"></tbody>' +
+        '</table>' +
+        '<button id="show-more-btn" class="show-more">Show more</button>' +
+      '</div>' +
+      '<p style="font-size:11px;color:var(--muted);margin-top:16px;">' +
+        'Est. Anthropic Cost assumes one cache reset per active day and the rest as cache hits, using per-question rates measured from real usage on 2026-07-29. It is a planning estimate, not an exact bill.' +
+      '</p>';
+
+    document.querySelectorAll(".range-btn").forEach(function(btn) {
+      if (btn.getAttribute("data-range") === currentRange) btn.classList.add("active");
+      btn.addEventListener("click", function() {
+        currentRange = btn.getAttribute("data-range");
+        render();
+      });
+    });
+
+    renderTable();
+    document.getElementById("show-more-btn").addEventListener("click", function() {
+      shownCount += 25;
+      renderTable();
+    });
+  }
+
   async function loadAnalytics() {
     let data;
     try {
@@ -170,51 +388,15 @@
       return;
     }
 
-    const total = data.totalQuestions || 0;
-
-    if (total === 0) {
+    if (!data.totalQuestions) {
       document.getElementById("content").innerHTML =
         "<div class=\"empty-state\">No questions logged yet. Once workers start using the chatbot, usage will show up here.</div>";
       return;
     }
 
-    const langCounts = data.langCounts || {};
-    const enCount = langCounts.en || 0;
-    const esCount = langCounts.es || 0;
-    const imageCount = data.imageCount || 0;
-    const dateCounts = data.dateCounts || {};
+    rawData = data;
     allQuestions = data.recentQuestions || [];
-
-    let busiestDay = null, busiestCount = 0;
-    Object.keys(dateCounts).forEach(function(d) {
-      if (dateCounts[d] > busiestCount) { busiestCount = dateCounts[d]; busiestDay = d; }
-    });
-
-    document.getElementById("content").innerHTML =
-      '<div class="stat-row">' +
-        '<div class="stat-card"><div class="value">' + total + '</div><div class="label">Total Questions Asked</div></div>' +
-        '<div class="stat-card"><div class="value">' + imageCount + '</div><div class="label">Photo Hazard Checks</div></div>' +
-        '<div class="stat-card highlight"><div class="value">' + (busiestDay ? formatDate(busiestDay) : '\u2014') + '</div><div class="label">Busiest Day (' + busiestCount + ' questions)</div></div>' +
-      '</div>' +
-      '<div class="chart-row">' +
-        '<div class="panel"><h2>Questions Per Day</h2>' + renderBarChart(dateCounts) + '</div>' +
-        '<div class="panel"><h2>Language Split</h2>' + renderDonut(enCount, esCount) + '</div>' +
-      '</div>' +
-      '<div class="table-panel">' +
-        '<h2 style="margin-bottom:14px;">Recent Questions</h2>' +
-        '<table>' +
-          '<thead><tr><th>Question</th><th class="lang-col">Language</th><th class="date-col">Date</th></tr></thead>' +
-          '<tbody id="q-tbody"></tbody>' +
-        '</table>' +
-        '<button id="show-more-btn" class="show-more">Show more</button>' +
-      '</div>';
-
-    renderTable();
-
-    document.getElementById("show-more-btn").addEventListener("click", function() {
-      shownCount += 25;
-      renderTable();
-    });
+    render();
   }
 
   loadAnalytics();
