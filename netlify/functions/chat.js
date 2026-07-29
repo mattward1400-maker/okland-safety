@@ -140,12 +140,28 @@ exports.handler = async function(event) {
       }
     }
 
-    const systemWithContext = body.system + weatherContext + (ragContext ? "\n\nRELEVANT MANUAL CONTENT:\n" + ragContext : "") + LINK_FORMATTING_RULE;
+    // Static block (permit/manual system prompt + link rule) is byte-identical across
+    // requests for a given language, so it's marked as a cache breakpoint. Anthropic
+    // caches everything up to and including this block; on repeat hits within the
+    // cache window it's billed at 10% of normal input price instead of full price.
+    // Weather + RAG results change every request, so they stay in a separate,
+    // uncached block after the breakpoint.
+    const dynamicContext = weatherContext + (ragContext ? "\n\nRELEVANT MANUAL CONTENT:\n" + ragContext : "");
 
     const postData = JSON.stringify({
-      model: "claude-opus-4-5",
+      model: "claude-sonnet-5",
       max_tokens: 1024,
-      system: systemWithContext,
+      system: [
+        {
+          type: "text",
+          text: body.system + LINK_FORMATTING_RULE,
+          cache_control: { type: "ephemeral" }
+        },
+        {
+          type: "text",
+          text: dynamicContext || "(no additional live context for this request)"
+        }
+      ],
       messages: body.messages
     });
 
@@ -170,6 +186,16 @@ exports.handler = async function(event) {
       req.write(postData);
       req.end();
     });
+
+    if (claudeData.usage) {
+      const u = claudeData.usage;
+      console.log(
+        "CACHE STATS -- read:", u.cache_read_input_tokens || 0,
+        "| write:", u.cache_creation_input_tokens || 0,
+        "| fresh:", u.input_tokens || 0,
+        "| output:", u.output_tokens || 0
+      );
+    }
 
     return {
       statusCode: 200,
