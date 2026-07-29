@@ -120,13 +120,6 @@
 <script>
   const ENDPOINT = "/.netlify/functions/get-analytics";
 
-  // Cost-per-question rates measured directly from real CACHE STATS log lines
-  // on 2026-07-29 (Sonnet 5, 1-hour cache TTL). Not pulled from live token
-  // counts (get-analytics.js doesn't log those) -- this is an estimate that
-  // assumes roughly one cache "wake-up" per day and the rest as cache hits.
-  const CACHE_HIT_COST = 0.024;
-  const CACHE_MISS_COST = 0.254;
-
   const TOPIC_KEYWORDS = [
     ["Permits", ["permit"]],
     ["PPE", ["ppe", "mask", "respirat", "glove", "harness", "hard hat", "safety glasses", "protective equipment"]],
@@ -274,18 +267,6 @@
     }).join('');
   }
 
-  function estimateCost(dateCounts) {
-    let total = 0;
-    Object.keys(dateCounts).forEach(function(d) {
-      const count = dateCounts[d];
-      if (count <= 0) return;
-      const misses = 1;
-      const hits = Math.max(0, count - misses);
-      total += misses * CACHE_MISS_COST + hits * CACHE_HIT_COST;
-    });
-    return total;
-  }
-
   function weekOverWeek(dateCounts) {
     const dates = Object.keys(dateCounts).sort();
     if (!dates.length) return null;
@@ -325,7 +306,6 @@
       trendHtml = '<span class="trend ' + cls + '">' + arrow + ' ' + Math.abs(wow.pct) + '% vs prior week</span>';
     }
 
-    const cost = estimateCost(dateCounts);
     const langCounts = rawData.langCounts || {};
     const imageCount = rawData.imageCount || 0;
 
@@ -339,7 +319,6 @@
         '<div class="stat-card"><div class="value">' + totalInRange + trendHtml + '</div><div class="label">Total Questions</div></div>' +
         '<div class="stat-card"><div class="value">' + (busiestDay ? formatDate(busiestDay) : '\u2014') + '</div><div class="label">Busiest Day (' + busiestCount + ' questions)</div></div>' +
         '<div class="stat-card"><div class="value">' + imageCount + '</div><div class="label">Photo Hazard Checks</div><div class="sublabel">All time</div></div>' +
-        '<div class="stat-card highlight"><div class="value">$' + cost.toFixed(2) + '</div><div class="label">Est. Anthropic Cost</div><div class="sublabel">Estimate, not a bill \u2014 see note below</div></div>' +
       '</div>' +
       '<div class="chart-row">' +
         '<div class="panel"><h2>Questions Per Day</h2><p class="panel-caption">&nbsp;</p>' + renderBarChart(dateCounts) + '</div>' +
@@ -357,10 +336,7 @@
           '<tbody id="q-tbody"></tbody>' +
         '</table>' +
         '<button id="show-more-btn" class="show-more">Show more</button>' +
-      '</div>' +
-      '<p style="font-size:11px;color:var(--muted);margin-top:16px;">' +
-        'Est. Anthropic Cost assumes one cache reset per active day and the rest as cache hits, using per-question rates measured from real usage on 2026-07-29. It is a planning estimate, not an exact bill.' +
-      '</p>';
+      '</div>';
 
     document.querySelectorAll(".range-btn").forEach(function(btn) {
       if (btn.getAttribute("data-range") === currentRange) btn.classList.add("active");
