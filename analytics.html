@@ -99,10 +99,29 @@
   .topic-track { flex: 1; background: var(--bg); border-radius: 6px; height: 18px; overflow: hidden; }
   .topic-fill { background: var(--yellow); height: 100%; border-radius: 6px; }
   .topic-count { width: 30px; text-align: right; font-size: 13px; font-weight: 700; color: var(--muted); flex-shrink: 0; }
+
+  .gate-wrap { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 80vh; padding: 32px; text-align: center; }
+  .gate-logo { width: 48px; height: 48px; background: var(--yellow); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 18px; color: var(--charcoal); margin-bottom: 16px; }
+  .gate-title { font-weight: 700; font-size: 17px; color: var(--charcoal); margin-bottom: 6px; }
+  .gate-sub { font-size: 13px; color: #777; margin-bottom: 24px; max-width: 280px; }
+  .gate-input { width: 220px; padding: 10px 14px; border: 1px solid #ddd; border-radius: 10px; font-size: 14px; text-align: center; outline: none; margin-bottom: 12px; }
+  .gate-error { color: #c0392b; font-size: 12.5px; margin-bottom: 12px; max-width: 260px; }
+  .gate-btn { background: var(--yellow); color: var(--charcoal); border: none; border-radius: 10px; padding: 10px 28px; font-size: 14px; font-weight: 700; cursor: pointer; }
+  .gate-btn:disabled { background: #eee; cursor: default; }
 </style>
 </head>
 <body>
 
+<div id="gate" class="gate-wrap">
+  <div class="gate-logo">O</div>
+  <div class="gate-title">Okland Safety Assistant Analytics</div>
+  <div class="gate-sub">This dashboard is restricted. Enter the access code to continue.</div>
+  <input type="text" id="gate-input" class="gate-input" placeholder="Access code" autofocus />
+  <div id="gate-error" class="gate-error" style="display:none;"></div>
+  <button id="gate-btn" class="gate-btn" disabled>Continue</button>
+</div>
+
+<div id="app" style="display:none;">
 <header>
   <div class="logo">O</div>
   <div>
@@ -116,9 +135,65 @@
     <div class="loading-state">Loading analytics&hellip;</div>
   </div>
 </main>
+</div>
 
 <script>
   const ENDPOINT = "/.netlify/functions/get-analytics";
+  const STORAGE_KEY = "okland_analytics_code";
+
+  const gateEl = document.getElementById("gate");
+  const appEl = document.getElementById("app");
+  const gateInput = document.getElementById("gate-input");
+  const gateBtn = document.getElementById("gate-btn");
+  const gateError = document.getElementById("gate-error");
+
+  gateInput.addEventListener("input", () => {
+    gateBtn.disabled = !gateInput.value.trim();
+  });
+  gateInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" && gateInput.value.trim()) attemptUnlock();
+  });
+  gateBtn.addEventListener("click", attemptUnlock);
+
+  function attemptUnlock() {
+    const code = gateInput.value.trim();
+    if (!code) return;
+    sessionStorage.setItem(STORAGE_KEY, code);
+    tryLoad();
+  }
+
+  function showGate(message) {
+    appEl.style.display = "none";
+    gateEl.style.display = "flex";
+    if (message) {
+      gateError.textContent = message;
+      gateError.style.display = "block";
+    }
+  }
+
+  function showApp() {
+    gateEl.style.display = "none";
+    appEl.style.display = "block";
+  }
+
+  async function tryLoad() {
+    const code = sessionStorage.getItem(STORAGE_KEY);
+    if (!code) { showGate(); return; }
+    try {
+      const res = await fetch(ENDPOINT, { headers: { "x-access-code": code } });
+      if (res.status === 401) {
+        sessionStorage.removeItem(STORAGE_KEY);
+        showGate("That access code isn't valid. Please try again.");
+        return;
+      }
+      const data = await res.json();
+      showApp();
+      renderAnalytics(data);
+    } catch (e) {
+      showGate("Couldn't reach the server. Try again.");
+    }
+  }
+
 
   const TOPIC_KEYWORDS = [
     ["Permits", ["permit"]],
@@ -353,17 +428,7 @@
     });
   }
 
-  async function loadAnalytics() {
-    let data;
-    try {
-      const res = await fetch(ENDPOINT);
-      data = await res.json();
-    } catch (e) {
-      document.getElementById("content").innerHTML =
-        "<div class=\"empty-state\">Couldn't load analytics right now. Try refreshing the page.</div>";
-      return;
-    }
-
+  function renderAnalytics(data) {
     if (!data.totalQuestions) {
       document.getElementById("content").innerHTML =
         "<div class=\"empty-state\">No questions logged yet. Once workers start using the chatbot, usage will show up here.</div>";
@@ -375,8 +440,9 @@
     render();
   }
 
-  loadAnalytics();
+  tryLoad();
 </script>
 
 </body>
+
 </html>
