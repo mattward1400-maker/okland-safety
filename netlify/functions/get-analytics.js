@@ -1,6 +1,19 @@
 const { getStore } = require("@netlify/blobs");
 
 exports.handler = async function(event) {
+  // Access gate: checked first, before touching Blobs at all. Uses a separate
+  // code from the chatbot's ACCESS_CODE (set as ANALYTICS_ACCESS_CODE in
+  // Netlify's environment variables) so you can share the analytics code with
+  // a smaller group than the chatbot's own access code.
+  const providedCode = event.headers["x-access-code"] || "";
+  if (!providedCode || providedCode !== process.env.ANALYTICS_ACCESS_CODE) {
+    return {
+      statusCode: 401,
+      headers: { "Access-Control-Allow-Origin": "*", "Content-Type": "application/json" },
+      body: JSON.stringify({ error: "Invalid or missing access code" })
+    };
+  }
+
   try {
     const store = getStore({
       name: "analytics",
@@ -8,7 +21,6 @@ exports.handler = async function(event) {
       token: process.env.NETLIFY_AUTH_TOKEN
     });
     const { blobs } = await store.list();
-
     const entries = [];
     for (const blob of blobs) {
       try {
@@ -16,19 +28,15 @@ exports.handler = async function(event) {
         if (data) entries.push(data);
       } catch(e) {}
     }
-
     entries.sort((a, b) => b.timestamp - a.timestamp);
-
     const totalQuestions = entries.length;
     const langCounts = { en: 0, es: 0 };
     const imageCount = entries.filter(e => e.hasImage).length;
     const dateCounts = {};
-
     entries.forEach(e => {
       langCounts[e.lang] = (langCounts[e.lang] || 0) + 1;
       dateCounts[e.date] = (dateCounts[e.date] || 0) + 1;
     });
-
     return {
       statusCode: 200,
       headers: { "Access-Control-Allow-Origin": "*", "Content-Type": "application/json" },
