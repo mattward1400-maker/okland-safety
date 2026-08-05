@@ -21,13 +21,22 @@ exports.handler = async function(event) {
       token: process.env.NETLIFY_AUTH_TOKEN
     });
     const { blobs } = await store.list();
-    const entries = [];
-    for (const blob of blobs) {
-      try {
-        const data = await store.get(blob.key, { type: "json" });
-        if (data) entries.push(data);
-      } catch(e) {}
-    }
+    // Fetch every logged question in parallel instead of one at a time.
+    // With a sequential loop, load time grows linearly with how many
+    // questions have ever been logged (129+ round trips = very slow, and
+    // it only gets worse over time). Promise.all fires all the reads at
+    // once so total time is roughly the slowest single read, not the sum
+    // of all of them.
+    const results = await Promise.all(
+      blobs.map(async (blob) => {
+        try {
+          return await store.get(blob.key, { type: "json" });
+        } catch (e) {
+          return null;
+        }
+      })
+    );
+    const entries = results.filter(Boolean);
     entries.sort((a, b) => b.timestamp - a.timestamp);
     const totalQuestions = entries.length;
     const langCounts = { en: 0, es: 0 };
