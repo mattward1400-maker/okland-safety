@@ -50,7 +50,7 @@ function isWeatherQuestion(text) {
 // Appended to every system prompt, regardless of what app.jsx sends or what RAG
 // pulls back from the manuals. This is the one place every request passes through,
 // so this rule guarantees consistent link formatting no matter the permit or source.
-const LINK_FORMATTING_RULE = "\n\nCRITICAL LINK FORMATTING RULE: Whenever your response references a permit, form, document, manual, or webpage that has a URL — whether that URL comes from your system instructions, from the RELEVANT MANUAL CONTENT retrieved below, or anywhere else — you must ALWAYS format it as a markdown link using the pattern [Descriptive Name](URL). NEVER output a bare or raw URL as plain text under any circumstance. This applies to every single link in your response, with no exceptions, including links found inside retrieved manual excerpts that may themselves be written as plain text.";
+const LINK_FORMATTING_RULE = "\n\nCRITICAL LINK FORMATTING RULE: Whenever your response references a permit, form, document, manual, or webpage that has a URL — whether that URL comes from your system instructions, from the RELEVANT MANUAL CONTENT retrieved below, or anywhere else — you must ALWAYS format it as a markdown link using the pattern [Descriptive Name](URL). NEVER output a bare or raw URL as plain text under any circumstance. This applies to every single link in your response, with no exceptions, including links found inside retrieved manual excerpts that may themselves be written as plain text.\n\nCRITICAL: Every URL MUST begin with https:// (or http:// if that is what the source specifies). Some URLs in your system instructions or retrieved manual content are written as bare domains without a protocol (for example 'care.okland-const.com/documents' instead of 'https://care.okland-const.com/documents'). If a URL you are about to use does not already start with http:// or https://, you MUST add https:// to the front of it before placing it in the markdown link. A link missing its protocol will open as a broken relative path on the chatbot's own site instead of the real destination — this is a critical failure and must never happen.";
 
 async function logQuestion(question, lang, hasImage) {
   try {
@@ -80,6 +80,19 @@ exports.handler = async function(event) {
 
   try {
     const body = JSON.parse(event.body);
+
+    // Access gate: checked first, before RAG, weather, or the Claude call, so an
+    // invalid or missing code never reaches anything that costs money. The real
+    // code lives in Netlify's environment variables as ACCESS_CODE, not in this
+    // file, so it's never exposed in the deployed frontend bundle.
+    if (!body.accessCode || body.accessCode !== process.env.ACCESS_CODE) {
+      return {
+        statusCode: 401,
+        headers: { "Access-Control-Allow-Origin": "*" },
+        body: JSON.stringify({ error: "Invalid or missing access code" })
+      };
+    }
+
     const lastMessage = body.messages[body.messages.length - 1];
     const userMessage = typeof lastMessage.content === "string"
       ? lastMessage.content
@@ -205,6 +218,25 @@ exports.handler = async function(event) {
         "| fresh:", u.input_tokens || 0,
         "| output:", u.output_tokens || 0
       );
+    }
+
+    // Safety net: the LINK_FORMATTING_RULE instructs the model to always add
+    // https:// to bare-domain URLs, but instructions buried in a large system
+    // prompt aren't 100% reliable every single time. This catches anything
+    // that slips through -- a markdown link whose URL looks like a domain
+    // (contains a dot, e.g. "care.okland-const.com/documents") but doesn't
+    // already start with http://, https://, /, #, or mailto:. Those get
+    // https:// prepended. Genuine relative links used by the app itself
+    // (like "/viewer?doc=sshm&page=44") start with "/" and are left alone.
+    if (claudeData.content) {
+      claudeData.content.forEach(function(block) {
+        if (block.type === "text" && typeof block.text === "string") {
+          block.text = block.text.replace(
+            /\]\((?!https?:\/\/|\/|#|mailto:)([a-zA-Z0-9][a-zA-Z0-9-]*(?:\.[a-zA-Z0-9-]+)+(?:\/[^\s)]*)?)\)/g,
+            "](https://$1)"
+          );
+        }
+      });
     }
 
     return {
