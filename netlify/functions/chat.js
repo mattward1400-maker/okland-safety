@@ -81,18 +81,6 @@ exports.handler = async function(event) {
   try {
     const body = JSON.parse(event.body);
 
-    // Access gate: checked first, before RAG, weather, or the Claude call, so an
-    // invalid or missing code never reaches anything that costs money. The real
-    // code lives in Netlify's environment variables as ACCESS_CODE, not in this
-    // file, so it's never exposed in the deployed frontend bundle.
-    if (!body.accessCode || body.accessCode !== process.env.ACCESS_CODE) {
-      return {
-        statusCode: 401,
-        headers: { "Access-Control-Allow-Origin": "*" },
-        body: JSON.stringify({ error: "Invalid or missing access code" })
-      };
-    }
-
     const lastMessage = body.messages[body.messages.length - 1];
     const userMessage = typeof lastMessage.content === "string"
       ? lastMessage.content
